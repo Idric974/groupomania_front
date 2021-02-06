@@ -1,0 +1,91 @@
+<template>
+  <div class="Profil_Salarie">
+    <div class="box_salarie">
+      <div class="photo">
+        <img alt="Vue logo" src="../assets/persona/Allie_Patou.png" />
+      </div>
+      <div class="box fistname">Prénom : {{}}</div>
+      <div class="box name">Nom : Patou</div>
+      <div class="box job">Fonction : Comtable</div>
+      <div class="box bio">Bio :</div>
+
+      <hr />
+
+      <p class="creer_compte btn2">
+        <router-link to="/Editprofil">
+          <i class="fas fa-user-plus"></i>Modifier mon profil
+        </router-link>
+      </p>
+
+      <p class="creer_compte btn2">
+        <router-link to="">
+          <i class="fas fa-user-plus"></i>Supprimer mon profil
+        </router-link>
+      </p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Profil_Salarie",
+  props: {
+    msg: String,
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.Profil_Salarie {
+  //border: solid black 1px;
+  border-radius: 10px;
+  box-shadow: black 0px 0px 5px 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  widows: 100%;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(245, 238, 238);
+
+  a:link {
+    text-decoration: none;
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  .box {
+    border: solid black 1px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    background-color: white;
+  }
+
+  .titre {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    font-size: 2.5rem;
+    font-weight: bolder;
+  }
+
+  .creer_compte {
+    font-weight: bolder;
+    font-size: 1.1rem;
+    margin-top: 20px;
+  }
+}
+</style>
