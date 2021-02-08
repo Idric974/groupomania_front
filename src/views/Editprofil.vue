@@ -1,7 +1,7 @@
 <template>
   <div class="Editprofil">
     <h2>
-      <router-link to="/login"><i class="fas fa-arrow-left"></i></router-link
+      <router-link to="/Profil"><i class="fas fa-arrow-left"></i></router-link
       >Modifier mon profil
     </h2>
     <p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="login_box">
+  <div class="login">
     <div class="login">
       <h1>Me connecter</h1>
       <input
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "login_box",
+  name: "login",
   data() {
     return {
       input: {

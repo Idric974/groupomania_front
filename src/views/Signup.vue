@@ -11,13 +11,10 @@
 
     <!---------------------------------------------------------------------->
 
-    <formulateForm
+    <FormulateForm
       class="formSetUp"
-      v-model="formValues"
       @submit="handleSubmit"
-      method="post"
-      form
-      action="/search?"
+      v-model="formValues"
     >
       <formulateInput
         name="alias"
@@ -41,13 +38,8 @@
         validation="required"
       />
 
-      <formulateInput
-        class="btn"
-        type="submit"
-        label="Valider"
-        @click.stop.prevent="submit()"
-      />
-    </formulateForm>
+      <formulateInput class="btn" type="submit" label="Valider" />
+    </FormulateForm>
     <h3>{{ formValues }}</h3>
   </div>
 </template>
@@ -61,15 +53,31 @@ export default {
   methods: {
     handleSubmit() {
       console.log(this.formValues);
-      this.$router.push("/search?" + this.formValues);
+
+      let formValues = this.formValues;
+
+      //⇓⇓ URL de la requête⇓⇓.
+      let url = "http://localhost:3000/api/user/signup";
+
+      //⇓⇓ Paramètres de la requête⇓⇓.
+      const parametresDeRequete = {
+        method: "POST",
+        body: JSON.stringify(formValues),
+        headers: new Headers({
+          "Content-Type": "application/json; charset=UTF-8 ",
+        }),
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          console.log(success);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
-
-// const queryString = window.location.search;
-// console.log(queryString);
-// const urlparams = new URLSearchParams(queryString);
-// console.log(urlparams);
 </script>
 
 <style scoped>
