@@ -11,81 +11,69 @@
 
     <!---------------------------------------------------------------------->
 
-    <div class="form_inscription">
-      <form id="signup-form">
-        <div class="form_champ">
-          <label for="alias">Votre pseudonyme</label>
-          <input id="alias" v-model.trim="alias" type="text" name="alias" />
-        </div>
+    <formulateForm
+      class="formSetUp"
+      v-model="formValues"
+      @submit="handleSubmit"
+      method="post"
+      form
+      action="/search?"
+    >
+      <formulateInput
+        name="alias"
+        label="Votre Pseudonyme"
+        validation="required"
+      />
+      <formulateInput
+        name="email"
+        label="Votre adresse email"
+        validation="required|email"
+      />
+      <formulateInput
+        name="password"
+        label="Votre mot de passe"
+        validation="required"
+      />
+      <formulateInput name="name" label="Votre Nom" validation="required" />
+      <formulateInput
+        name="firstname"
+        label="Votre Prénom"
+        validation="required"
+      />
 
-        <div class="form_champ">
-          <label for="firstname">Votre prénom</label>
-          <input
-            id="firstname"
-            v-model.trim="firstname"
-            type="text"
-            name="firstname"
-          />
-        </div>
-
-        <div class="form_champ">
-          <label for="name">Votre nom</label>
-          <input id="name" v-model.trim="name" type="text" name="name" />
-        </div>
-
-        <div class="form_champ">
-          <label for="email">Votre email</label>
-          <input id="email" v-model.trim="email" type="email" name="email" />
-        </div>
-
-        <div class="form_champ">
-          <label for="password">Votre mot de passe</label>
-          <input
-            id="password"
-            v-model.trim="password"
-            type="text"
-            name="password"
-          />
-        </div>
-
-        <p>
-          <input class="btn" type="submit" value="Créer mon compte" />
-        </p>
-      </form>
-    </div>
-    <div>{{ password }}</div>
+      <formulateInput
+        class="btn"
+        type="submit"
+        label="Valider"
+        @click.stop.prevent="submit()"
+      />
+    </formulateForm>
+    <h3>{{ formValues }}</h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: "signup",
+  name: "Signup",
+  data: () => ({
+    formValues: {},
+  }),
+  methods: {
+    handleSubmit() {
+      console.log(this.formValues);
+      this.$router.push("/search?" + this.formValues);
+    },
+  },
 };
 
-import Vue from "vue";
-const app = new Vue({
-  data() {
-    return { alias: "", firstname: "", name: "", email: "", password: "" };
-  },
-});
-
-console.log(app);
-
-//⇓⇓ Récupérer l’information désirée dans l’URL de la page affichée⇓⇓.
-const queryString = window.location.search;
-
-//⇓⇓ Affiche l'information ciblée dans la console⇓⇓
-console.log(queryString);
-
-//⇓⇓ Récupérer les données de façon formaté⇓⇓
-const urlparams = new URLSearchParams(queryString);
-
-//⇓⇓ Affiche les données de façon formaté dans la console⇓⇓
-console.log(urlparams);
+// const queryString = window.location.search;
+// console.log(queryString);
+// const urlparams = new URLSearchParams(queryString);
+// console.log(urlparams);
 </script>
 
 <style scoped>
-#signup-form {
+.formSetUp {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -93,10 +81,5 @@ console.log(urlparams);
   border-radius: 10px;
   background-color: rgba(241, 241, 241, 0.8);
   padding-top: 10px;
-}
-
-.form_champ {
-  display: flex;
-  flex-direction: column;
 }
 </style>

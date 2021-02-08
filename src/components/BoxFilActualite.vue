@@ -20,6 +20,5 @@ export default {
 .BoxFilActualite {
   width: 100%;
   height: 500px;
-  border: solid red 1px;
 }
 </style>

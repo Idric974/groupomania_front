@@ -13,7 +13,6 @@
 // @ is an alias to /src
 
 import BtnVoirProfil from "@/components/BtnVoirProfil.vue";
-
 import BtnPosterContenu from "../components/BtnPosterContenu.vue";
 import BoxFilActualite from "../components/BoxFilActualite.vue";
 

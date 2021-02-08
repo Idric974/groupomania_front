@@ -6,14 +6,14 @@
     </div>
 
     <div class="contenu">
-      <div class="texte">Texte posté par l'utilisateur</div>
-      <div class="multimedia">
-        <img
-          class="multimedia_img"
-          alt="image posté par l'utilisateur"
-          src="../assets/persona/cafe.jpg"
-        />
+      <div class="texte">
+        Intrinsicly visualize go forward systems rather than turnkey content.
+        Enthusiastically reintermediate mission-critical experiences before
+        fully tested users. Credibly procrastinate front-end value without
+        effective data. Quickly utilize go forward benefits after client-centric
+        leadership. Interactively.
       </div>
+      <div class="multimedia"></div>
     </div>
   </div>
 </template>

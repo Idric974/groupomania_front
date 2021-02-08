@@ -1,4 +1,5 @@
 import Vue from "vue";
+
 import VueRouter from "vue-router";
 import LoginComponent from "../views/login.vue";
 import HomeComponent from "../views/home.vue";
@@ -22,6 +23,7 @@ export default new VueRouter({
       name: "login",
       component: LoginComponent,
     },
+
     {
       path: "/home",
       name: "home",
