@@ -1,8 +1,8 @@
 <template>
   <div class="Signup">
     <h2>
-      <router-link to="/login"><i class="fas fa-arrow-left"></i></router-link
-      >Page inscription
+      <router-link to="/"><i class="fas fa-arrow-left"></i></router-link>Page
+      inscription
     </h2>
     <p>
       Pour vous connecter à votre réseau social, veuillez compléter le
@@ -16,29 +16,37 @@
       @submit="handleSubmit"
       v-model="formValues"
     >
-      <formulateInput
+      <FormulateInput
         name="alias"
         label="Votre Pseudonyme"
         validation="required"
+        type="text"
       />
-      <formulateInput
+
+      <FormulateInput
         name="email"
         label="Votre adresse email"
         validation="required|email"
+        type="text"
       />
-      <formulateInput
+
+      <FormulateInput
         name="password"
         label="Votre mot de passe"
         validation="required"
+        type="text"
       />
-      <formulateInput name="name" label="Votre Nom" validation="required" />
-      <formulateInput
+
+      <FormulateInput name="name" label="Votre Nom" validation="required" />
+
+      <FormulateInput
         name="firstname"
         label="Votre Prénom"
         validation="required"
+        type="text"
       />
 
-      <formulateInput class="btn" type="submit" label="Valider" />
+      <FormulateInput class="btn" type="submit" label="Valider" />
     </FormulateForm>
     <h3>{{ formValues }}</h3>
   </div>
@@ -59,18 +67,24 @@ export default {
       //⇓⇓ URL de la requête⇓⇓.
       let url = "http://localhost:3000/api/user/signup";
 
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json; charset=utf-8");
+
       //⇓⇓ Paramètres de la requête⇓⇓.
       const parametresDeRequete = {
         method: "POST",
         body: JSON.stringify(formValues),
-        headers: new Headers({
-          "Content-Type": "application/json; charset=UTF-8 ",
-        }),
+        headers: headers,
       };
+
+      console.log(parametresDeRequete);
 
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log(success);
+          if (success.status == 201) {
+            console.log("=====> user created 👍", success);
+            this.$router.push("/");
+          }
         })
         .catch((error) => {
           console.log(error);

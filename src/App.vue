@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link
         v-if="authenticated"
-        to="/login"
+        to="/"
         v-on:click.native="logout()"
         replace
         ><p class="btn_logout">

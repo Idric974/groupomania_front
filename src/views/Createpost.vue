@@ -4,26 +4,67 @@
       <router-link to="/Home"><i class="fas fa-arrow-left"></i></router-link>
       <h1>Créer un poste</h1>
     </div>
-    <form id="app">
-      <p>
-        <label>Votre texte</label>
-        <input
-          class="input_texte"
-          id="content"
-          v-model="content"
-          type="text"
-          name="content"
-        />
-      </p>
+    <FormulateForm
+      class="formSetUp"
+      @submit="handleSubmit"
+      v-model="formValues"
+    >
+      <FormulateInput
+        type="text"
+        name="title"
+        label="Le titre de votre post"
+        validation="required"
+      />
 
-      <input class="btn" type="submit" value="Poster mon texte" />
-    </form>
+      <FormulateInput
+        type="text"
+        name="content"
+        label="Votre Post"
+        validation="required"
+      />
+
+      <FormulateInput class="btn" type="submit" label="Poster le texte" />
+    </FormulateForm>
+    <h3>{{ formValues }}</h3>
   </div>
 </template>
 
 <script>
 export default {
   name: "Createpost",
+  data: () => ({
+    formValues: {},
+  }),
+  methods: {
+    handleSubmit() {
+      console.log(this.formValues);
+
+      let formValues = this.formValues;
+
+      //⇓⇓ URL de la requête⇓⇓.
+      let url = "http://localhost:3000/api/user/post";
+
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json; charset=utf-8");
+
+      //⇓⇓ Paramètres de la requête⇓⇓.
+      const parametresDeRequete = {
+        method: "POST",
+        body: JSON.stringify(formValues),
+        headers: headers,
+      };
+
+      console.log(parametresDeRequete);
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          console.log(success);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
@@ -34,10 +75,8 @@ label {
   padding-bottom: 20px;
 }
 
-.input_texte {
-  width: 90%;
-  height: 200px;
-  margin-top: 10px;
+input {
+  padding: 100px 10px 10px 10px;
 }
 
 .Createpost {
@@ -55,6 +94,17 @@ label {
 
   a:link {
     text-decoration: none;
+  }
+}
+
+.formulate-input-element {
+  border: solid red 2px;
+
+  &[data-classification="text"] {
+    input {
+      color: red;
+      font-size: 3rem;
+    }
   }
 }
 </style>

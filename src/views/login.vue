@@ -1,12 +1,12 @@
 <template>
-  <div class="login">
+  <div class="login_box">
     <div class="login">
       <h1>Me connecter</h1>
       <input
-        type="text"
-        name="username"
-        v-model="input.username"
-        placeholder="Votre nom utilisateur"
+        type="email"
+        name="email"
+        v-model="input.email"
+        placeholder="Votre adresse mail"
       />
       <input
         type="password"
@@ -31,29 +31,35 @@ export default {
   data() {
     return {
       input: {
-        username: "",
+        email: "",
         password: "",
       },
     };
   },
   methods: {
-    login() {
-      if (this.input.username != "" && this.input.password != "") {
-        if (
-          this.input.username == this.$parent.mockAccount.username &&
-          this.input.password == this.$parent.mockAccount.password
-        ) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "home" });
-        } else {
-          console.log("The username and / or password is incorrect");
-          alert("Le nom d'utilisateur et / ou le mot de passe sont incorrects");
-        }
-      } else {
-        console.log("A username and password must be present");
-        alert(
-          "Pour vous connecter, veuillez renseigner à nom d'utilisateur et un mot de passe."
-        );
+    async login() {
+      //⇓⇓ URL de la requête⇓⇓.
+      let url = "http://localhost:3000/api/user/login";
+
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json; charset=utf-8");
+
+      //⇓⇓ Paramètres de la requête⇓⇓.
+      const parametresDeRequete = {
+        method: "POST",
+        body: JSON.stringify(this.input),
+        headers: headers,
+      };
+
+      const success = await fetch(url, parametresDeRequete);
+
+      if (success.status == 200) {
+        console.log("=====> user logged 👍", success);
+        const result = await success.json();
+        console.log(result);
+        window.localStorage.setItem("groupomania", JSON.stringify(result));
+        this.$emit("authenticated", true);
+        this.$router.push({ name: "home" });
       }
     },
   },
