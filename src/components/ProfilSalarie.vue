@@ -1,13 +1,12 @@
 <template>
   <div class="Profil_Salarie">
     <div class="box_salarie">
-      <div class="photo">
-        <img alt="Vue logo" src="../assets/persona/Allie_Patou.png" />
-      </div>
-      <div class="box fistname">Prénom : {{}}</div>
-      <div class="box name">Nom : Patou</div>
-      <div class="box job">Fonction : Comtable</div>
-      <div class="box bio">Bio :</div>
+      <div class="photo"></div>
+      <div class="box fistname">userId : {{ userId }}</div>
+      <div class="box fistname">Alias : {{ alias }}</div>
+      <div class="box fistname">Email : {{ email }}</div>
+      <div class="box fistname">Prénom : {{ firstname }}</div>
+      <div class="box name">Nom : {{ name }}</div>
 
       <hr />
 
@@ -29,8 +28,31 @@
 <script>
 export default {
   name: "Profil_Salarie",
-  props: {
-    msg: String,
+
+  data() {
+    const userIdStorage = localStorage.getItem("groupomania");
+    const objJson = JSON.parse(userIdStorage);
+    console.log("UserId =====>", objJson.userId);
+
+    const alias = "Idric123";
+    console.log("alias :", alias);
+
+    const email = "email";
+    console.log("email :", email);
+
+    const firstname = "Idric";
+    console.log("Prénom :", firstname);
+
+    const name = "Evarne";
+    console.log("Nom :", name);
+
+    return {
+      userId: objJson.userId,
+      alias: alias,
+      email: email,
+      firstname: firstname,
+      name: name,
+    };
   },
 };
 </script>

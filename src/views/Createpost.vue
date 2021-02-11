@@ -37,20 +37,32 @@ export default {
   }),
   methods: {
     handleSubmit() {
-      console.log(this.formValues);
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
 
-      let formValues = this.formValues;
+      const data = this.formValues;
 
-      //⇓⇓ URL de la requête⇓⇓.
-      let url = "http://localhost:3000/api/user/post";
+      const values = {
+        title: data.title,
+        content: data.content,
+        userId: objJson.userId,
+      };
 
+      //* ✅ 👉 Définition du body.
+      const body = JSON.stringify(values);
+      console.log(body);
+
+      //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Content-Type", "application/json; charset=utf-8");
 
-      //⇓⇓ Paramètres de la requête⇓⇓.
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/user/post";
+
+      //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
         method: "POST",
-        body: JSON.stringify(formValues),
+        body: body,
         headers: headers,
       };
 
@@ -60,8 +72,10 @@ export default {
         .then((success) => {
           console.log(success);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
   },
