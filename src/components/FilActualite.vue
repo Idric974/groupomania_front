@@ -36,6 +36,35 @@ export default {
     formValues: {},
   }),
   methods: {
+    readAllPosts() {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/readAllPosts";
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          console.log(success);
+        })
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
+        });
+    },
     handleSubmit() {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);

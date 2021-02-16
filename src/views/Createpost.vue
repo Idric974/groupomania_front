@@ -42,6 +42,9 @@ export default {
 
       const data = this.formValues;
 
+      const token = objJson.token;
+      console.log(objJson.token);
+
       const values = {
         title: data.title,
         content: data.content,
@@ -54,10 +57,11 @@ export default {
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
-      headers.append("Content-Type", "application/json; charset=utf-8");
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/user/post";
+      let url = "http://localhost:3000/api/post/createPost";
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -108,17 +112,6 @@ input {
 
   a:link {
     text-decoration: none;
-  }
-}
-
-.formulate-input-element {
-  border: solid red 2px;
-
-  &[data-classification="text"] {
-    input {
-      color: red;
-      font-size: 3rem;
-    }
   }
 }
 </style>

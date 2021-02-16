@@ -2,7 +2,7 @@
   <div class="Profil_Salarie">
     <div class="box_salarie">
       <div class="photo"></div>
-      <div class="box fistname">userId : {{ userId }}</div>
+
       <div class="box fistname">Alias : {{ alias }}</div>
       <div class="box fistname">Email : {{ email }}</div>
       <div class="box fistname">Prénom : {{ firstname }}</div>
@@ -30,24 +30,19 @@ export default {
   name: "Profil_Salarie",
 
   data() {
-    const userIdStorage = localStorage.getItem("groupomania");
-    const objJson = JSON.parse(userIdStorage);
-    console.log("UserId =====>", objJson.userId);
+    const alias = "";
+    //console.log("alias :", alias);
 
-    const alias = "Idric123";
-    console.log("alias :", alias);
+    const email = "";
+    //console.log("email :", email);
 
-    const email = "email";
-    console.log("email :", email);
+    const firstname = "";
+    //console.log("Prénom :", firstname);
 
-    const firstname = "Idric";
-    console.log("Prénom :", firstname);
-
-    const name = "Evarne";
-    console.log("Nom :", name);
+    const name = "";
+    //console.log("Nom :", name);
 
     return {
-      userId: objJson.userId,
       alias: alias,
       email: email,
       firstname: firstname,
