@@ -1,45 +1,49 @@
 <template>
   <div class="Filactualite">
-    <div class="nom_utilisateur">Allie Patou</div>
+    <div class="post" v-for="post in posts" :key="post.id">
+      <div class="nom_utilisateur">{{ post.user.alias }}</div>
 
-    <div class="contenu">
-      Intrinsicly visualize go forward systems rather than turnkey content.
-      Enthusiastically reintermediate mission-critical experiences before fully
-      tested users. Credibly procrastinate front-end value without effective
-      data. Quickly utilize go forward benefits after client-centric leadership.
-      Interactively.
-    </div>
+      <div class="contenu">
+        {{ post.content }}
+      </div>
 
-    <div class="comment">
-      <FormulateForm
-        class="formSetUp"
-        @submit="handleSubmit"
-        v-model="formValues"
-      >
-        <FormulateInput
-          type="text"
-          name="comment"
-          label="Votre commentaire"
-          validation="required"
-        />
+      <div class="comments">
+        <Comments :postId="post.id" />
+      </div>
 
-        <FormulateInput class="btn" type="submit" label="Poster le texte" />
-      </FormulateForm>
+      <div class="comment">
+        <FormulateForm
+          class="formSetUp"
+          @submit="commentSubmit(post.id)"
+          v-model="formValues"
+        >
+          <FormulateInput
+            type="text"
+            name="comment"
+            label="Votre commentaire"
+            validation="required"
+          />
+
+          <FormulateInput class="btn" type="submit" label="Poster le texte" />
+        </FormulateForm>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Comments from "./Comments.vue";
 export default {
+  components: { Comments },
   name: "Filactualite",
   data: () => ({
     formValues: {},
+    posts: [],
   }),
   methods: {
     readAllPosts() {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
-
       const token = objJson.token;
 
       //* ✅ 👉 Définition des en-têtes.
@@ -57,35 +61,42 @@ export default {
 
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log(success);
+          success.json().then((result) => {
+            this.posts = result.posts;
+            console.log(this.posts);
+          });
         })
         .catch(function(error) {
-          console.log(
-            "Il y a eu un problème avec l'opération fetch: " + error.message
-          );
+          console.log(error);
         });
     },
-    handleSubmit() {
+
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+    commentSubmit(postId) {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
 
       const data = this.formValues;
 
+      const token = objJson.token;
+      console.log(objJson.token);
+
       const values = {
         comment: data.comment,
         userId: objJson.userId,
+        postId: postId,
       };
 
       //* ✅ 👉 Définition du body.
       const body = JSON.stringify(values);
-      console.log(body);
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
-      headers.append("Content-Type", "application/json; charset=utf-8");
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/user/comment";
+      let url = "http://localhost:3000/api/comment/createComment";
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -106,6 +117,10 @@ export default {
           );
         });
     },
+  },
+
+  mounted() {
+    this.readAllPosts();
   },
 };
 </script>

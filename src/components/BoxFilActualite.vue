@@ -1,7 +1,6 @@
 <template>
   <div class="BoxFilActualite">
     <FilActualite />
-    <FilActualite />
   </div>
 </template>
 
