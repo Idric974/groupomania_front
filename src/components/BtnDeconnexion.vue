@@ -1,9 +1,7 @@
 <template>
   <div class="btnAppli">
-    <router-link to="/Createpost"
-      ><h3>
-        <i class="fas fa-share-square"></i> Poster un contenu
-      </h3></router-link
+    <router-link to="/"
+      ><h3><i class="fas fa-sign-out-alt"></i> Me déconnecter</h3></router-link
     >
   </div>
 </template>

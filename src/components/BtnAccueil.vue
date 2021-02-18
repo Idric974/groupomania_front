@@ -1,9 +1,7 @@
 <template>
   <div class="btnAppli">
-    <router-link to="/Createpost"
-      ><h3>
-        <i class="fas fa-share-square"></i> Poster un contenu
-      </h3></router-link
+    <router-link to="/home"
+      ><h3><i class="fas fa-home"></i> Accueil</h3></router-link
     >
   </div>
 </template>

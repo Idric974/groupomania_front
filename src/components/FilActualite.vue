@@ -1,17 +1,17 @@
 <template>
+  <!-- 👉 Components FilActualite👈-->
+
   <div class="Filactualite">
+    <!-- ✅ 👉 Affichage du pseudo et du post-->
     <div class="post" v-for="post in posts" :key="post.id">
-      <div class="nom_utilisateur">Post de : {{ post.user.alias }}</div>
+      <div class="nom_utilisateur">Publié par : {{ post.user.alias }}</div>
 
       <div class="contenu">
         {{ post.content }}
       </div>
+      <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
-      <!-- <div class="comments">
-        <h3>Commentaires des lecteurs</h3>
-        <Comments :postId="post.id" />
-      </div> -->
-
+      <!-- ✅ 👉 Formulaire pour la saisie des commentaire.-->
       <div class="form_comments">
         <FormulateForm
           class="formSetUp"
@@ -21,22 +21,34 @@
           <FormulateInput
             type="text"
             name="comment"
-            label="↙️  Commentez ce post ↘️"
             validation="required"
+            placeholder="Commentez ce post ici"
           />
 
-          <FormulateInput class="btn" type="submit" label="Poster le texte" />
+          <FormulateInput
+            class="btn_L com"
+            type="submit"
+            label="Poster votre commentaire"
+          />
         </FormulateForm>
+        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
-        <div class="voircommentaire">
+        <!-- ✅ 👉 Bouton pour lire les commentaires. -->
+        <div class="lirecommentaire">
           <router-link to="/ListComments"
-            ><button class=" btn_L " type="submit">
+            ><button
+              class=" btn_L com "
+              type="submit"
+              @submit="sendPostId(post.id)"
+            >
               Lire les commentaires
             </button></router-link
           >
         </div>
+        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
       </div>
 
+      <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
       <div class="setupbutton" v-if="state == 1">
         <router-link to="/UpDatePost"
           ><button class="post_btn btn_M " type="submit">
@@ -51,6 +63,7 @@
           Supprimer
         </button>
       </div>
+      <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
     </div>
   </div>
 </template>
@@ -70,6 +83,7 @@ export default {
     posts: [],
   }),
   methods: {
+    //* ✅ 👉 Afficher tous les commentaire.
     readAllPosts() {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
@@ -198,6 +212,8 @@ export default {
           );
         });
     },
+
+    //sendPostId(postId) {},
   },
 
   mounted() {
@@ -219,8 +235,18 @@ export default {
   .post {
     margin-top: 10px;
     margin-bottom: 10px;
-    box-shadow: green 0px 0px 5px 1px;
+    box-shadow: #1e3d59 0px 0px 10px 5px;
     border-radius: 10px;
+    background-color: #f5f0e1;
+
+    @media screen and (min-width: 742px) and (max-width: 991px) {
+    }
+
+    @media screen and (min-width: 992px) {
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+    }
   }
 
   .nom_utilisateur {
@@ -230,16 +256,19 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px 10px 0px 0px;
-    background-color: rgb(226, 226, 226);
     padding: 10px 0px 10px 0px;
   }
 
   .contenu {
-    width: 100%;
+    width: 95%;
     min-height: 100px;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 1.1rem;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
   }
 
   .comments {
@@ -251,29 +280,30 @@ export default {
   .form_comments {
     width: 100%;
     height: auto;
-    background-color: rgb(226, 226, 226);
-    //border-radius: 0px 0px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: bolder;
   }
 
   .post_btn {
-    width: 100px;
+    width: 106px;
     margin: 10px 15px 10px 15px;
     font-weight: bolder;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 10px 10px 10px 10px;
     border-radius: 10px;
+    text-align: center;
+    box-shadow: #1e3d59 0px 0px 5px 1px;
   }
 }
 
-.btn_M {
-  background-color: rgb(0, 137, 216);
-}
-
+.btn_M,
 .btn_S {
-  background-color: rgb(216, 50, 0);
+  background-color: #1e3d59;
+  color: white;
+  letter-spacing: 2px;
 }
 
 .btn_L {
@@ -283,5 +313,11 @@ export default {
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 10px;
+  border: solid #ff6e40 1px;
+  background-color: white;
+}
+
+.com {
+  box-shadow: #1e3d59 0px 0px 5px 5px;
 }
 </style>

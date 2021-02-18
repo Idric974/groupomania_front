@@ -1,4 +1,6 @@
 <template>
+  <!-- 👉 views Signup 👈-->
+
   <div class="Signup">
     <h2>
       <router-link to="/"><i class="fas fa-arrow-left"></i></router-link>Page

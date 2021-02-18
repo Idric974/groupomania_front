@@ -1,7 +1,11 @@
 <template>
   <div class="Profil">
+    <div class="btn_acc">
+      <div class="btn_acc2"><BtnDeconnexion /></div>
+      <div class="btn_acc2"><BtnAccueil /></div>
+    </div>
+
     <div class="menu_composant">
-      <router-link to="/Home"><i class="fas fa-arrow-left"></i></router-link>
       <h1>Mon Profil</h1>
     </div>
 
@@ -10,10 +14,12 @@
 </template>
 
 <script>
+import BtnDeconnexion from "@/components/BtnDeconnexion.vue";
+import BtnAccueil from "@/components/BtnAccueil.vue";
 import ProfilSalarie from "@/components/ProfilSalarie.vue";
 
 export default {
-  components: { ProfilSalarie },
+  components: { BtnAccueil, BtnDeconnexion, ProfilSalarie },
   name: "Profil",
   props: {
     msg: String,
@@ -21,5 +27,4 @@ export default {
 };
 </script>
 
-//<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>

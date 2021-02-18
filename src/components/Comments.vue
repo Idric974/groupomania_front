@@ -1,4 +1,6 @@
 <template>
+  <!-- 👉 Component Comments 👈-->
+
   <div class="Comments">
     <h1>Composant commentaire</h1>
     <div class="post" v-for="post in posts" :key="post.id">

@@ -1,35 +1,49 @@
 <template>
   <div class="Createpost">
+    <div class="btn_acc">
+      <div class="btn_acc2"><BtnDeconnexion /></div>
+      <div class="btn_acc2"><BtnAccueil /></div>
+    </div>
+
     <div class="menu_composant">
-      <router-link to="/Home"><i class="fas fa-arrow-left"></i></router-link>
       <h1>Créer un poste</h1>
     </div>
-    <FormulateForm
-      class="formSetUp"
-      @submit="handleSubmit"
-      v-model="formValues"
-    >
-      <FormulateInput
-        type="text"
-        name="title"
-        label="Le titre de votre post"
-        validation="required"
-      />
 
-      <FormulateInput
-        type="text"
-        name="content"
-        label="Votre Post"
-        validation="required"
-      />
+    <div class="form_crer_post">
+      <FormulateForm
+        class="formSetUp"
+        @submit="handleSubmit"
+        v-model="formValues"
+      >
+        <FormulateInput
+          type="text"
+          name="title"
+          label="Le titre de votre post"
+          validation="required"
+        />
 
-      <FormulateInput class="btn" type="submit" label="Poster le texte" />
-    </FormulateForm>
+        <FormulateInput
+          type="text"
+          name="content"
+          label="Votre Post"
+          validation="required"
+        />
+
+        <FormulateInput
+          class="btnAppli com"
+          type="submit"
+          label="Poster le texte"
+        />
+      </FormulateForm>
+    </div>
   </div>
 </template>
 
 <script>
+import BtnDeconnexion from "@/components/BtnDeconnexion.vue";
+import BtnAccueil from "@/components/BtnAccueil.vue";
 export default {
+  components: { BtnAccueil, BtnDeconnexion },
   name: "Createpost",
   data: () => ({
     formValues: {},
@@ -92,25 +106,23 @@ label {
   padding-bottom: 20px;
 }
 
-input {
-  padding: 100px 10px 10px 10px;
-}
-
-.Createpost {
+.form_crer_post {
   width: 100%;
   height: auto;
   border-radius: 10px;
   box-shadow: black 0px 0px 5px 0px;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
 
-  a:link {
-    text-decoration: none;
-  }
+.com {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 </style>

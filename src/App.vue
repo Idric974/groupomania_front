@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link
         v-if="authenticated"
         to="/"
@@ -11,7 +11,7 @@
         </p>
         <p></p
       ></router-link>
-    </div>
+    </div> -->
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -40,7 +40,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
 .btn_logout {
   display: flex;
   justify-content: center;
@@ -70,6 +76,13 @@ a {
 
 a:link {
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #1e3d59;
 }
 
 p {
@@ -169,20 +182,76 @@ p {
 
 .fas {
   font-size: 1.4rem;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-
-.fa-arrow-left {
-  color: green;
+  margin-left: 0px;
+  margin-right: 5px;
+  color: #ff6e40;
 }
 
 input {
   margin: 10px 10px 10px 10px;
   text-align: center;
   font-size: 1.1rem;
-  border: solid black 1px;
+  border: solid#ff6e40 1px;
   border-radius: 10px;
-  padding: 5px 5px 5px 5px;
+  padding: 20px 10px 20px 10px;
+}
+
+.btnAppli {
+  border-radius: 10px;
+  box-shadow: #1e3d59 0px 5px 5px 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.btn_acc {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 992px) {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.btn_acc2 {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    width: 300px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 300px;
+  }
 }
 </style>

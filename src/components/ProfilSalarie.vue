@@ -7,13 +7,11 @@
       <div class="box name">Nom : {{ name }}</div>
     </div>
 
-    <hr />
-
     <div class="btn_profil">
-      <button class="btn3">
+      <button class="btnAppli">
         <i class="fas fa-user-plus"></i>Modifier mon profil
       </button>
-      <button class="btn4">
+      <button class="btnAppli">
         <i class="fas fa-user-plus"></i>Modifier mon profil
       </button>
     </div>
@@ -23,7 +21,6 @@
 <script>
 export default {
   name: "Profil_Salarie",
-
   data() {
     const alias = "";
     //console.log("alias :", alias);
@@ -44,6 +41,44 @@ export default {
       name: name,
     };
   },
+
+  methods: {
+    readAll() {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/readAll/" + this.postId;
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      console.log(parametresDeRequete);
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          console.log(success);
+        })
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
+        });
+    },
+  },
+
+  mounted() {
+    this.readAll();
+  },
 };
 </script>
 
@@ -58,6 +93,18 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: rgb(226, 226, 226);
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+
+  @media screen and (min-width: 992px) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
 
   .box {
     border: solid black 1px;
@@ -88,14 +135,6 @@ export default {
     padding: 5px 10px 5px 10px;
     font-weight: bolder;
     font-size: 1.2rem;
-  }
-
-  .btn3 {
-    background-color: rgb(0, 137, 216);
-  }
-
-  .btn4 {
-    background-color: rgb(216, 50, 0);
   }
 }
 </style>

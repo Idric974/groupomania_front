@@ -1,28 +1,26 @@
 <template>
-  <div class="ListComments">
-    <div class="nav_bar">
-      <router-link to="/Home">
-        <h2>
-          <i class="fas fa-arrow-left"></i>
-          Retour accueil
-        </h2></router-link
-      >
-    </div>
+  <!-- 👉 views ListComments 👈-->
 
+  <div class="ListComments">
+    <BtnDeconnexion />
+    <BtnAccueil />
     <h2>↙️ Commentaires du poste ↘️</h2>
     <hr />
     <div class="comments">
       <h2>Commentaires des lecteurs</h2>
       <Comments />
+      <!-- <Comments :postId="post.id" /> -->
     </div>
   </div>
 </template>
 
 <script>
-import Comments from "../components/Comments";
+import BtnDeconnexion from "@/components/BtnDeconnexion.vue";
+import BtnAccueil from "@/components/BtnAccueil.vue";
+import Comments from "@/components/Comments.vue";
 export default {
   name: "ListComments",
-  components: { Comments },
+  components: { BtnAccueil, BtnDeconnexion, Comments },
   data: () => ({
     posts: [],
   }),

@@ -14,7 +14,10 @@
         v-model="input.password"
         placeholder="Votre mot de passe"
       />
-      <button class="btn" type="button" v-on:click="login()">Connexion</button>
+      <button class="btn2 Connexion" type="button" v-on:click="login()">
+        <i class="fas fa-sign-in-alt"></i>
+        Connexion
+      </button>
     </div>
 
     <p class="creer_compte btn2">
@@ -66,7 +69,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .login_box {
   width: 95%;
   display: flex;
@@ -78,6 +81,14 @@ export default {
   box-shadow: black 0px 0px 5px 0px;
   border-radius: 10px;
   background-color: rgba(241, 241, 241, 0.8);
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    width: 80%;
+  }
+
+  @media screen and (min-width: 739px) {
+    width: 50%;
+  }
 }
 
 .login {
@@ -89,8 +100,11 @@ export default {
 }
 
 .creer_compte {
-  color: red;
   font-weight: bolder;
   font-size: 1.1rem;
+}
+
+.Connexion {
+  color: black;
 }
 </style>
