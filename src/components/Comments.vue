@@ -1,27 +1,11 @@
 <template>
-  <div class="Filactualite">
+  <div class="Comments">
+    <h1>Composant commentaire</h1>
     <div class="post" v-for="post in posts" :key="post.id">
       <div class="nom_utilisateur">{{ post.user.alias }}</div>
 
       <div class="contenu">
         {{ post.content }}
-      </div>
-
-      <div class="comment">
-        <FormulateForm
-          class="formSetUp"
-          @submit="commentSubmit(post.id)"
-          v-model="formValues"
-        >
-          <FormulateInput
-            type="text"
-            name="comment"
-            label="Votre commentaire"
-            validation="required"
-          />
-
-          <FormulateInput class="btn" type="submit" label="Poster le texte" />
-        </FormulateForm>
       </div>
     </div>
   </div>
@@ -29,12 +13,14 @@
 
 <script>
 export default {
-  name: "Filactualite",
-  data: () => ({}),
+  name: "Comments",
+  data: () => ({
+    posts: [],
+  }),
   props: ["postId"],
 
   methods: {
-    readAllComments() {
+    readAll() {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
 
@@ -50,7 +36,6 @@ export default {
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
         method: "GET",
-
         headers: headers,
       };
 
@@ -69,9 +54,21 @@ export default {
   },
 
   mounted() {
-    this.readAllComments();
+    this.readAll();
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.Comments {
+  width: 100%;
+  height: 400px;
+  border: solid green 1px;
+}
+
+.post {
+  width: 100%;
+  height: 300px;
+  border: solid blue 3px;
+}
+</style>

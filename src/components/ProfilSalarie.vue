@@ -1,26 +1,21 @@
 <template>
   <div class="Profil_Salarie">
     <div class="box_salarie">
-      <div class="photo"></div>
-
       <div class="box fistname">Alias : {{ alias }}</div>
       <div class="box fistname">Email : {{ email }}</div>
       <div class="box fistname">Prénom : {{ firstname }}</div>
       <div class="box name">Nom : {{ name }}</div>
+    </div>
 
-      <hr />
+    <hr />
 
-      <p class="creer_compte btn2">
-        <router-link to="/Editprofil">
-          <i class="fas fa-user-plus"></i>Modifier mon profil
-        </router-link>
-      </p>
-
-      <p class="creer_compte btn2">
-        <router-link to="">
-          <i class="fas fa-user-plus"></i>Supprimer mon profil
-        </router-link>
-      </p>
+    <div class="btn_profil">
+      <button class="btn3">
+        <i class="fas fa-user-plus"></i>Modifier mon profil
+      </button>
+      <button class="btn4">
+        <i class="fas fa-user-plus"></i>Modifier mon profil
+      </button>
     </div>
   </div>
 </template>
@@ -56,24 +51,13 @@ export default {
 .Profil_Salarie {
   //border: solid black 1px;
   border-radius: 10px;
-  box-shadow: black 0px 0px 5px 0px;
+  box-shadow: black 0px 0px 5px 1px;
   margin-top: 10px;
   margin-bottom: 10px;
-  widows: 100%;
   height: auto;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: rgb(245, 238, 238);
-
-  a:link {
-    text-decoration: none;
-  }
-
-  img {
-    width: 300px;
-    height: auto;
-    border-radius: 50%;
-  }
+  background-color: rgb(226, 226, 226);
 
   .box {
     border: solid black 1px;
@@ -88,21 +72,30 @@ export default {
     background-color: white;
   }
 
-  .titre {
-    width: 50%;
+  .btn_profil {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 10px;
-    font-size: 2.5rem;
-    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
-  .creer_compte {
+  button {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
     font-weight: bolder;
-    font-size: 1.1rem;
-    margin-top: 20px;
+    font-size: 1.2rem;
+  }
+
+  .btn3 {
+    background-color: rgb(0, 137, 216);
+  }
+
+  .btn4 {
+    background-color: rgb(216, 50, 0);
   }
 }
 </style>

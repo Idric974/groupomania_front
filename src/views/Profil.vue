@@ -6,16 +6,14 @@
     </div>
 
     <ProfilSalarie />
-    <Mypostsbox />
   </div>
 </template>
 
 <script>
 import ProfilSalarie from "@/components/ProfilSalarie.vue";
-import Mypostsbox from "../components/Mypostsbox.vue";
 
 export default {
-  components: { ProfilSalarie, Mypostsbox },
+  components: { ProfilSalarie },
   name: "Profil",
   props: {
     msg: String,

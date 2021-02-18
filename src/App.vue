@@ -77,12 +77,12 @@ p {
 }
 
 .btn {
-  width: 250px;
+  width: 200px;
   height: auto;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   border: 0;
   line-height: 2.5;
   padding: 0 20px;
@@ -164,12 +164,17 @@ p {
 .menu_composant {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .fas {
   font-size: 1.4rem;
   margin-left: 10px;
   margin-right: 20px;
+}
+
+.fa-arrow-left {
+  color: green;
 }
 
 input {

@@ -1,8 +1,8 @@
 <template>
-  <div class="Createpost">
+  <div class="UpDatePost">
     <div class="menu_composant">
       <router-link to="/Home"><i class="fas fa-arrow-left"></i></router-link>
-      <h1>Créer un poste</h1>
+      <h1>Modifiez votre post</h1>
     </div>
     <FormulateForm
       class="formSetUp"
@@ -23,14 +23,14 @@
         validation="required"
       />
 
-      <FormulateInput class="btn" type="submit" label="Poster le texte" />
+      <FormulateInput class="btn" type="submit" label="Actualiser le post" />
     </FormulateForm>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Createpost",
+  name: "UpDatePost",
   data: () => ({
     formValues: {},
   }),

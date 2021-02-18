@@ -5,8 +5,9 @@ import LoginComponent from "../views/login.vue";
 import HomeComponent from "../views/home.vue";
 import ProfilComponent from "../views/Profil.vue";
 import SignupComponent from "../views/Signup.vue";
-import EditprofilComponent from "../views/Editprofil.vue";
 import CreatepostComponent from "../views/Createpost.vue";
+import ListCommentsComponent from "../views/ListComments.vue";
+import UpDatePostComponent from "../views/UpDatePost.vue";
 
 Vue.use(VueRouter);
 
@@ -36,15 +37,21 @@ export default new VueRouter({
     },
 
     {
-      path: "/Editprofil",
-      name: "Editprofil",
-      component: EditprofilComponent,
-    },
-
-    {
       path: "/Createpost",
       name: "Createpost",
       component: CreatepostComponent,
+    },
+
+    {
+      path: "/ListComments",
+      name: "ListComments",
+      component: ListCommentsComponent,
+    },
+
+    {
+      path: "/UpDatePost",
+      name: "UpDatePost",
+      component: UpDatePostComponent,
     },
   ],
 });
