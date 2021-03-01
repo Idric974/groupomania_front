@@ -1,14 +1,17 @@
 <template>
-  <!-- 👉 Components FilActualite👈-->
+  <!-- 👉 Components FilActualite 👈-->
 
   <div class="Filactualite">
     <!-- ✅ 👉 Affichage du pseudo et du post-->
     <div class="post" v-for="post in posts" :key="post.id">
-      <div class="nom_utilisateur">Publié par : {{ post.user.alias }}</div>
+      <div class="alias">Publié par : {{ post.user.alias }}</div>
 
-      <div class="contenu">
+      <div class="formatedDate">{{ post.formatedDate }}</div>
+
+      <div class="content">
         {{ post.content }}
       </div>
+
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Formulaire pour la saisie des commentaire.-->
@@ -25,22 +28,16 @@
             placeholder="Commentez ce post ici"
           />
 
-          <FormulateInput
-            class="btn_L com"
-            type="submit"
-            label="Poster votre commentaire"
-          />
+          <button type="submit" class="large">
+            Poster votre commentaire
+          </button>
         </FormulateForm>
         <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
         <!-- ✅ 👉 Bouton pour lire les commentaires. -->
-        <div class="lirecommentaire">
-          <router-link to="/ListComments"
-            ><button
-              class=" btn_L com "
-              type="submit"
-              @submit="sendPostId(post.id)"
-            >
+        <div class="btnReadComment">
+          <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
+            ><button v-on:click="sendId(post.id)" class="large">
               Lire les commentaires
             </button></router-link
           >
@@ -49,17 +46,13 @@
       </div>
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setupbutton" v-if="state == 1">
+      <div class="setupButton" v-if="state == 1">
         <router-link to="/UpDatePost"
-          ><button class="post_btn btn_M " type="submit">
+          ><button type="submit" class="small">
             Modifier
           </button></router-link
         >
-        <button
-          class="post_btn btn_S"
-          type="submit"
-          v-on:click="deletPost(post.id)"
-        >
+        <button type="submit" v-on:click="deletPost(post.id)" class="small">
           Supprimer
         </button>
       </div>
@@ -68,14 +61,11 @@
   </div>
 </template>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <script>
-//import Comments from "./Comments.vue";
-
-//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
+import { FORMAT_DATE } from "../services/utilities";
 export default {
-  //components: { Comments },
-
   name: "Filactualite",
   data: () => ({
     state: "1",
@@ -83,7 +73,16 @@ export default {
     posts: [],
   }),
   methods: {
-    //* ✅ 👉 Afficher tous les commentaire.
+    //*✅👉 Gérer la modification et la suppression des postes.
+    stateManageur() {
+      const localStorageData = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(localStorageData);
+      const userId = objJson.userId;
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Connected userId's ", userId);
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
@@ -105,7 +104,10 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            this.posts = result.posts;
+            this.posts = result.posts.map((post) => {
+              post.formatedDate = FORMAT_DATE(post.createdAt);
+              return post;
+            });
             console.log(this.posts);
           });
         })
@@ -170,16 +172,16 @@ export default {
       const objJson = JSON.parse(userIdStorage);
 
       const userId = objJson.userId;
-      console.log(userId);
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖►userId", userId);
 
       const token = objJson.token;
-      console.log(objJson.token);
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖►Token", objJson.token);
 
       const values = {
         postId: postId,
       };
 
-      console.log(postId);
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖►postId", postId);
 
       //* ✅ 👉 Définition du body.
       const body = JSON.stringify(values);
@@ -190,7 +192,7 @@ export default {
       headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/delete/" + postId;
+      let url = "http://localhost:3000/api/delete/delete/" + postId;
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -212,15 +214,16 @@ export default {
           );
         });
     },
-
-    //sendPostId(postId) {},
   },
 
   mounted() {
     this.readAllPosts();
+    this.stateManageur();
   },
 };
 </script>
+
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <style lang="scss" scoped>
 .Filactualite {
@@ -237,7 +240,7 @@ export default {
     margin-bottom: 10px;
     box-shadow: #1e3d59 0px 0px 10px 5px;
     border-radius: 10px;
-    background-color: #f5f0e1;
+    background-color: rgba(180, 207, 243, 0.8);
 
     @media screen and (min-width: 742px) and (max-width: 991px) {
     }
@@ -249,7 +252,7 @@ export default {
     }
   }
 
-  .nom_utilisateur {
+  .alias {
     width: 100%;
     font-size: 1.5rem;
     font-weight: bolder;
@@ -259,7 +262,7 @@ export default {
     padding: 10px 0px 10px 0px;
   }
 
-  .contenu {
+  .content {
     width: 95%;
     min-height: 100px;
     padding-top: 10px;
@@ -287,37 +290,16 @@ export default {
     padding-bottom: 10px;
     font-weight: bolder;
   }
-
-  .post_btn {
-    width: 106px;
-    margin: 10px 15px 10px 15px;
-    font-weight: bolder;
-    padding: 10px 10px 10px 10px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: #1e3d59 0px 0px 5px 1px;
-  }
 }
 
-.btn_M,
-.btn_S {
-  background-color: #1e3d59;
-  color: white;
-  letter-spacing: 2px;
+.setupButton {
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(102, 103, 105, 0.8);
 }
 
-.btn_L {
-  width: 240px;
-  margin: 10px 15px 10px 15px;
-  font-weight: bolder;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 10px;
-  border: solid #ff6e40 1px;
-  background-color: white;
-}
-
-.com {
-  box-shadow: #1e3d59 0px 0px 5px 5px;
+.formSetUp {
+  width: 93%;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

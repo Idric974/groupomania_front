@@ -46,8 +46,8 @@ export default {
 <style scoped lang="scss">
 .logo {
   background-image: url("../assets/icon-above-font.png");
-  width: 70%;
-  height: 200px;
+  width: 60%;
+  height: 150px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

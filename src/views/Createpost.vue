@@ -64,17 +64,14 @@ export default {
         userId: objJson.userId,
       };
 
-      //* ✅ 👉 Définition du body.
+      //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
       console.log(body);
 
-      //* ✅ 👉 Définition des en-têtes.
+      //* ✅ 👉 Définition des en-têtes de la requête.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
       headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/createPost";
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -83,8 +80,12 @@ export default {
         headers: headers,
       };
 
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/createPost";
+
       console.log(parametresDeRequete);
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
         .then((success) => {
           console.log(success);

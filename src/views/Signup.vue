@@ -23,6 +23,7 @@
         label="Votre Pseudonyme"
         validation="required"
         type="text"
+        class="formData"
       />
 
       <FormulateInput
@@ -30,6 +31,7 @@
         label="Votre adresse email"
         validation="required|email"
         type="text"
+        class="formData"
       />
 
       <FormulateInput
@@ -37,20 +39,26 @@
         label="Votre mot de passe"
         validation="required"
         type="text"
+        class="formData"
       />
 
-      <FormulateInput name="name" label="Votre Nom" validation="required" />
+      <FormulateInput
+        name="name"
+        label="Votre Nom"
+        validation="required"
+        class="formData"
+      />
 
       <FormulateInput
         name="firstname"
         label="Votre Prénom"
         validation="required"
         type="text"
+        class="formData"
       />
 
-      <FormulateInput class="btn" type="submit" label="Valider" />
+      <button type="submit">Valider</button>
     </FormulateForm>
-    <h3>{{ formValues }}</h3>
   </div>
 </template>
 
@@ -101,9 +109,17 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   box-shadow: black 0px 0px 5px 0px;
   border-radius: 10px;
-  background-color: rgba(241, 241, 241, 0.8);
+  box-shadow: inset 2px 2px 3px rgba(180, 207, 243, 0.8),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  background-color: rgba(180, 207, 243, 0.8);
   padding-top: 10px;
+}
+
+.formData {
+  width: 100%;
 }
 </style>

@@ -1,76 +1,119 @@
 <template>
-  <!-- 👉 Component Comments 👈-->
+  <div class="commentsBox">
+    <!--✅ 👉 Affiche les commentaires du post sélectionné-->
+    <div class="comments" v-for="comment in comments" :key="comment.id">
+      <div class="userName">
+        De:
+        {{ comment.user.alias }}
+      </div>
 
-  <div class="Comments">
-    <h1>Composant commentaire</h1>
-    <div class="post" v-for="post in posts" :key="post.id">
-      <div class="nom_utilisateur">{{ post.user.alias }}</div>
+      <div class="formatedDate">{{ comment.formatedDate }}</div>
 
-      <div class="contenu">
-        {{ post.content }}
+      <div class="comment">
+        {{ comment.comment }}
       </div>
     </div>
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
 </template>
 
 <script>
+import { FORMAT_DATE } from "../services/utilities";
 export default {
   name: "Comments",
   data: () => ({
-    posts: [],
+    comments: [],
   }),
-  props: ["postId"],
 
   methods: {
-    readAll() {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
+    params() {
+      // const params = this.$route.params.id;
+      // console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Post Id", params);
+    },
+    //* ✅ 👉 Afficher le poste.
+    findOne() {
+      const params = this.$route.params.id;
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Post Id", params);
 
-      const token = objJson.token;
+      const infoStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(infoStorage);
 
-      //* ✅ 👉 Définition des en-têtes.
+      //const userId = objJson.userId;
+      //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userId", userId);
+
+      const userToken = objJson.token;
+      //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userToken", objJson.token);
+
       const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Authorization", `Bearer ${userToken}`);
 
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/readAll/" + this.postId;
+      // //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
 
-      //* ✅ 👉 Définition des paramètres de la requête.
+      // //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
         method: "GET",
         headers: headers,
       };
 
-      console.log(parametresDeRequete);
-
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log(success);
+          success.json().then((result) => {
+            this.comments = result.comments.map((comment) => {
+              comment.formatedDate = FORMAT_DATE(comment.createdAt);
+              return comment;
+            });
+            console.log(this.comments);
+          });
         })
         .catch(function(error) {
-          console.log(
-            "Il y a eu un problème avec l'opération fetch: " + error.message
-          );
+          console.log(error);
         });
     },
   },
 
   mounted() {
-    this.readAll();
+    this.params();
+    this.findOne();
   },
 };
 </script>
 
+//*✅👉 ➖➖➖➖➖➖➖➖➖CSS➖➖➖➖➖➖➖➖➖➖➖
 <style lang="scss" scoped>
-.Comments {
+.commentsBox {
   width: 100%;
-  height: 400px;
-  border: solid green 1px;
-}
+  height: auto;
 
-.post {
-  width: 100%;
-  height: 300px;
-  border: solid blue 3px;
+  .comments {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    border-radius: 10px;
+    box-shadow: black 0px 0px 10px 5px;
+    // border: solid blue 1px;
+
+    .userName {
+      width: 100%;
+      height: auto;
+      border-radius: 10px 10px 0px 0px;
+
+      font-size: 1.5rem;
+      font-weight: bolder;
+      padding-bottom: 10px;
+    }
+
+    .comment {
+      width: 100%;
+      height: auto;
+      border-radius: 0px 0px 10px 10px;
+      font-size: 1.1rem;
+      background-color: rgb(255, 215, 215);
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
 }
 </style>

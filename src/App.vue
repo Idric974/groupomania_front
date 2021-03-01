@@ -1,17 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link
-        v-if="authenticated"
-        to="/"
-        v-on:click.native="logout()"
-        replace
-        ><p class="btn_logout">
-          Déconnexion
-        </p>
-        <p></p
-      ></router-link>
-    </div> -->
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -89,87 +77,6 @@ p {
   font-size: 1.1rem;
 }
 
-.btn {
-  width: 200px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 0px;
-  border: 0;
-  line-height: 2.5;
-  padding: 0 20px;
-  font-size: 1rem;
-  text-align: center;
-  color: #fff;
-  text-shadow: 1px 1px 1px #000;
-  border-radius: 10px;
-  background-color: rgb(6, 153, 6);
-  background-image: linear-gradient(
-    to top left,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 30%,
-    rgba(0, 0, 0, 0)
-  );
-  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
-    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
-
-  @media screen and (min-width: 742px) and (max-width: 991px) {
-    width: 200px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media screen and (min-width: 991px) {
-    width: 250px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.btn2 {
-  width: 250px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 0;
-  line-height: 2.5;
-  font-size: 1rem;
-  text-align: center;
-  color: #fff;
-  font-weight: bolder;
-  border-radius: 10px;
-
-  background-image: linear-gradient(
-    to top left,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 30%,
-    rgba(0, 0, 0, 0)
-  );
-  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
-    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
-
-  @media screen and (min-width: 742px) and (max-width: 991px) {
-    width: 200px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media screen and (min-width: 991px) {
-    width: 250px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
 .authentification {
   font-size: 1.5rem;
 }
@@ -184,16 +91,21 @@ p {
   font-size: 1.4rem;
   margin-left: 0px;
   margin-right: 5px;
-  color: #ff6e40;
+  color: rgb(253, 45, 1);
 }
 
 input {
-  margin: 10px 10px 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
   text-align: center;
   font-size: 1.1rem;
-  border: solid#ff6e40 1px;
+  border: none;
   border-radius: 10px;
-  padding: 20px 10px 20px 10px;
+  padding: 10px 0px 10px 0px;
+  width: 95%;
+  background-color: white;
 }
 
 .btnAppli {
@@ -253,5 +165,40 @@ input {
   @media screen and (min-width: 992px) {
     width: 300px;
   }
+}
+
+.test {
+  width: 100%;
+  height: 100px;
+  background-color: orange;
+}
+
+.formatedDate {
+  padding-bottom: 10px;
+  font-weight: bolder;
+}
+
+button {
+  width: 240px;
+  margin: 10px 15px 10px 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  border: solid #1e3d59 1px;
+  background-color: #1e3d59;
+  color: white;
+  text-align: center;
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.small {
+  width: 115px;
+  letter-spacing: 2px;
+}
+
+.large {
+  width: 260px;
+  letter-spacing: 2px;
 }
 </style>

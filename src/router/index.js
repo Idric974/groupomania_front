@@ -43,7 +43,7 @@ export default new VueRouter({
     },
 
     {
-      path: "/ListComments",
+      path: "/ListComments/:id",
       name: "ListComments",
       component: ListCommentsComponent,
     },

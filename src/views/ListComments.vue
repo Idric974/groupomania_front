@@ -4,12 +4,12 @@
   <div class="ListComments">
     <BtnDeconnexion />
     <BtnAccueil />
-    <h2>↙️ Commentaires du poste ↘️</h2>
+    <br />
     <hr />
+    <h2>Commentaires du poste</h2>
+
     <div class="comments">
-      <h2>Commentaires des lecteurs</h2>
-      <Comments />
-      <!-- <Comments :postId="post.id" /> -->
+      <Comments :commentId="comment.id" />
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   name: "ListComments",
   components: { BtnAccueil, BtnDeconnexion, Comments },
   data: () => ({
-    posts: [],
+    comment: [],
   }),
 };
 </script>
@@ -37,7 +37,7 @@ export default {
 
 .comments {
   width: 100%;
-  height: 500px;
-  border: solid red 1px;
+  height: auto;
+  //border: solid red 1px;
 }
 </style>
