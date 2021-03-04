@@ -1,17 +1,18 @@
 <template>
-  <div class="Createpost">
-    <div class="btn_acc">
-      <div class="btn_acc2"><BtnDeconnexion /></div>
-      <div class="btn_acc2"><BtnAccueil /></div>
-    </div>
+  <div class="create-post">
+    <div class="btn_acc2"><BtnLogout /></div>
+    <div class="btn_acc2"><BtnHome /></div>
+    <br />
+
+    <hr />
 
     <div class="menu_composant">
       <h1>Créer un poste</h1>
     </div>
 
-    <div class="form_crer_post">
+    <div class="post-form">
       <FormulateForm
-        class="formSetUp"
+        class="form-setup"
         @submit="handleSubmit"
         v-model="formValues"
       >
@@ -29,22 +30,20 @@
           validation="required"
         />
 
-        <FormulateInput
-          class="btnAppli com"
-          type="submit"
-          label="Poster le texte"
-        />
+        <button type="submit">Poster le texte</button>
       </FormulateForm>
     </div>
   </div>
 </template>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <script>
-import BtnDeconnexion from "@/components/BtnDeconnexion.vue";
-import BtnAccueil from "@/components/BtnAccueil.vue";
+import BtnLogout from "@/components/BtnLogout.vue";
+import BtnHome from "@/components/BtnHome.vue";
 export default {
-  components: { BtnAccueil, BtnDeconnexion },
-  name: "Createpost",
+  components: { BtnHome, BtnLogout },
+  name: "CreatePost",
   data: () => ({
     formValues: {},
   }),
@@ -100,14 +99,17 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 <style scoped lang="scss">
-label {
-  font-size: 1.2rem;
-  padding-bottom: 20px;
+.create-post {
+  width: 100%;
 }
 
-.form_crer_post {
+input {
+  border: solid black 1px;
+}
+
+.post-form {
   width: 100%;
   height: auto;
   border-radius: 10px;
@@ -120,10 +122,6 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.com {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  background-color: rgba(180, 207, 243, 0.8);
 }
 </style>

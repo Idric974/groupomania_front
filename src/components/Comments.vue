@@ -1,13 +1,13 @@
 <template>
-  <div class="commentsBox">
+  <div class="comments-box">
     <!--✅ 👉 Affiche les commentaires du post sélectionné-->
     <div class="comments" v-for="comment in comments" :key="comment.id">
-      <div class="userName">
+      <div class="user-name">
         De:
         {{ comment.user.alias }}
       </div>
 
-      <div class="formatedDate">{{ comment.formatedDate }}</div>
+      <div class="formated-date">{{ comment.formatedDate }}</div>
 
       <div class="comment">
         {{ comment.comment }}
@@ -81,7 +81,7 @@ export default {
 
 //*✅👉 ➖➖➖➖➖➖➖➖➖CSS➖➖➖➖➖➖➖➖➖➖➖
 <style lang="scss" scoped>
-.commentsBox {
+.comments-box {
   width: 100%;
   height: auto;
 
@@ -95,7 +95,7 @@ export default {
     box-shadow: black 0px 0px 10px 5px;
     // border: solid blue 1px;
 
-    .userName {
+    .user-name {
       width: 100%;
       height: auto;
       border-radius: 10px 10px 0px 0px;

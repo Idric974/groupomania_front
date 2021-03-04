@@ -1,5 +1,5 @@
 <template>
-  <div class="btnAppli">
+  <div class="btn-appli">
     <router-link to="/home"
       ><h3><i class="fas fa-home"></i> Accueil</h3></router-link
     >
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "btnAppli",
+  name: "BtnHome",
   props: {
     msg: String,
   },

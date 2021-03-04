@@ -1,11 +1,10 @@
 import Vue from "vue";
-
 import VueRouter from "vue-router";
-import LoginComponent from "../views/login.vue";
-import HomeComponent from "../views/home.vue";
+import LoginComponent from "../views/Login.vue";
+import HomeComponent from "../views/Home.vue";
 import ProfilComponent from "../views/Profil.vue";
 import SignupComponent from "../views/Signup.vue";
-import CreatepostComponent from "../views/Createpost.vue";
+import CreatePostComponent from "../views/CreatePost.vue";
 import ListCommentsComponent from "../views/ListComments.vue";
 import UpDatePostComponent from "../views/UpDatePost.vue";
 
@@ -37,9 +36,9 @@ export default new VueRouter({
     },
 
     {
-      path: "/Createpost",
-      name: "Createpost",
-      component: CreatepostComponent,
+      path: "/CreatePost",
+      name: "CreatePost",
+      component: CreatePostComponent,
     },
 
     {

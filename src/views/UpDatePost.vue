@@ -1,7 +1,7 @@
 <template>
   <div class="UpDatePost">
-    <BtnDeconnexion />
-    <BtnAccueil />
+    <BtnLogout />
+    <BtnHome />
 
     <div class="form_crer_post">
       <FormulateForm
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import BtnDeconnexion from "@/components/BtnDeconnexion.vue";
-import BtnAccueil from "@/components/BtnAccueil.vue";
+import BtnLogout from "@/components/BtnLogout.vue";
+import BtnHome from "@/components/BtnHome.vue";
 export default {
   components: {
-    BtnAccueil,
-    BtnDeconnexion,
+    BtnHome,
+    BtnLogout,
   },
   name: "UpDatePost",
   data: () => ({

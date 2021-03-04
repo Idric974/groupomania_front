@@ -1,25 +1,25 @@
 <template>
   <div class="Profil">
     <div class="btn_acc">
-      <div class="btn_acc2"><BtnDeconnexion /></div>
-      <div class="btn_acc2"><BtnAccueil /></div>
+      <div class="btn_acc2"><BtnLogout /></div>
+      <div class="btn_acc2"><BtnHome /></div>
     </div>
 
     <div class="menu_composant">
       <h1>Mon Profil</h1>
     </div>
 
-    <ProfilSalarie />
+    <EmployeeProfile />
   </div>
 </template>
 
 <script>
-import BtnDeconnexion from "@/components/BtnDeconnexion.vue";
-import BtnAccueil from "@/components/BtnAccueil.vue";
-import ProfilSalarie from "@/components/ProfilSalarie.vue";
+import BtnLogout from "@/components/BtnLogout.vue";
+import BtnHome from "@/components/BtnHome.vue";
+import EmployeeProfile from "@/components/EmployeeProfile.vue";
 
 export default {
-  components: { BtnAccueil, BtnDeconnexion, ProfilSalarie },
+  components: { BtnHome, BtnLogout, EmployeeProfile },
   name: "Profil",
   props: {
     msg: String,

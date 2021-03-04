@@ -2,7 +2,7 @@
   <!-- 👉 View Login 👈-->
 
   <!--✅ 👉 login_box-->
-  <div class="loginBox">
+  <div class="login-Box">
     <div class="login">
       <h1>Me connecter</h1>
       <form>
@@ -34,6 +34,8 @@
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
 </template>
+
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
 export default {
@@ -76,8 +78,10 @@ export default {
 };
 </script>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <style scoped lang="scss">
-.loginBox {
+.login-Box {
   width: 95%;
   display: flex;
   flex-direction: column;

@@ -1,12 +1,12 @@
 <template>
   <!-- 👉 Components FilActualite 👈-->
 
-  <div class="Filactualite">
+  <div class="news-feed">
     <!-- ✅ 👉 Affichage du pseudo et du post-->
     <div class="post" v-for="post in posts" :key="post.id">
       <div class="alias">Publié par : {{ post.user.alias }}</div>
 
-      <div class="formatedDate">{{ post.formatedDate }}</div>
+      <div class="formated-date">{{ post.formatedDate }}</div>
 
       <div class="content">
         {{ post.content }}
@@ -15,9 +15,9 @@
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Formulaire pour la saisie des commentaire.-->
-      <div class="form_comments">
+      <div class="comments-form">
         <FormulateForm
-          class="formSetUp"
+          class="setUp-form"
           @submit="commentSubmit(post.id)"
           v-model="formValues"
         >
@@ -46,7 +46,7 @@
       </div>
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setupButton" v-if="state == 1">
+      <div class="setup-button" v-if="state == 1">
         <router-link to="/UpDatePost"
           ><button type="submit" class="small">
             Modifier
@@ -66,7 +66,7 @@
 <script>
 import { FORMAT_DATE } from "../services/utilities";
 export default {
-  name: "Filactualite",
+  name: "NewsFeed",
   data: () => ({
     state: "1",
     formValues: {},
@@ -226,7 +226,7 @@ export default {
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <style lang="scss" scoped>
-.Filactualite {
+.news-feed {
   width: 100%;
   height: auto;
   display: flex;
@@ -280,7 +280,7 @@ export default {
     font-size: 1.1rem;
   }
 
-  .form_comments {
+  .comments-form {
     width: 100%;
     height: auto;
     display: flex;
@@ -292,12 +292,12 @@ export default {
   }
 }
 
-.setupButton {
+.setup-button {
   border-radius: 10px 10px 10px 10px;
   background-color: rgba(102, 103, 105, 0.8);
 }
 
-.formSetUp {
+.setUp-form {
   width: 93%;
   margin-left: auto;
   margin-right: auto;

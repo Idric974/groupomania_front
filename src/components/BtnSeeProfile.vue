@@ -1,5 +1,5 @@
 <template>
-  <div class="btnAppli">
+  <div class="btn-appli">
     <router-link to="/Profil">
       <h3 v-on:click="voirProfil()">
         <i class="fas fa-user-edit"></i> Voir mon Profil
@@ -8,9 +8,11 @@
   </div>
 </template>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <script>
 export default {
-  name: "BtnVoirProfil",
+  name: "BtnSeeProfile",
   methods: {
     voirProfil: function() {
       const userIdStorage = localStorage.getItem("groupomania");
@@ -56,8 +58,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-a:link {
-  text-decoration: none;
-}
-</style>
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
+<style lang="scss" scoped></style>

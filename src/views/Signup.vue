@@ -2,19 +2,23 @@
   <!-- 👉 views Signup 👈-->
 
   <div class="Signup">
-    <h2>
-      <router-link to="/"><i class="fas fa-arrow-left"></i></router-link>Page
-      inscription
-    </h2>
-    <p>
-      Pour vous connecter à votre réseau social, veuillez compléter le
-      formulaire ci-dessous.
-    </p>
+    <!--✅ 👉 Bouton page accueil-->
+    <div class="home-btn">
+      <div><BtnLogin /></div>
+    </div>
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+
+    <div class="instruction">
+      <p class="instruction-text">
+        Pour vous connecter à votre réseau social, veuillez compléter le
+        formulaire ci-dessous.
+      </p>
+    </div>
 
     <!---------------------------------------------------------------------->
 
     <FormulateForm
-      class="formSetUp"
+      class="form-setup"
       @submit="handleSubmit"
       v-model="formValues"
     >
@@ -23,7 +27,7 @@
         label="Votre Pseudonyme"
         validation="required"
         type="text"
-        class="formData"
+        class="field"
       />
 
       <FormulateInput
@@ -31,7 +35,7 @@
         label="Votre adresse email"
         validation="required|email"
         type="text"
-        class="formData"
+        class="field"
       />
 
       <FormulateInput
@@ -39,14 +43,14 @@
         label="Votre mot de passe"
         validation="required"
         type="text"
-        class="formData"
+        class="field"
       />
 
       <FormulateInput
         name="name"
         label="Votre Nom"
         validation="required"
-        class="formData"
+        class="field"
       />
 
       <FormulateInput
@@ -54,7 +58,7 @@
         label="Votre Prénom"
         validation="required"
         type="text"
-        class="formData"
+        class="field"
       />
 
       <button type="submit">Valider</button>
@@ -62,9 +66,13 @@
   </div>
 </template>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <script>
+import BtnLogin from "@/components/BtnLogin.vue";
 export default {
   name: "Signup",
+  components: { BtnLogin },
   data: () => ({
     formValues: {},
   }),
@@ -104,8 +112,10 @@ export default {
 };
 </script>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <style scoped>
-.formSetUp {
+.form-setup {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -117,9 +127,10 @@ export default {
   border-radius: 10px;
   background-color: rgba(180, 207, 243, 0.8);
   padding-top: 10px;
+  margin-top: 10px;
 }
 
-.formData {
+.field {
   width: 100%;
 }
 </style>

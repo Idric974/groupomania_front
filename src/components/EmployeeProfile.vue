@@ -1,18 +1,19 @@
 <template>
-  <div class="Profil_Salarie">
-    <div class="box_salarie">
-      <div class="box fistname">Alias : {{ alias }}</div>
-      <div class="box fistname">Email : {{ email }}</div>
-      <div class="box fistname">Prénom : {{ firstname }}</div>
-      <div class="box name">Nom : {{ name }}</div>
+  <div class="employee-profile">
+    <div class="employee-box">
+      <div class="box ">Alias : {{ alias }}</div>
+      <div class="box ">Email : {{ email }}</div>
+      <div class="box ">Prénom : {{ firstname }}</div>
+      <div class="box ">Nom : {{ name }}</div>
     </div>
 
     <div class="btn_profil">
-      <button class="btnAppli">
-        <i class="fas fa-user-plus"></i>Modifier mon profil
+      <button class="btn-appli">
+        <i class="fas fa-user-plus"></i>Modifier profil
       </button>
-      <button class="btnAppli">
-        <i class="fas fa-user-plus"></i>Modifier mon profil
+
+      <button class="btn-appli">
+        <i class="fas fa-user-plus"></i>Supprimer profil
       </button>
     </div>
   </div>
@@ -20,7 +21,7 @@
 
 <script>
 export default {
-  name: "Profil_Salarie",
+  name: "EmployeeProfile",
   data() {
     const alias = "";
     //console.log("alias :", alias);
@@ -83,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Profil_Salarie {
+.employee-profile {
   //border: solid black 1px;
   border-radius: 10px;
   box-shadow: black 0px 0px 5px 1px;

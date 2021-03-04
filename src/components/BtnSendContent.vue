@@ -1,5 +1,5 @@
 <template>
-  <div class="btnAppli">
+  <div class="btn-appli">
     <router-link to="/Createpost"
       ><h3>
         <i class="fas fa-share-square"></i> Poster un contenu
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "btnAppli",
+  name: "BtnSendContent",
   props: {
     msg: String,
   },

@@ -1,38 +1,38 @@
 <template>
   <!-- 👉 views home 👈-->
 
-  <div class="home">
+  <div class="Home">
     <div class="logo"></div>
 
     <!--✅ 👉 Bouton page accueil-->
-    <div class="btn_acc">
-      <div><btn-deconnexion /></div>
-      <div><BtnVoirProfil /></div>
-      <div><BtnPosterContenu /></div>
+    <div class="home-btn">
+      <div><BtnLogout /></div>
+      <div><BtnSeeProfile /></div>
+      <div><BtnSendContent /></div>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
     <!--✅ 👉 Section fil d'actualité-->
     <h1>Fil d'actualité</h1>
-    <BoxFilActualite />
+    <BoxNewsFeed />
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
 </template>
 
 <script>
-import BtnVoirProfil from "@/components/BtnVoirProfil.vue";
-import BtnPosterContenu from "../components/BtnPosterContenu.vue";
-import BoxFilActualite from "../components/BoxFilActualite.vue";
-import BtnDeconnexion from "../components/BtnDeconnexion.vue";
+import BtnSeeProfile from "@/components/BtnSeeProfile.vue";
+import BtnSendContent from "../components/BtnSendContent.vue";
+import BoxNewsFeed from "../components/BoxNewsFeed.vue";
+import BtnLogout from "../components/BtnLogout.vue";
 
 export default {
   components: {
-    BtnVoirProfil,
-    BoxFilActualite,
-    BtnPosterContenu,
-    BtnDeconnexion,
+    BtnSeeProfile,
+    BoxNewsFeed,
+    BtnSendContent,
+    BtnLogout,
   },
-  name: "home",
+  name: "Home",
   props: {
     msg: String,
     data() {

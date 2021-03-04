@@ -1,5 +1,5 @@
 <template>
-  <div class="btnAppli">
+  <div class="btn-appli">
     <router-link to="/"
       ><h3><i class="fas fa-sign-out-alt"></i> Me déconnecter</h3></router-link
     >
@@ -8,10 +8,7 @@
 
 <script>
 export default {
-  name: "btnAppli",
-  props: {
-    msg: String,
-  },
+  name: "BtnLogout",
 };
 </script>
 
