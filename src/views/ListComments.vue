@@ -27,7 +27,6 @@ import BtnHome from "@/components/BtnHome.vue";
 import Comments from "@/components/Comments.vue";
 import SelectedPost from "../components/SelectedPost.vue";
 export default {
-  name: "ListComments",
   components: { BtnHome, BtnLogout, Comments, SelectedPost },
   data: () => ({
     comment: [],

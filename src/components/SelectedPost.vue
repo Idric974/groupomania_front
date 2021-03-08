@@ -16,22 +16,19 @@
 
     <!-- ✅ 👉 Formulaire pour la saisie des commentaire.-->
     <div class="comments-form">
-      <FormulateForm
-        class="setUp-form"
-        @submit="commentSubmit(post.id)"
-        v-model="formValues"
-      >
-        <FormulateInput
+      <form class="setUp-form">
+        <input
           type="text"
           name="comment"
           validation="required"
           placeholder="Commentez ce post ici"
+          v-model="input.comment"
         />
 
-        <button type="submit" class="large">
+        <button v-on:click.prevent="submitComment(posts.id)" class="large">
           Poster votre commentaire
         </button>
-      </FormulateForm>
+      </form>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
@@ -60,14 +57,17 @@ import { token } from "../services/utilities";
 console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserToken =", token);
 
 export default {
-  name: "ListComments",
   components: {},
-  data: () => ({
-    posts: [],
-    date: [],
-    formValues: {},
-    state: "1",
-  }),
+  data() {
+    return {
+      input: { comment: "" },
+      posts: [],
+
+      date: [],
+      formValues: {},
+      state: "1",
+    };
+  },
 
   methods: {
     //* ✅ 👉 Afficher le poste sélectionné.
@@ -103,58 +103,64 @@ export default {
           console.log(error);
         });
     },
+
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Poster un commentaire.
+    submitComment() {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
+      console.log(objJson.token);
+
+      const comment = this.input.comment;
+      const postId = this.posts.id;
+
+      const values = {
+        comment: comment,
+        postId: postId,
+        userId: objJson.userId,
+      };
+      console.log(values);
+
+      //* ✅ 👉 Définition du body de la requête.
+      const body = JSON.stringify(values);
+      console.log(body);
+
+      //* ✅ 👉 Définition des en-têtes de la requête.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        body: body,
+        headers: headers,
+      };
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/createComment";
+
+      console.log(parametresDeRequete);
+
+      //*✅👉 Exécution de la requête.
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          console.log(success);
+        })
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
+
   mounted() {
     this.findOne();
-  },
-  //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-  //* ✅ 👉 Poster un commentaire.
-  commentSubmit(postId) {
-    const userIdStorage = localStorage.getItem("groupomania");
-    const objJson = JSON.parse(userIdStorage);
-
-    const data = this.formValues;
-
-    const token = objJson.token;
-    console.log(objJson.token);
-
-    const values = {
-      comment: data.comment,
-      userId: objJson.userId,
-      postId: postId,
-    };
-
-    //* ✅ 👉 Définition du body.
-    const body = JSON.stringify(values);
-
-    //* ✅ 👉 Définition des en-têtes.
-    const headers = new Headers();
-    headers.append("Authorization", `Bearer ${token}`);
-    headers.append("Content-Type", "application/json");
-
-    //* ✅ 👉 Définition de l'URL de la requête.
-    let url = "http://localhost:3000/api/comment/createComment";
-
-    //* ✅ 👉 Définition des paramètres de la requête.
-    const parametresDeRequete = {
-      method: "POST",
-      body: body,
-      headers: headers,
-    };
-
-    console.log(parametresDeRequete);
-
-    fetch(url, parametresDeRequete)
-      .then((success) => {
-        console.log(success);
-        alert("Votre commentaire a été enregistré");
-      })
-      .catch(function(error) {
-        console.log(
-          "Il y a eu un problème avec l'opération fetch: " + error.message
-        );
-      });
   },
 };
 </script>
