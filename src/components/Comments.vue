@@ -17,6 +17,8 @@
   </div>
 </template>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <script>
 import { FORMAT_DATE } from "../services/utilities";
 export default {
@@ -26,14 +28,10 @@ export default {
   }),
 
   methods: {
-    params() {
-      // const params = this.$route.params.id;
-      // console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Post Id", params);
-    },
     //* ✅ 👉 Afficher le poste.
-    findOne() {
+    findAll() {
       const params = this.$route.params.id;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Post Id", params);
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Comments Post Id", params);
 
       const infoStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(infoStorage);
@@ -69,31 +67,39 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+
+      //*✅👉 Exécution de la requête.
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          console.log(success);
+        })
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
+        });
     },
   },
 
   mounted() {
-    this.params();
-    this.findOne();
+    this.findAll();
   },
 };
 </script>
 
-//*✅👉 ➖➖➖➖➖➖➖➖➖CSS➖➖➖➖➖➖➖➖➖➖➖
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <style lang="scss" scoped>
 .comments-box {
   width: 100%;
-  height: auto;
 
   .comments {
     width: 100%;
-    height: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding-top: 5px;
     border-radius: 10px;
     box-shadow: black 0px 0px 10px 5px;
-    // border: solid blue 1px;
 
     .user-name {
       width: 100%;
@@ -110,7 +116,7 @@ export default {
       height: auto;
       border-radius: 0px 0px 10px 10px;
       font-size: 1.1rem;
-      background-color: rgb(255, 215, 215);
+      background-color: rgb(236, 236, 236);
       padding-top: 10px;
       padding-bottom: 10px;
     }

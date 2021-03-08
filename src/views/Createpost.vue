@@ -11,27 +11,29 @@
     </div>
 
     <div class="post-form">
-      <FormulateForm
-        class="form-setup"
-        @submit="handleSubmit"
-        v-model="formValues"
-      >
-        <FormulateInput
+      <form class="form-setup">
+        <input
           type="text"
           name="title"
-          label="Le titre de votre post"
+          placeholder="Le titre de votre post"
           validation="required"
+          class="title"
+          v-model="input.title"
         />
 
-        <FormulateInput
+        <input
           type="text"
           name="content"
-          label="Votre Post"
+          placeholder="Rédigez votre poste ici"
           validation="required"
+          class="content"
+          v-model="input.content"
         />
 
-        <button type="submit">Poster le texte</button>
-      </FormulateForm>
+        <button type="submit" v-on:click="handleSubmit()" class="poster">
+          Poster
+        </button>
+      </form>
     </div>
   </div>
 </template>
@@ -44,24 +46,31 @@ import BtnHome from "@/components/BtnHome.vue";
 export default {
   components: { BtnHome, BtnLogout },
   name: "CreatePost",
-  data: () => ({
-    formValues: {},
-  }),
+  data() {
+    return {
+      input: {
+        title: "",
+        content: "",
+      },
+    };
+  },
   methods: {
     handleSubmit() {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
 
-      const data = this.formValues;
-
       const token = objJson.token;
       console.log(objJson.token);
 
+      const title = this.input.title;
+      const content = this.input.content;
+
       const values = {
-        title: data.title,
-        content: data.content,
+        title: title,
+        content: content,
         userId: objJson.userId,
       };
+      console.log(values);
 
       //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
@@ -105,10 +114,6 @@ export default {
   width: 100%;
 }
 
-input {
-  border: solid black 1px;
-}
-
 .post-form {
   width: 100%;
   height: auto;
@@ -123,5 +128,15 @@ input {
   justify-content: center;
   align-items: center;
   background-color: rgba(180, 207, 243, 0.8);
+}
+
+.title,
+.content,
+.poster {
+  font-size: 1.3rem;
+}
+
+.content {
+  height: 100px;
 }
 </style>

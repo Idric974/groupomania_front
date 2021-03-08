@@ -3,10 +3,15 @@
 
   <div class="news-feed">
     <!-- ✅ 👉 Affichage du pseudo et du post-->
+
     <div class="post" v-for="post in posts" :key="post.id">
-      <div class="alias">Publié par : {{ post.user.alias }}</div>
+      <div class="alias">
+        Publié par : {{ post.user.name }} {{ post.user.firstname }}
+      </div>
 
       <div class="formated-date">{{ post.formatedDate }}</div>
+
+      <div class="title">Titre : {{ post.title }}</div>
 
       <div class="content">
         {{ post.content }}
@@ -14,47 +19,13 @@
 
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
-      <!-- ✅ 👉 Formulaire pour la saisie des commentaire.-->
-      <div class="comments-form">
-        <FormulateForm
-          class="setUp-form"
-          @submit="commentSubmit(post.id)"
-          v-model="formValues"
-        >
-          <FormulateInput
-            type="text"
-            name="comment"
-            validation="required"
-            placeholder="Commentez ce post ici"
-          />
-
-          <button type="submit" class="large">
-            Poster votre commentaire
-          </button>
-        </FormulateForm>
-        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-
-        <!-- ✅ 👉 Bouton pour lire les commentaires. -->
-        <div class="btnReadComment">
-          <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
-            ><button v-on:click="sendId(post.id)" class="large">
-              Lire les commentaires
-            </button></router-link
-          >
-        </div>
-        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-      </div>
-
-      <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button" v-if="state == 1">
-        <router-link to="/UpDatePost"
-          ><button type="submit" class="small">
-            Modifier
+      <!-- ✅ 👉 Bouton pour lire les commentaires. -->
+      <div class="btnReadComment">
+        <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
+          ><button class="large">
+            Lire la suite du poste
           </button></router-link
         >
-        <button type="submit" v-on:click="deletPost(post.id)" class="small">
-          Supprimer
-        </button>
       </div>
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
     </div>
@@ -68,8 +39,6 @@ import { FORMAT_DATE } from "../services/utilities";
 export default {
   name: "NewsFeed",
   data: () => ({
-    state: "1",
-    formValues: {},
     posts: [],
   }),
   methods: {
@@ -116,104 +85,6 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    //* ✅ 👉 Poster un commentaire.
-    commentSubmit(postId) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
-      const data = this.formValues;
-
-      const token = objJson.token;
-      console.log(objJson.token);
-
-      const values = {
-        comment: data.comment,
-        userId: objJson.userId,
-        postId: postId,
-      };
-
-      //* ✅ 👉 Définition du body.
-      const body = JSON.stringify(values);
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/createComment";
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "POST",
-        body: body,
-        headers: headers,
-      };
-
-      console.log(parametresDeRequete);
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          console.log(success);
-          alert("Votre commentaire a été enregistré");
-        })
-        .catch(function(error) {
-          console.log(
-            "Il y a eu un problème avec l'opération fetch: " + error.message
-          );
-        });
-    },
-
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-    //* ✅ 👉 Supprimer un post.
-    deletPost(postId) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
-      const userId = objJson.userId;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖►userId", userId);
-
-      const token = objJson.token;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖►Token", objJson.token);
-
-      const values = {
-        postId: postId,
-      };
-
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖►postId", postId);
-
-      //* ✅ 👉 Définition du body.
-      const body = JSON.stringify(values);
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/delete/delete/" + postId;
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "DELETE",
-        body: body,
-        headers: headers,
-      };
-
-      console.log(parametresDeRequete);
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          console.log(success);
-          //alert("Votre post a été supprimé");
-        })
-        .catch(function(error) {
-          console.log(
-            "Il y a eu un problème avec l'opération fetch: " + error.message
-          );
-        });
-    },
   },
 
   mounted() {
@@ -236,8 +107,8 @@ export default {
   margin-bottom: 10px;
 
   .post {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     box-shadow: #1e3d59 0px 0px 10px 5px;
     border-radius: 10px;
     background-color: rgba(180, 207, 243, 0.8);
@@ -252,7 +123,10 @@ export default {
     }
   }
 
-  .alias {
+  .alias,
+  .formated-date,
+  .title,
+  .content {
     width: 100%;
     font-size: 1.5rem;
     font-weight: bolder;
@@ -264,42 +138,15 @@ export default {
 
   .content {
     width: 95%;
-    min-height: 100px;
+    height: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     background-color: white;
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
+    overflow: hidden;
   }
-
-  .comments {
-    width: 100%;
-    border: solid red 1px;
-    font-size: 1.1rem;
-  }
-
-  .comments-form {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-weight: bolder;
-  }
-}
-
-.setup-button {
-  border-radius: 10px 10px 10px 10px;
-  background-color: rgba(102, 103, 105, 0.8);
-}
-
-.setUp-form {
-  width: 93%;
-  margin-left: auto;
-  margin-right: auto;
 }
 </style>
