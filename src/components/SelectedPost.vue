@@ -65,7 +65,7 @@ export default {
 
       date: [],
       formValues: {},
-      state: "1",
+      state: "",
     };
   },
 
@@ -97,6 +97,17 @@ export default {
             console.log(this.posts);
             this.date = FORMAT_DATE(result.posts.createdAt);
             console.log(this.date);
+            const userIdPost = result.posts.userId;
+            console.log(userIdPost);
+            if (userIdPost !== userId) {
+              console.log("userId connecté est différent de postUserId ❌❌❌");
+              this.state = 0;
+            } else {
+              console.log(
+                "userId connecté est le même que postUserId 👍 👍 👍"
+              );
+              this.state = 1;
+            }
           });
         })
         .catch(function(error) {
@@ -157,10 +168,20 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //*✅👉 Gérer la modification et la suppression des postes.
+    stateManageur() {
+      const localStorageData = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(localStorageData);
+      const userId = objJson.userId;
+      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Connected userId's ", userId);
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {
     this.findOne();
+    this.stateManageur();
   },
 };
 </script>

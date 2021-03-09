@@ -42,15 +42,6 @@ export default {
     posts: [],
   }),
   methods: {
-    //*✅👉 Gérer la modification et la suppression des postes.
-    stateManageur() {
-      const localStorageData = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(localStorageData);
-      const userId = objJson.userId;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Connected userId's ", userId);
-    },
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
     //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
       const userIdStorage = localStorage.getItem("groupomania");
