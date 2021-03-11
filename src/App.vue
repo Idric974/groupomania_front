@@ -224,7 +224,7 @@ table {
 
 .btn-appli {
   border-radius: 10px;
-  box-shadow: #1e3d59 0px 5px 5px 5px;
+  box-shadow: #1e3d59 0px 0px 5px 0px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-top: 10px;

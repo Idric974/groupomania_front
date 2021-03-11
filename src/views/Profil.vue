@@ -5,7 +5,7 @@
       <div class="btn_acc2"><BtnHome /></div>
     </div>
 
-    <div class="menu_composant">
+    <div class="composant-title">
       <h1>Mon Profil</h1>
     </div>
 
@@ -27,4 +27,9 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.composant-title {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+</style>

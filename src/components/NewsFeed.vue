@@ -80,7 +80,6 @@ export default {
 
   mounted() {
     this.readAllPosts();
-    this.stateManageur();
   },
 };
 </script>

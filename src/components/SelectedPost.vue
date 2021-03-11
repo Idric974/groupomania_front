@@ -11,6 +11,10 @@
       <div class="title">Titre : {{ posts.title }}</div>
 
       <div class="content">{{ posts.content }}</div>
+
+      <div class="postId">
+        DEV INFO: post number = {{ posts.id }} || UserId = {{ posts.userId }}
+      </div>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
@@ -62,7 +66,7 @@ export default {
     return {
       input: { comment: "" },
       posts: [],
-
+      post: [],
       date: [],
       formValues: {},
       state: "",
@@ -168,20 +172,55 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+    //* ✅ 👉 Supprimer le poste sélectionné.
+    deletPost() {
+      //* ✅ 👉 Définition du headers.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
 
-    //*✅👉 Gérer la modification et la suppression des postes.
-    stateManageur() {
-      const localStorageData = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(localStorageData);
-      const userId = objJson.userId;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Connected userId's ", userId);
+      // //* ✅ 👉 Définition du body de la requête.
+
+      const values = {
+        userId: userId,
+        token: token,
+      };
+      console.log(values);
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "DELETE",
+        headers: headers,
+        body: body,
+      };
+
+      //* ✅ 👉 Définition de la params.
+      const params = this.$route.params.id;
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/delete/" + params;
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+          });
+        })
+        .catch(function(err) {
+          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {
     this.findOne();
-    this.stateManageur();
   },
 };
 </script>
@@ -234,6 +273,11 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
+  }
+
+  .postId {
+    padding-top: 10px;
+    color: red;
   }
 
   .comments {

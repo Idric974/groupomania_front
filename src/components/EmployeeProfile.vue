@@ -1,61 +1,52 @@
 <template>
   <div class="employee-profile">
     <div class="employee-box">
-      <div class="box ">Alias : {{ alias }}</div>
-      <div class="box ">Email : {{ email }}</div>
-      <div class="box ">Prénom : {{ firstname }}</div>
-      <div class="box ">Nom : {{ name }}</div>
+      <div class="box ">Alias : {{ users.name }}</div>
+      <div class="box ">Email : {{ users.email }}</div>
+      <div class="box ">Prénom : {{ users.firstname }}</div>
+      <div class="box ">Nom : {{ users.name }}</div>
     </div>
 
     <div class="btn_profil">
-      <button class="btn-appli">
+      <button class="btn-appli" v-on:click="updateProfil()">
         <i class="fas fa-user-plus"></i>Modifier profil
       </button>
 
-      <button class="btn-appli">
+      <button class="btn-appli" v-on:click="deleteProfil()">
         <i class="fas fa-user-plus"></i>Supprimer profil
       </button>
     </div>
   </div>
 </template>
 
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+
 <script>
 export default {
   name: "EmployeeProfile",
   data() {
-    const alias = "";
-    //console.log("alias :", alias);
-
-    const email = "";
-    //console.log("email :", email);
-
-    const firstname = "";
-    //console.log("Prénom :", firstname);
-
-    const name = "";
-    //console.log("Nom :", name);
-
     return {
-      alias: alias,
-      email: email,
-      firstname: firstname,
-      name: name,
+      users: [],
     };
   },
 
   methods: {
-    readAll() {
+    findOneUser() {
       const userIdStorage = localStorage.getItem("groupomania");
+
       const objJson = JSON.parse(userIdStorage);
 
       const token = objJson.token;
 
+      const userId = objJson.userId;
+
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/readAll/" + this.postId;
+      let url = "http://localhost:3000/api/user/findOne/" + userId;
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -67,21 +58,32 @@ export default {
 
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log(success);
+          success.json().then((result) => {
+            this.users = result.users;
+            //console.log(this.users);
+          });
         })
         .catch(function(error) {
-          console.log(
-            "Il y a eu un problème avec l'opération fetch: " + error.message
-          );
+          console.log(error);
         });
+    },
+
+    updateProfil() {
+      console.log("updateProfil");
+    },
+
+    deleteProfil() {
+      console.log("deleteProfil");
     },
   },
 
   mounted() {
-    this.readAll();
+    this.findOneUser();
   },
 };
 </script>
+
+//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <style lang="scss" scoped>
 .employee-profile {
@@ -115,6 +117,8 @@ export default {
     margin-top: 5px;
     margin-bottom: 5px;
     border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 1.5rem;
     font-weight: bolder;
     background-color: white;
