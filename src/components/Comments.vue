@@ -9,6 +9,10 @@
 
       <div class="formated-date">{{ comment.formatedDate }}</div>
 
+      <div class="title">
+        {{ comment.title }}
+      </div>
+
       <div class="comment">
         {{ comment.comment }}
       </div>
@@ -59,6 +63,7 @@ export default {
           success.json().then((result) => {
             this.comments = result.comments.map((comment) => {
               comment.formatedDate = FORMAT_DATE(comment.createdAt);
+
               return comment;
             });
             console.log(this.comments);
@@ -66,17 +71,6 @@ export default {
         })
         .catch(function(error) {
           console.log(error);
-        });
-
-      //*✅👉 Exécution de la requête.
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          console.log(success);
-        })
-        .catch(function(error) {
-          console.log(
-            "Il y a eu un problème avec l'opération fetch: " + error.message
-          );
         });
     },
   },
@@ -109,6 +103,18 @@ export default {
       font-size: 1.5rem;
       font-weight: bolder;
       padding-bottom: 10px;
+    }
+
+    .title {
+      width: 100%;
+      height: auto;
+      height: auto;
+      border-radius: 10px 10px 0px 0px;
+      font-size: 1.1rem;
+      background-color: rgb(236, 236, 236);
+      padding-top: 10px;
+      padding-bottom: 10px;
+      color: black;
     }
 
     .comment {

@@ -30,7 +30,11 @@
           v-model="input.content"
         />
 
-        <button type="submit" v-on:click="handleSubmit()" class="poster">
+        <button
+          type="submit"
+          v-on:click.prevent="handleSubmit()"
+          class="poster"
+        >
           Poster
         </button>
       </form>

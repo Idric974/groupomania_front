@@ -1,7 +1,7 @@
 <template>
   <div class="employee-profile">
     <div class="employee-box">
-      <div class="box ">Alias : {{ users.name }}</div>
+      <div class="box ">Alias : {{ users.alias }}</div>
       <div class="box ">Email : {{ users.email }}</div>
       <div class="box ">Prénom : {{ users.firstname }}</div>
       <div class="box ">Nom : {{ users.name }}</div>

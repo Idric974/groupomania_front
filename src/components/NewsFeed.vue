@@ -16,7 +16,6 @@
       <div class="content">
         {{ post.content }}
       </div>
-
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Bouton pour lire les commentaires. -->
@@ -26,6 +25,18 @@
             Lire la suite du poste
           </button></router-link
         >
+      </div>
+
+      <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
+      <div class="setup-button" v-if="state == 'admin'">
+        <router-link to="/UpDatePost"
+          ><button type="submit" class="small">
+            Modifier
+          </button></router-link
+        >
+        <button type="submit" v-on:click="deletPost(post.id)" class="small">
+          Supprimer
+        </button>
       </div>
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
     </div>
@@ -40,6 +51,7 @@ export default {
   name: "NewsFeed",
   data: () => ({
     posts: [],
+    state: "",
   }),
   methods: {
     //* ✅ 👉 Afficher tous les postes.
@@ -68,7 +80,6 @@ export default {
               post.formatedDate = FORMAT_DATE(post.createdAt);
               return post;
             });
-            console.log(this.posts);
           });
         })
         .catch(function(error) {
@@ -89,8 +100,7 @@ export default {
 <style lang="scss" scoped>
 .news-feed {
   width: 100%;
-  height: auto;
-  display: flex;
+  display: auto;
   flex-direction: column;
   justify-content: center;
   margin-top: 10px;
@@ -111,32 +121,36 @@ export default {
       margin-right: auto;
       width: 80%;
     }
+
+    .alias,
+    .formated-date,
+    .title,
+    .content {
+      width: 100%;
+      font-size: 1.5rem;
+      font-weight: bolder;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px 10px 0px 0px;
+      padding: 10px 0px 10px 0px;
+    }
+
+    .content {
+      width: 95%;
+      height: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 1.3rem;
+      background-color: white;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+      overflow: hidden;
+    }
   }
 
-  .alias,
-  .formated-date,
-  .title,
-  .content {
+  .setup-button {
     width: 100%;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px 10px 0px 0px;
-    padding: 10px 0px 10px 0px;
-  }
-
-  .content {
-    width: 95%;
-    height: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 1.3rem;
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
-    overflow: hidden;
   }
 }
 </style>

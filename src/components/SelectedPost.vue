@@ -3,6 +3,8 @@
   <div class="selected-post">
     <div class="post">
       <div class="user-name">
+        <h1>Poste séléctionné</h1>
+        <br />
         Publié par : {{ posts.user.name }} {{ posts.user.firstname }}
       </div>
 
@@ -15,12 +17,34 @@
       <div class="postId">
         DEV INFO: post number = {{ posts.id }} || UserId = {{ posts.userId }}
       </div>
+
+      <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+
+      <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
+      <div class="setup-button" v-if="state == 1">
+        <router-link to="/UpDatePost"
+          ><button type="submit" class="small">
+            Modifier
+          </button></router-link
+        >
+        <button type="submit" v-on:click="deletPost(post.id)" class="small">
+          Supprimer
+        </button>
+      </div>
     </div>
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
     <!-- ✅ 👉 Formulaire pour la saisie des commentaire.-->
     <div class="comments-form">
+      <h1>Nouveau commentaire</h1>
       <form class="setUp-form">
+        <input
+          type="text"
+          name="title"
+          validation="required"
+          placeholder="Titre de votre commentaire"
+          v-model="input.title"
+        />
         <input
           type="text"
           name="comment"
@@ -35,19 +59,6 @@
       </form>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-
-    <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-    <div class="setup-button" v-if="state == 1">
-      <router-link to="/UpDatePost"
-        ><button type="submit" class="small">
-          Modifier
-        </button></router-link
-      >
-      <button type="submit" v-on:click="deletPost(post.id)" class="small">
-        Supprimer
-      </button>
-    </div>
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
 </template>
 
@@ -64,7 +75,7 @@ export default {
   components: {},
   data() {
     return {
-      input: { comment: "" },
+      input: { title: "", comment: "" },
       posts: [],
       post: [],
       date: [],
@@ -129,10 +140,12 @@ export default {
       const token = objJson.token;
       console.log(objJson.token);
 
+      const title = this.input.title;
       const comment = this.input.comment;
       const postId = this.posts.id;
 
       const values = {
+        title: title,
         comment: comment,
         postId: postId,
         userId: objJson.userId,
@@ -236,13 +249,13 @@ export default {
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  background-color: rgba(180, 207, 243, 0.8);
-  box-shadow: #1e3d59 0px 0px 10px 5px;
-  border-radius: 10px;
 
   .post {
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: rgba(180, 207, 243, 0.8);
+    box-shadow: #1e3d59 0px 0px 10px 5px;
+    border-radius: 10px;
 
     @media screen and (min-width: 742px) and (max-width: 991px) {
     }
@@ -285,18 +298,26 @@ export default {
     border: solid red 1px;
     font-size: 1.1rem;
   }
+}
 
-  .comments-form {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-weight: bolder;
+.comments-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bolder;
+  box-shadow: #1e3d59 0px 0px 10px 5px;
+  border-radius: 10px;
+  margin-top: 20px;
+
+  input {
+    border: solid black 1px;
   }
 }
+
 .setup-button {
   border-radius: 10px 10px 10px 10px;
   background-color: rgba(102, 103, 105, 0.8);

@@ -8,7 +8,6 @@
     <hr />
 
     <div class="selected-post">
-      <h1>Poste sélectionné</h1>
       <selectedPost />
     </div>
 
