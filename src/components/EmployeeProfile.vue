@@ -8,9 +8,11 @@
     </div>
 
     <div class="btn_profil">
-      <button class="btn-appli" v-on:click="updateProfil()">
-        <i class="fas fa-user-plus"></i>Modifier profil
-      </button>
+      <router-link to="updateMyProfil">
+        <button class="btn-appli">
+          <i class="fas fa-user-plus"></i>Modifier profil
+        </button></router-link
+      >
 
       <button class="btn-appli" v-on:click="deleteProfil()">
         <i class="fas fa-user-plus"></i>Supprimer profil
@@ -60,16 +62,12 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-            //console.log(this.users);
+            console.log(this.users);
           });
         })
         .catch(function(error) {
           console.log(error);
         });
-    },
-
-    updateProfil() {
-      console.log("updateProfil");
     },
 
     deleteProfil() {
