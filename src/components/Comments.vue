@@ -16,6 +16,14 @@
       <div class="comment">
         {{ comment.comment }}
       </div>
+
+      <button
+        type="submit"
+        v-on:click="reportComment(comment.id)"
+        class="small color"
+      >
+        Signaler
+      </button>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
@@ -25,6 +33,13 @@
 
 <script>
 import { FORMAT_DATE } from "../services/utilities";
+
+import { userId } from "../services/utilities";
+console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserId =", userId);
+
+import { token } from "../services/utilities";
+console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserToken =", token);
+
 export default {
   name: "Comments",
   data: () => ({
@@ -73,6 +88,61 @@ export default {
           console.log(error);
         });
     },
+
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Signaler un commentaire.
+    reportComment(id) {
+      console.log("✔️✔️✔️ 👉  USER ID =", userId);
+      console.log("✔️✔️✔️ 👉  TOKEN =", token);
+      console.log("✔️✔️✔️ 👉  COMMENT ID =", id);
+
+      //* ✅ 👉 Définition du body de la requête.
+      const values = {
+        signale: "true",
+      };
+      console.log("✔️✔️✔️ 👉  VALUES =", values);
+      const body = JSON.stringify(values);
+      console.log("✔️✔️✔️ 👉  BODY =", body);
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json; charset=UTF-8");
+
+      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/reportComment/" + id;
+      console.log("✔️✔️✔️ 👉  URL =", url);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log(
+              "Looks like there was a problem. Status Code: " + response.status
+            );
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+          });
+        })
+        .catch(function(err) {
+          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        });
+    },
+
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {

@@ -14,22 +14,30 @@
 
       <div class="content">{{ posts.content }}</div>
 
-      <div class="postId">
-        DEV INFO: post number = {{ posts.id }} || UserId = {{ posts.userId }}
-      </div>
-
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button" v-if="state == 1">
-        <router-link to="/UpDatePost"
-          ><button type="submit" class="small">
-            Modifier
-          </button></router-link
-        >
-        <button type="submit" v-on:click="deletPost(post.id)" class="small">
-          Supprimer
-        </button>
+      <div class="setup-button">
+        <div class="eddit-supp" v-if="state == 1">
+          <router-link to="/UpDatePost"
+            ><button type="submit" class="small">
+              Modifier
+            </button></router-link
+          >
+          <button type="submit" v-on:click="deletPost(post.id)" class="small">
+            Supprimer
+          </button>
+        </div>
+
+        <div class="signale" v-if="state == 0">
+          <button
+            type="submit"
+            v-on:click="reportPost(post.id)"
+            class="small color"
+          >
+            Signaler
+          </button>
+        </div>
       </div>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
@@ -53,7 +61,7 @@
           v-model="input.comment"
         />
 
-        <button v-on:click.prevent="submitComment(posts.id)" class="large">
+        <button v-on:click.prevent="submitComment()" class="large">
           Poster votre commentaire
         </button>
       </form>
@@ -92,6 +100,9 @@ export default {
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;
 
+      const UserIdJson = JSON.parse(userIdStorage);
+      const userId = UserIdJson.userId;
+
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -113,7 +124,8 @@ export default {
             this.date = FORMAT_DATE(result.posts.createdAt);
             console.log(this.date);
             const userIdPost = result.posts.userId;
-            console.log(userIdPost);
+            console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
+            console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
             if (userIdPost !== userId) {
               console.log("userId connecté est différent de postUserId ❌❌❌");
               this.state = 0;
@@ -184,7 +196,9 @@ export default {
           );
         });
     },
+
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletPost() {
       //* ✅ 👉 Définition du headers.
@@ -230,6 +244,59 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Signaler un post.
+    reportPost() {
+      console.log("✔️✔️✔️ 👉  USER ID =", userId);
+      console.log("✔️✔️✔️ 👉  TOKEN =", token);
+      console.log("✔️✔️✔️ 👉  POST ID =", this.posts.id);
+
+      //* ✅ 👉 Définition du body de la requête.
+      const values = {
+        signale: "true",
+      };
+      console.log("✔️✔️✔️ 👉  VALUES =", values);
+      const body = JSON.stringify(values);
+      console.log("✔️✔️✔️ 👉  BODY =", body);
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json; charset=UTF-8");
+
+      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/reportPost/" + this.posts.id;
+      console.log("✔️✔️✔️ 👉  URL =", url);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log(
+              "Looks like there was a problem. Status Code: " + response.status
+            );
+
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+          });
+        })
+        .catch(function(err) {
+          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {
@@ -253,6 +320,7 @@ export default {
   .post {
     margin-top: 10px;
     margin-bottom: 10px;
+    padding-bottom: 20px;
     background-color: rgba(180, 207, 243, 0.8);
     box-shadow: #1e3d59 0px 0px 10px 5px;
     border-radius: 10px;
@@ -290,7 +358,8 @@ export default {
 
   .postId {
     padding-top: 10px;
-    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .comments {
@@ -319,8 +388,19 @@ export default {
 }
 
 .setup-button {
+  width: 95%;
   border-radius: 10px 10px 10px 10px;
   background-color: rgba(102, 103, 105, 0.8);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .eddit-supp {
+    display: flex;
+  }
 }
 
 .setUp-form {

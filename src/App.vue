@@ -265,13 +265,17 @@ button {
 }
 
 .small {
-  width: 115px;
+  width: 105px;
   letter-spacing: 2px;
 }
 
 .large {
   width: 260px;
   letter-spacing: 2px;
+}
+
+.color {
+  background-color: red;
 }
 
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
