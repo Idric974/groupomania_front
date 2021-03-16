@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <div class="bonjour">
-      bonjour
-    </div>
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>

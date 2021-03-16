@@ -232,11 +232,15 @@ export default {
         .then(function(response) {
           if (response.status !== 200) {
             console.log("Poste supprimé: 👍 👍 👍" + response.status);
+
             return;
           }
 
           response.json().then(function(data) {
             console.log(data);
+            alert("⚠️ Votre poste a été Supprimé ⚠️");
+
+            window.location.href = "/home#/home";
           });
         })
         .catch(function(err) {
