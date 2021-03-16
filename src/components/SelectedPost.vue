@@ -217,7 +217,7 @@ export default {
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
-        method: "DELETE",
+        method: "POST",
         headers: headers,
         body: body,
       };
@@ -226,7 +226,7 @@ export default {
       const params = this.$route.params.id;
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/delete/" + params;
+      let url = "http://localhost:3000/api/post/deletePost/" + params;
 
       fetch(url, parametresDeRequete)
         .then(function(response) {

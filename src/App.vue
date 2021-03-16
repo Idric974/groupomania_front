@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="bonjour">
+      bonjour
+    </div>
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -206,10 +209,18 @@ table {
 }
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+.bonjour {
+  width: 100%;
+  background-color: black;
+  color: white;
+  position: fixed;
+  top: 0;
+}
+
 //*🔴👉 Button Style.
 
 .home-btn {
-  width: 400px;
+  width: 300px;
   margin-left: auto;
   margin-right: auto;
 
@@ -223,6 +234,7 @@ table {
 }
 
 .btn-appli {
+  width: 300px;
   border-radius: 10px;
   box-shadow: #1e3d59 0px 0px 5px 0px;
   margin-top: 10px;
@@ -251,7 +263,7 @@ table {
 
 button {
   width: 240px;
-  margin: 10px 15px 10px 15px;
+  margin: 10px 10px 10px 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 10px;
@@ -265,7 +277,7 @@ button {
 }
 
 .small {
-  width: 105px;
+  width: 100px;
   letter-spacing: 2px;
 }
 

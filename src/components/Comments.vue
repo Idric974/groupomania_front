@@ -17,13 +17,28 @@
         {{ comment.comment }}
       </div>
 
-      <button
-        type="submit"
-        v-on:click="reportComment(comment.id)"
-        class="small color"
-      >
-        Signaler
-      </button>
+      <div class="setup-button">
+        <div class="eddit-supp" v-if="state == 1">
+          <router-link to="/UpDatePost"
+            ><button type="submit" class="small">
+              Modifier
+            </button></router-link
+          >
+          <button type="submit" v-on:click="deletPost(post.id)" class="small">
+            Supprimer
+          </button>
+        </div>
+
+        <div class="signale" v-if="state == 0">
+          <button
+            type="submit"
+            v-on:click="reportComment(comment.id)"
+            class="small color"
+          >
+            Signaler
+          </button>
+        </div>
+      </div>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
@@ -44,6 +59,8 @@ export default {
   name: "Comments",
   data: () => ({
     comments: [],
+    comment: [],
+    state: "",
   }),
 
   methods: {
@@ -55,7 +72,7 @@ export default {
       const infoStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(infoStorage);
 
-      //const userId = objJson.userId;
+      const userId = objJson.userId;
       //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userId", userId);
 
       const userToken = objJson.token;
@@ -79,8 +96,25 @@ export default {
             this.comments = result.comments.map((comment) => {
               comment.formatedDate = FORMAT_DATE(comment.createdAt);
 
+              const userIdPost = comment.userId;
+              console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
+              console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
+
+              if (userIdPost !== userId) {
+                console.log(
+                  "userId connecté est différent de postUserId ❌❌❌"
+                );
+                this.state = 0;
+              } else {
+                console.log(
+                  "userId connecté est le même que postUserId 👍 👍 👍"
+                );
+                this.state = 1;
+              }
+
               return comment;
             });
+
             console.log(this.comments);
           });
         })
@@ -195,6 +229,15 @@ export default {
       background-color: rgb(236, 236, 236);
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+
+    .setup-button {
+      display: flex;
+      justify-content: center;
+
+      .eddit-supp {
+        display: flex;
+      }
     }
   }
 }
