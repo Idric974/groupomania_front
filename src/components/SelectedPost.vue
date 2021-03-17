@@ -125,7 +125,6 @@ export default {
 
             this.date = FORMAT_DATE(result.posts.createdAt);
             console.log(this.date);
-
             const userIdPost = result.posts.userId;
             console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
             console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);

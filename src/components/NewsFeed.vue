@@ -55,14 +55,14 @@ export default {
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;
 
-      // //* ✅ 👉 Définition des en-têtes.
+      //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
 
-      // //* ✅ 👉 Définition de l'URL de la requête.
+      //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/readAllPosts";
 
-      // //* ✅ 👉 Définition des paramètres de la requête.
+      //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
         method: "GET",
         headers: headers,

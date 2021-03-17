@@ -8,7 +8,7 @@ import CreatePostComponent from "../views/CreatePost.vue";
 import ListCommentsComponent from "../views/ListComments.vue";
 import UpDatePostComponent from "../views/UpDatePost.vue";
 import updateMyProfilComponent from "../views/updateMyProfil.vue";
-import ReportedCommentComponent from "../views/ReportedComment.vue";
+import ReportedComponent from "../views/Reported.vue";
 
 Vue.use(VueRouter);
 
@@ -61,9 +61,9 @@ export default new VueRouter({
       component: updateMyProfilComponent,
     },
     {
-      path: "/ReportedComment",
-      name: "ReportedComment",
-      component: ReportedCommentComponent,
+      path: "/Reported",
+      name: "Reported",
+      component: ReportedComponent,
     },
   ],
 });

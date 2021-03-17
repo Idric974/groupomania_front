@@ -1,6 +1,6 @@
 <template>
   <div class="btn-appli" v-if="state == '1'">
-    <router-link to="/ReportedComment"
+    <router-link to="/Reported"
       ><h3><i class="fas fa-sign-out-alt"></i> Admin</h3></router-link
     >
   </div>
