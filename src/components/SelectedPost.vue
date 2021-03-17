@@ -97,6 +97,7 @@ export default {
     findOne() {
       const params = this.$route.params.id;
       const userIdStorage = localStorage.getItem("groupomania");
+
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;
 
@@ -121,11 +122,14 @@ export default {
           success.json().then((result) => {
             this.posts = result.posts;
             console.log(this.posts);
+
             this.date = FORMAT_DATE(result.posts.createdAt);
             console.log(this.date);
+
             const userIdPost = result.posts.userId;
             console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
             console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
+
             if (userIdPost !== userId) {
               console.log("userId connecté est différent de postUserId ❌❌❌");
               this.state = 0;

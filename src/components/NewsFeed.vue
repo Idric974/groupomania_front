@@ -29,11 +29,6 @@
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
       <div class="setup-button" v-if="state == 'admin'">
-        <router-link to="/UpDatePost"
-          ><button type="submit" class="small">
-            Modifier
-          </button></router-link
-        >
         <button type="submit" v-on:click="deletPost(post.id)" class="small">
           Supprimer
         </button>
@@ -78,6 +73,7 @@ export default {
           success.json().then((result) => {
             this.posts = result.posts.map((post) => {
               post.formatedDate = FORMAT_DATE(post.createdAt);
+
               return post;
             });
           });

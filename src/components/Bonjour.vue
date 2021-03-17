@@ -1,17 +1,14 @@
 <template>
-  <div class="btn-appli" v-if="state == '1'">
-    <router-link to="/ReportedComment"
-      ><h3><i class="fas fa-sign-out-alt"></i> Admin</h3></router-link
-    >
-  </div>
+  <div class="bonjour">Bonjour {{ users.firstname }} {{ users.name }}</div>
 </template>
 
 <script>
 export default {
   name: "BtnLogout",
+
   data() {
     return {
-      state: "",
+      users: [],
     };
   },
 
@@ -20,10 +17,10 @@ export default {
       const userIdStorage = localStorage.getItem("groupomania");
 
       const objJson = JSON.parse(userIdStorage);
+
       const token = objJson.token;
 
-      const UserIdJson = JSON.parse(userIdStorage);
-      const userId = UserIdJson.userId;
+      const userId = objJson.userId;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -45,20 +42,16 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-            console.log(
-              "✔️✔️✔️ 😃➖➖➖➖➖➖► User State =",
-              this.users.admin
-            );
-            if (this.users.admin !== true) {
-              this.state = 0;
-            } else {
-              this.state = 1;
-            }
+            console.log(this.users);
           });
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+
+    deleteProfil() {
+      console.log("Fonction à déveloper");
     },
   },
 
@@ -68,6 +61,4 @@ export default {
 };
 </script>
 
-//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
-
-<style lang="scss" scoped></style>
+<style></style>

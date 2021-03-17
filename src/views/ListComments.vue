@@ -2,6 +2,8 @@
   <!-- 👉 views ListComments 👈-->
 
   <div class="ListComments">
+    <div class="ajust"><Bonjour /></div>
+
     <BtnLogout />
     <BtnHome />
     <br />
@@ -21,12 +23,13 @@
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
+import Bonjour from "../components/Bonjour.vue";
 import BtnLogout from "@/components/BtnLogout.vue";
 import BtnHome from "@/components/BtnHome.vue";
 import Comments from "@/components/Comments.vue";
 import SelectedPost from "../components/SelectedPost.vue";
 export default {
-  components: { BtnHome, BtnLogout, Comments, SelectedPost },
+  components: { BtnHome, BtnLogout, Comments, SelectedPost, Bonjour },
   data: () => ({
     comment: [],
   }),
@@ -55,5 +58,9 @@ export default {
 h2 {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.ajust {
+  margin-bottom: 50px;
 }
 </style>

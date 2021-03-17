@@ -207,11 +207,17 @@ table {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 .bonjour {
-  width: 100%;
+  width: 98%;
   background-color: black;
   color: white;
   position: fixed;
   top: 0;
+  border-radius: 0px 0px 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 //*🔴👉 Button Style.

@@ -1,7 +1,6 @@
 <template>
-  <!-- 👉 views home 👈-->
-
   <div class="Home">
+    <div><Bonjour /></div>
     <div class="logo"></div>
 
     <!--✅ 👉 Bouton page accueil-->
@@ -21,6 +20,7 @@
 </template>
 
 <script>
+import Bonjour from "../components/Bonjour.vue";
 import BtnSeeProfile from "@/components/BtnSeeProfile.vue";
 import BtnSendContent from "../components/BtnSendContent.vue";
 import BoxNewsFeed from "../components/BoxNewsFeed.vue";
@@ -29,6 +29,7 @@ import BtnAdmin from "../components/BtnAdmin.vue";
 
 export default {
   components: {
+    Bonjour,
     BtnSeeProfile,
     BoxNewsFeed,
     BtnSendContent,
@@ -56,6 +57,7 @@ export default {
   background-position: center;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
 
   @media screen and (min-width: 740px) and (max-width: 991px) {
     width: 50%;
