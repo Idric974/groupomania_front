@@ -9,6 +9,7 @@
       <div><BtnLogout /></div>
       <div><BtnSeeProfile /></div>
       <div><BtnSendContent /></div>
+      <div><BtnAdmin /></div>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
@@ -24,6 +25,7 @@ import BtnSeeProfile from "@/components/BtnSeeProfile.vue";
 import BtnSendContent from "../components/BtnSendContent.vue";
 import BoxNewsFeed from "../components/BoxNewsFeed.vue";
 import BtnLogout from "../components/BtnLogout.vue";
+import BtnAdmin from "../components/BtnAdmin.vue";
 
 export default {
   components: {
@@ -31,6 +33,7 @@ export default {
     BoxNewsFeed,
     BtnSendContent,
     BtnLogout,
+    BtnAdmin,
   },
   name: "Home",
   props: {

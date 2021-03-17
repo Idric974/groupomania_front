@@ -71,7 +71,7 @@ export default {
     },
 
     deleteProfil() {
-      console.log("deleteProfil");
+      console.log("Fonction à déveloper");
     },
   },
 
@@ -86,6 +86,7 @@ export default {
 <style lang="scss" scoped>
 .employee-profile {
   //border: solid black 1px;
+
   border-radius: 10px;
   box-shadow: black 0px 0px 5px 1px;
   margin-top: 10px;
@@ -123,7 +124,7 @@ export default {
   }
 
   .btn_profil {
-    width: 260px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     margin-left: auto;

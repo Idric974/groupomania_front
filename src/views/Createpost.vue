@@ -100,7 +100,8 @@ export default {
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log(success);
+          console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Poste crée " + success);
+          window.location.reload();
         })
         .catch(function(error) {
           console.log(

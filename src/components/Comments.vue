@@ -24,7 +24,11 @@
               Modifier
             </button></router-link
           >
-          <button type="submit" v-on:click="deletPost(post.id)" class="small">
+          <button
+            type="submit"
+            v-on:click="deletComment(comment.id)"
+            class="small"
+          >
             Supprimer
           </button>
         </div>
@@ -125,6 +129,59 @@ export default {
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+    //* ✅ 👉 Supprimer le poste sélectionné.
+    deletComment(comment) {
+      //* ✅ 👉 Définition du headers.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      // //* ✅ 👉 Définition du body de la requête.
+
+      const values = {
+        userId: userId,
+        token: token,
+      };
+      console.log(values);
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+
+      //* ✅ 👉 Définition de la params.
+
+      const params = comment;
+      console.log(params);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/deletePost/" + params;
+      console.log(url);
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+
+            alert("⚠️ Votre commentaire a été Supprimé ⚠️");
+            window.location.reload();
+          });
+        })
+        .catch(function(err) {
+          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
     //* ✅ 👉 Signaler un commentaire.
     reportComment(id) {
       console.log("✔️✔️✔️ 👉  USER ID =", userId);
@@ -214,11 +271,13 @@ export default {
       height: auto;
       height: auto;
       border-radius: 10px 10px 0px 0px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       background-color: rgb(236, 236, 236);
       padding-top: 10px;
       padding-bottom: 10px;
       color: black;
+      font-weight: bolder;
+      border-bottom: solid white 2px;
     }
 
     .comment {

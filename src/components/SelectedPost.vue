@@ -8,7 +8,7 @@
         Publié par : {{ posts.user.name }} {{ posts.user.firstname }}
       </div>
 
-      <div class="date">Date création : {{ date }}</div>
+      <div class="date">Création : {{ date }}</div>
 
       <div class="title">Titre : {{ posts.title }}</div>
 
@@ -188,7 +188,8 @@ export default {
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log(success);
+          console.log("Commentaire crée" + success);
+          window.location.reload();
         })
         .catch(function(error) {
           console.log(
@@ -238,6 +239,7 @@ export default {
 
           response.json().then(function(data) {
             console.log(data);
+
             alert("⚠️ Votre poste a été Supprimé ⚠️");
 
             window.location.href = "/home#/home";
