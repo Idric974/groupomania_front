@@ -1,8 +1,11 @@
 <template>
   <div class="btn-appli" v-if="state == '1'">
-    <router-link to="/Reported"
-      ><h3><i class="fas fa-sign-out-alt"></i> Admin</h3></router-link
-    >
+    <div class="font">
+      <i class="fas fa-users-cog"></i>
+    </div>
+    <div class="btn-title">
+      <router-link to="/Reported"><h3>Administrateur</h3></router-link>
+    </div>
   </div>
 </template>
 
@@ -45,8 +48,10 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
+
             console.log(
-              "✔️✔️✔️ 😃➖➖➖➖➖➖► User State =",
+              "%c ✔️ User admin state ===>>",
+              "color:red ;  font-size: 15px",
               this.users.admin
             );
             if (this.users.admin !== true) {

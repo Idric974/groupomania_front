@@ -348,7 +348,7 @@ export default {
     .content {
       padding-top: 10px;
       padding-bottom: 10px;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: bolder;
     }
   }
@@ -358,7 +358,7 @@ export default {
     min-height: 100px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     background-color: white;
     margin-left: auto;
     margin-right: auto;

@@ -1,8 +1,12 @@
 <template>
   <div class="btn-appli">
-    <router-link to="/home"
-      ><h3><i class="fas fa-home"></i> Accueil</h3></router-link
-    >
+    <div class="font">
+      <i class="fas fa-home"></i>
+    </div>
+
+    <div class="btn-title">
+      <router-link to="/home"><h3>Accueil</h3></router-link>
+    </div>
   </div>
 </template>
 

@@ -28,8 +28,12 @@
       </div>
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button" v-if="state == 'admin'">
-        <button type="submit" v-on:click="deletPost(post.id)" class="small">
+      <div class="setup-button" v-if="state == '1'">
+        <button
+          type="submit"
+          v-on:click="deletPost(post.id)"
+          class="small color"
+        >
           Supprimer
         </button>
       </div>
@@ -83,10 +87,104 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //*✅👉 Afficher le bouton Supprimer si utilisateur et admin.
+    findOneUser() {
+      const userIdStorage = localStorage.getItem("groupomania");
+
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
+
+      const userId = objJson.userId;
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/user/findOne/" + userId;
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            this.users = result.users;
+            console.log(this.users.admin);
+
+            if (this.users.admin == true) {
+              this.state = 1;
+            } else {
+              this.state = 0;
+            }
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Supprimer le poste sélectionné.
+    deletPost(id) {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+      const token = objJson.token;
+      const userId = objJson.userId;
+
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      //* ✅ 👉 Définition du body de la requête.
+      const values = {
+        userId: userId,
+        token: token,
+      };
+
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/deletePost/" + id;
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+
+            alert("⚠️ Votre poste a été Supprimé ⚠️");
+            window.location.reload();
+          });
+        })
+        .catch(function(err) {
+          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {
     this.readAllPosts();
+    this.findOneUser();
   },
 };
 </script>
@@ -123,7 +221,7 @@ export default {
     .title,
     .content {
       width: 100%;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: bolder;
       margin-left: auto;
       margin-right: auto;
@@ -133,15 +231,17 @@ export default {
 
     .content {
       width: 95%;
-      height: 30px;
+      max-height: 40px;
       padding-top: 10px;
       padding-bottom: 10px;
-      font-size: 1.3rem;
+      padding-left: 5px;
       background-color: white;
       margin-left: auto;
       margin-right: auto;
       border-radius: 10px;
       overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 

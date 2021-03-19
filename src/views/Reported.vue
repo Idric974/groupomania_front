@@ -22,6 +22,27 @@
           {{ post.content }}
         </div>
         <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+
+        <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
+        <div class="setup-button" v-if="state == '1'">
+          <button
+            type="submit"
+            v-on:click="deletPost(post.id)"
+            class="small color"
+          >
+            Supprimer
+          </button>
+
+          <button
+            type="submit"
+            v-on:click="supReportPost(post.id)"
+            class="small color-green"
+          >
+            Annuler
+          </button>
+        </div>
+
+        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
       </div>
     </div>
   </div>
@@ -36,7 +57,7 @@ export default {
   components: { BtnHome, BtnLogout },
   data: () => ({
     posts: [],
-    state: "",
+    state: "1",
   }),
 
   methods: {
@@ -85,6 +106,113 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Supprimer le poste sélectionné.
+    deletPost(id) {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+      const token = objJson.token;
+      const userId = objJson.userId;
+
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      //* ✅ 👉 Définition du body de la requête.
+      const values = {
+        userId: userId,
+        token: token,
+      };
+
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/deletePost/" + id;
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+
+            alert("⚠️ Votre poste a été Supprimé ⚠️");
+            window.location.reload();
+          });
+        })
+        .catch(function(err) {
+          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Signaler un post.
+    supReportPost(id) {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
+
+      //* ✅ 👉 Définition du body de la requête.
+      const values = {
+        signale: "false",
+      };
+      console.log("✔️✔️✔️ 👉  VALUES =", values);
+      const body = JSON.stringify(values);
+      console.log("✔️✔️✔️ 👉  BODY =", body);
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json; charset=UTF-8");
+
+      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/supReportPost/" + id;
+      console.log("✔️✔️✔️ 👉  URL =", url);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log(
+              "Looks like there was a problem. Status Code: " + response.status
+            );
+
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+
+            alert("⚠️ Signalement annulé ⚠️");
+            window.location.reload();
+          });
+        })
+        .catch(function(err) {
+          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
   mounted() {
     this.readAllReported();

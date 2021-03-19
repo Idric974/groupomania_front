@@ -69,7 +69,14 @@ export default {
         console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► user logged 👍", success);
         const result = await success.json();
         console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Id + Token user 👍", result);
+        console.log(
+          "%c ✔️ UserIdLogged ===>>",
+          "color:red ;  font-size: 15px",
+          result.userId
+        );
+
         window.localStorage.setItem("groupomania", JSON.stringify(result));
+
         this.$emit("authenticated", true);
         this.$router.push({ name: "home" });
       }

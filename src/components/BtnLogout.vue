@@ -1,8 +1,10 @@
 <template>
   <div class="btn-appli">
-    <router-link to="/"
-      ><h3><i class="fas fa-sign-out-alt"></i> Me déconnecter</h3></router-link
-    >
+    <div class="font"><i class="fas fa-sign-out-alt"></i></div>
+
+    <div class="btn-title">
+      <router-link to="/"><h3>Déconnection</h3></router-link>
+    </div>
   </div>
 </template>
 
