@@ -4,218 +4,56 @@
     <BtnLogout />
     <BtnHome />
     <br />
+
     <hr />
 
-    <div class="repoted-object">
-      <h2 class="repoted-title">Liste des postes signalés</h2>
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
-      <div class="post" v-for="post in posts" :key="post.id">
-        <div class="alias">
-          Publié par : {{ post.user.name }} {{ post.user.firstname }}
-        </div>
+    <div class="container">
+      <div class="container-onglets">
+        <div class="onglets active" data-anim="1">Postes</div>
+        <div class="onglets" data-anim="2">Commentaires</div>
+      </div>
 
-        <div class="formated-date">{{ post.formatedDate }}</div>
+      <div class="contenu activeContenu" data-anim="1">
+        <ReportedPost />
+      </div>
 
-        <div class="title">Titre : {{ post.title }}</div>
-
-        <div class="content">
-          {{ post.content }}
-        </div>
-        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-
-        <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-        <div class="setup-button" v-if="state == '1'">
-          <button
-            type="submit"
-            v-on:click="deletPost(post.id)"
-            class="small color"
-          >
-            Supprimer
-          </button>
-
-          <button
-            type="submit"
-            v-on:click="supReportPost(post.id)"
-            class="small color-green"
-          >
-            Annuler
-          </button>
-        </div>
-
-        <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+      <div class="contenu" data-anim="2">
+        <ReportedComment />
       </div>
     </div>
+
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+
+    <!-- <div>
+      <ReportedPost />
+    </div>
+
+    <div>
+      <ReportedComment />
+    </div> -->
   </div>
 </template>
 
 <script>
 import BtnLogout from "@/components/BtnLogout.vue";
 import BtnHome from "@/components/BtnHome.vue";
-import { FORMAT_DATE } from "../services/utilities";
+import ReportedPost from "@/components/ReportedPost.vue";
+import ReportedComment from "@/components/ReportedComment.vue";
+
 export default {
   name: "Reported",
-  components: { BtnHome, BtnLogout },
-  data: () => ({
-    posts: [],
-    state: "1",
-  }),
+  components: { BtnHome, BtnLogout, ReportedPost, ReportedComment },
 
   methods: {
-    //* ✅ 👉 Afficher tous les postes.
-    readAllReported() {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-      const token = objJson.token;
+    tab() {},
 
-      const userId = objJson.userId;
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/readAllReported/";
-      console.log(url);
-
-      const values = {
-        userId: userId,
-        token: token,
-      };
-      console.log(values);
-      const body = JSON.stringify(values);
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "POST",
-        headers: headers,
-        body: body,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            this.posts = result.posts.map((post) => {
-              post.formatedDate = FORMAT_DATE(post.createdAt);
-
-              return post;
-            });
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    mounted() {
+      this.tab();
     },
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    //* ✅ 👉 Supprimer le poste sélectionné.
-    deletPost(id) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-      const token = objJson.token;
-      const userId = objJson.userId;
-
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition du body de la requête.
-      const values = {
-        userId: userId,
-        token: token,
-      };
-
-      const body = JSON.stringify(values);
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "POST",
-        headers: headers,
-        body: body,
-      };
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/deletePost/" + id;
-
-      fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log("Poste supprimé: 👍 👍 👍" + response.status);
-
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Votre poste a été Supprimé ⚠️");
-            window.location.reload();
-          });
-        })
-        .catch(function(err) {
-          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
-        });
-    },
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    //* ✅ 👉 Signaler un post.
-    supReportPost(id) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
-      const token = objJson.token;
-
-      //* ✅ 👉 Définition du body de la requête.
-      const values = {
-        signale: "false",
-      };
-      console.log("✔️✔️✔️ 👉  VALUES =", values);
-      const body = JSON.stringify(values);
-      console.log("✔️✔️✔️ 👉  BODY =", body);
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json; charset=UTF-8");
-
-      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/supReportPost/" + id;
-      console.log("✔️✔️✔️ 👉  URL =", url);
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "POST",
-        headers: headers,
-        body: body,
-      };
-      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
-
-      fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log(
-              "Looks like there was a problem. Status Code: " + response.status
-            );
-
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Signalement annulé ⚠️");
-            window.location.reload();
-          });
-        })
-        .catch(function(err) {
-          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
-        });
-    },
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-  },
-  mounted() {
-    this.readAllReported();
   },
 };
 </script>
@@ -258,12 +96,17 @@ export default {
     }
     .alias,
     .formated-date,
-    .title,
-    .content {
+    .title {
       padding-top: 10px;
       padding-bottom: 10px;
       font-size: 1.2rem;
       font-weight: bolder;
+    }
+
+    .content {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 1.2rem;
     }
   }
 
@@ -277,6 +120,76 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
+  }
+}
+
+//******************************************************** */
+
+.container {
+  width: 100%;
+  height: 300px;
+  background: #f1f1f1;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container-onglets {
+  background: #f1f1f1;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  border-bottom: 1px solid #333;
+}
+.onglets {
+  width: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.onglets:not(:nth-child(2)) {
+  border-right: 1px solid #333;
+}
+
+.contenu {
+  height: 70%;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+}
+.contenu h3 {
+  padding: 20px;
+}
+.contenu hr {
+  width: 20%;
+  height: 2px;
+  margin-left: 20px;
+  background: #000;
+  border: none;
+}
+.contenu p {
+  padding: 20px;
+}
+
+/* Anim */
+
+.active {
+  background: midnightblue;
+  color: #f1f1f1;
+  transition: all 0.3s ease;
+}
+
+.activeContenu {
+  animation: fade 0.5s forwards;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

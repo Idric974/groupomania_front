@@ -3,12 +3,12 @@
   <div class="selected-post">
     <div class="post">
       <div class="user-name">
-        <h1>Poste séléctionné</h1>
         <br />
-        Publié par : {{ posts.user.name }} {{ posts.user.firstname }}
+        <i class="fas fa-user"></i>
+        {{ posts.user.name }} {{ posts.user.firstname }}
       </div>
 
-      <div class="date">Création : {{ date }}</div>
+      <div class="date">{{ date }}</div>
 
       <div class="title">Titre : {{ posts.title }}</div>
 
@@ -344,12 +344,17 @@ export default {
     }
     .user-name,
     .date,
-    .title,
-    .content {
+    .title {
       padding-top: 10px;
       padding-bottom: 10px;
       font-size: 1.3rem;
       font-weight: bolder;
+    }
+
+    .content {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 1.2rem;
     }
   }
 

@@ -59,6 +59,12 @@ export default {
   padding-bottom: 5px;
 }
 
+.id {
+  margin-top: 5px;
+  color: red;
+  font-weight: bolder;
+}
+
 //*🔴👉 Button Style.
 
 .home-btn {

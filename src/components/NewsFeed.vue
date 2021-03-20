@@ -6,7 +6,8 @@
 
     <div class="post" v-for="post in posts" :key="post.id">
       <div class="alias">
-        Publié par : {{ post.user.name }} {{ post.user.firstname }}
+        <i class="fas fa-user"></i>{{ post.user.name }}
+        {{ post.user.firstname }}
       </div>
 
       <div class="formated-date">{{ post.formatedDate }}</div>
@@ -231,6 +232,7 @@ export default {
 
     .content {
       width: 95%;
+      font-size: 1.2rem;
       max-height: 40px;
       padding-top: 10px;
       padding-bottom: 10px;

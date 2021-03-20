@@ -1,142 +1,72 @@
 <template>
   <div class="comments-box">
-    <!--✅ 👉 Affiche les commentaires du post sélectionné-->
+    <h2 class="repoted-title">Liste des commentaires signalés</h2>
+
     <div class="comments" v-for="comment in comments" :key="comment.id">
       <div class="user-name">
-        De:
-        {{ comment.user.alias }}
+        De : {{ comment.user.name }} {{ comment.user.firstname }}
       </div>
 
       <div class="formated-date">{{ comment.formatedDate }}</div>
 
-      <div class="title">
-        {{ comment.title }}
-      </div>
+      <div class="title">Titre : {{ comment.title }}</div>
 
       <div class="comment">
         {{ comment.comment }}
       </div>
 
-      <div class="setup-button">
-        <div class="eddit-supp" v-if="state == 1">
-          <router-link to="/UpDatePost"
-            ><button type="submit" class="small">
-              Modifier
-            </button></router-link
-          >
-          <button
-            type="submit"
-            v-on:click="deletComment(comment.id)"
-            class="small"
-          >
-            Supprimer
-          </button>
-        </div>
+      <div class="id">id {{ comment.id }}</div>
+      <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
-        <div class="signale" v-if="state == 0">
-          <button
-            type="submit"
-            v-on:click="reportComment(comment.id)"
-            class="small color"
-          >
-            Signaler
-          </button>
-        </div>
+      <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
+      <div class="setup-button" v-if="state == '1'">
+        <button
+          type="submit"
+          v-on:click="deletComment(post.id)"
+          class="small color"
+        >
+          Supprimer
+        </button>
+
+        <button
+          type="submit"
+          v-on:click="supReportComment(post.id)"
+          class="small color-green"
+        >
+          Annuler
+        </button>
       </div>
+
+      <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
     </div>
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
 </template>
 
-//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
-
 <script>
 import { FORMAT_DATE } from "../services/utilities";
-
-import { userId } from "../services/utilities";
-console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserId =", userId);
-
-import { token } from "../services/utilities";
-console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserToken =", token);
-
 export default {
-  name: "Comments",
+  name: "Reported",
   data: () => ({
     comments: [],
-    comment: [],
-    state: "",
+    state: "1",
   }),
 
   methods: {
-    //* ✅ 👉 Afficher le poste.
-    findAll() {
-      const params = this.$route.params.id;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Comments Post Id", params);
-
-      const infoStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(infoStorage);
+    //* ✅ 👉 Afficher tous les postes.
+    readAllReported() {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+      const token = objJson.token;
 
       const userId = objJson.userId;
-      //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userId", userId);
 
-      const userToken = objJson.token;
-      //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userToken", objJson.token);
-
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${userToken}`);
-
-      // //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
-
-      // //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            this.comments = result.comments.map((comment) => {
-              comment.formatedDate = FORMAT_DATE(comment.createdAt);
-
-              const userIdPost = comment.userId;
-              console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
-              console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
-
-              if (userIdPost !== userId) {
-                console.log(
-                  "userId connecté est différent de postUserId ❌❌❌"
-                );
-                this.state = 0;
-              } else {
-                console.log(
-                  "userId connecté est le même que postUserId 👍 👍 👍"
-                );
-                this.state = 1;
-              }
-
-              return comment;
-            });
-
-            console.log(this.comments);
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    //* ✅ 👉 Supprimer le poste sélectionné.
-    deletComment(comment) {
-      //* ✅ 👉 Définition du headers.
+      //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
 
-      // //* ✅ 👉 Définition du body de la requête.
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/readAllReported/";
+      console.log(url);
 
       const values = {
         userId: userId,
@@ -152,14 +82,50 @@ export default {
         body: body,
       };
 
-      //* ✅ 👉 Définition de la params.
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            this.comments = result.comments.map((comment) => {
+              comment.formatedDate = FORMAT_DATE(comment.createdAt);
 
-      const params = comment;
-      console.log(params);
+              return comment;
+            });
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Supprimer le poste sélectionné.
+    deletComment(id) {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+      const token = objJson.token;
+      const userId = objJson.userId;
+
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      //* ✅ 👉 Définition du body de la requête.
+      const values = {
+        userId: userId,
+        token: token,
+      };
+
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/deleteComment/" + params;
-      console.log(url);
+      let url = "http://localhost:3000/api/post/deleteComment/" + id;
 
       fetch(url, parametresDeRequete)
         .then(function(response) {
@@ -182,15 +148,16 @@ export default {
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-    //* ✅ 👉 Signaler un commentaire.
-    reportComment(id) {
-      console.log("✔️✔️✔️ 👉  USER ID =", userId);
-      console.log("✔️✔️✔️ 👉  TOKEN =", token);
-      console.log("✔️✔️✔️ 👉  COMMENT ID =", id);
+    //* ✅ 👉 Signaler un post.
+    supReportComment(id) {
+      const userIdStorage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
 
       //* ✅ 👉 Définition du body de la requête.
       const values = {
-        signale: "true",
+        signale: "false",
       };
       console.log("✔️✔️✔️ 👉  VALUES =", values);
       const body = JSON.stringify(values);
@@ -204,7 +171,7 @@ export default {
       console.log("✔️✔️✔️ 👉  HEADERS =", headers);
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/reportComment/" + id;
+      let url = "http://localhost:3000/api/post/supReportComment/" + id;
       console.log("✔️✔️✔️ 👉  URL =", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
@@ -221,30 +188,35 @@ export default {
             console.log(
               "Looks like there was a problem. Status Code: " + response.status
             );
+
             return;
           }
 
           response.json().then(function(data) {
             console.log(data);
+
+            alert("⚠️ Signalement annulé ⚠️");
+            window.location.reload();
           });
         })
         .catch(function(err) {
           console.log("❌❌❌ CATCH a Fetch Error :-S", err);
         });
     },
-
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
-
   mounted() {
-    this.findAll();
+    this.readAllReported();
   },
 };
 </script>
 
-//*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
+<style scoped lang="scss">
+.admin {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
 
-<style lang="scss" scoped>
 .comments-box {
   width: 100%;
 
@@ -261,7 +233,7 @@ export default {
       height: auto;
       border-radius: 10px 10px 0px 0px;
 
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bolder;
       padding-bottom: 10px;
     }
