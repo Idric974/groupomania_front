@@ -1,40 +1,29 @@
 <template>
   <div class="ReportedComment">
-    <h1 class="admin">Page administration</h1>
-    <BtnLogout />
-    <BtnHome />
-    <br />
-
-    <hr />
-
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
+    <div class="ReportedComment-nav">
+      <h1 class="page-title">Page administration</h1>
+      <BtnLogout />
+      <BtnHome />
+    </div>
 
     <div class="container">
       <div class="container-onglets">
-        <div class="onglets active" data-anim="1">Postes</div>
-        <div class="onglets" data-anim="2">Commentaires</div>
+        <div class="onglets active" v-on:click.prevent="showTabComment()">
+          Postes
+        </div>
+        <div class="onglets" v-on:click.prevent="showTabPost()">
+          Commentaires
+        </div>
       </div>
 
-      <div class="contenu activeContenu" data-anim="1">
+      <div class="post-contenu  ">
         <ReportedPost />
       </div>
 
-      <div class="contenu" data-anim="2">
+      <div class="comment-contenu">
         <ReportedComment />
       </div>
     </div>
-
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-    <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
-
-    <!-- <div>
-      <ReportedPost />
-    </div>
-
-    <div>
-      <ReportedComment />
-    </div> -->
   </div>
 </template>
 
@@ -47,148 +36,95 @@ import ReportedComment from "@/components/ReportedComment.vue";
 export default {
   name: "Reported",
   components: { BtnHome, BtnLogout, ReportedPost, ReportedComment },
-
   methods: {
-    tab() {},
-
-    mounted() {
-      this.tab();
+    showTabComment() {
+      let tabComment = document.getElementsByClassName("post-contenu");
+      tabComment.classList.add("post-contenu");
+      console.log(tabComment);
+    },
+    showTabPost() {
+      let tabPost = document.getElementsByClassName("post-contenu");
+      tabPost.classList.add("comment-contenu");
+      console.log(tabPost);
     },
   },
+  // mounted() {
+  //   this.showTabComment();
+  //   this.showTabPost();
+  // },
 };
 </script>
 
 <style scoped lang="scss">
-.admin {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.repoted-object {
+.ReportedComment {
   width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
 
-  .repoted-title {
+  .ReportedComment-nav {
     margin-top: 20px;
-    margin-bottom: 10px;
-  }
+    margin-bottom: 20px;
 
-  .post {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    background-color: rgba(180, 207, 243, 0.8);
-    box-shadow: #1e3d59 0px 0px 10px 5px;
-    border-radius: 10px;
-
-    @media screen and (min-width: 742px) and (max-width: 991px) {
-    }
-
-    @media screen and (min-width: 992px) {
-      margin-left: auto;
-      margin-right: auto;
-      width: 80%;
-    }
-    .alias,
-    .formated-date,
-    .title {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: 1.2rem;
-      font-weight: bolder;
-    }
-
-    .content {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: 1.2rem;
+    .page-title {
+      margin-top: 10px;
+      margin-bottom: 20px;
     }
   }
 
-  .content {
-    width: 95%;
-    min-height: 100px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 1.1rem;
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
+  .container {
+    width: 100%;
+    height: 300px;
+
+    .container-onglets {
+      width: 100%;
+      height: 20%;
+      display: flex;
+      border-bottom: 1px solid #333;
+
+      .onglets {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: bolder;
+        cursor: pointer;
+
+        .onglets:not(:nth-child(2)) {
+          border-right: 1px solid #333;
+        }
+      }
+
+      .active {
+        background: midnightblue;
+        color: #f1f1f1;
+        transition: all 0.3s ease;
+      }
+    }
+
+    .contenu {
+      width: 97%;
+      position: absolute;
+      //opacity: 1;
+
+      // @keyframes fade {
+      //   from {
+      //     opacity: 0;
+      //   }
+      //   to {
+      //     opacity: 0;
+      //   }
+      // }
+    }
+
+    // .activeContenu {
+    //   animation: fade 0.5s forwards;
+    // }
   }
-}
 
-//******************************************************** */
-
-.container {
-  width: 100%;
-  height: 300px;
-  background: #f1f1f1;
-  border-radius: 2px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.container-onglets {
-  background: #f1f1f1;
-  width: 100%;
-  height: 30%;
-  display: flex;
-  border-bottom: 1px solid #333;
-}
-.onglets {
-  width: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.onglets:not(:nth-child(2)) {
-  border-right: 1px solid #333;
-}
-
-.contenu {
-  height: 70%;
-  width: 100%;
-  position: absolute;
-  opacity: 0;
-}
-.contenu h3 {
-  padding: 20px;
-}
-.contenu hr {
-  width: 20%;
-  height: 2px;
-  margin-left: 20px;
-  background: #000;
-  border: none;
-}
-.contenu p {
-  padding: 20px;
-}
-
-/* Anim */
-
-.active {
-  background: midnightblue;
-  color: #f1f1f1;
-  transition: all 0.3s ease;
-}
-
-.activeContenu {
-  animation: fade 0.5s forwards;
-}
-@keyframes fade {
-  from {
-    opacity: 0;
+  .comment-contenu {
+    opacity: 1;
   }
-  to {
+
+  .post-contenu {
     opacity: 1;
   }
 }
