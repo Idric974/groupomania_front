@@ -1,6 +1,8 @@
 <template>
   <div class="comments-box">
-    <h2 class="repoted-title">Liste des commentaires signalés</h2>
+    <div class="report-title">
+      <h2>Liste des commentaires signalés</h2>
+    </div>
 
     <div class="comments" v-for="comment in comments" :key="comment.id">
       <div class="user-name">
@@ -212,13 +214,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.admin {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
 .comments-box {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  border: solid red 1px;
+
+  .report-title {
+    width: 100%;
+  }
 
   .comments {
     width: 100%;
@@ -265,10 +271,6 @@ export default {
     .setup-button {
       display: flex;
       justify-content: center;
-
-      .eddit-supp {
-        display: flex;
-      }
     }
   }
 }

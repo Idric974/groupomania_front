@@ -8,20 +8,22 @@
 
     <div class="container">
       <div class="container-onglets">
-        <div class="onglets active" v-on:click.prevent="showTabComment()">
+        <div id="onglets " class="active" @click="reportedPOst()">
           Postes
         </div>
-        <div class="onglets" v-on:click.prevent="showTabPost()">
+        <div id="onglets" @click="reportedComment()">
           Commentaires
         </div>
       </div>
 
-      <div class="post-contenu  ">
-        <ReportedPost />
-      </div>
+      <div class="content ">
+        <div id="postContent">
+          <ReportedPost />
+        </div>
 
-      <div class="comment-contenu">
-        <ReportedComment />
+        <div id="commentContent">
+          <ReportedComment />
+        </div>
       </div>
     </div>
   </div>
@@ -35,29 +37,33 @@ import ReportedComment from "@/components/ReportedComment.vue";
 
 export default {
   name: "Reported",
+  state: "0",
   components: { BtnHome, BtnLogout, ReportedPost, ReportedComment },
   methods: {
-    showTabComment() {
-      let tabComment = document.getElementsByClassName("post-contenu");
-      tabComment.classList.add("post-contenu");
-      console.log(tabComment);
+    reportedComment() {
+      var postContent = document.getElementById("postContent");
+      postContent.style.opacity = "0";
+
+      var commentContent = document.getElementById("commentContent");
+      commentContent.style.opacity = "1";
     },
-    showTabPost() {
-      let tabPost = document.getElementsByClassName("post-contenu");
-      tabPost.classList.add("comment-contenu");
-      console.log(tabPost);
+
+    reportedPOst() {
+      var postContent = document.getElementById("postContent");
+      postContent.style.opacity = "1";
+
+      var commentContent = document.getElementById("commentContent");
+      commentContent.style.opacity = "0";
     },
   },
-  // mounted() {
-  //   this.showTabComment();
-  //   this.showTabPost();
-  // },
 };
 </script>
 
 <style scoped lang="scss">
 .ReportedComment {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   .ReportedComment-nav {
     margin-top: 20px;
@@ -71,15 +77,14 @@ export default {
 
   .container {
     width: 100%;
-    height: 300px;
 
     .container-onglets {
       width: 100%;
-      height: 20%;
+      height: 40px;
       display: flex;
       border-bottom: 1px solid #333;
 
-      .onglets {
+      #onglets {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -87,45 +92,41 @@ export default {
         font-size: 1.3rem;
         font-weight: bolder;
         cursor: pointer;
-
-        .onglets:not(:nth-child(2)) {
-          border-right: 1px solid #333;
-        }
+        border-radius: 10px 10px 0px 0px;
+        background-color: #333;
+        color: white;
       }
 
       .active {
-        background: midnightblue;
-        color: #f1f1f1;
-        transition: all 0.3s ease;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: bolder;
+        cursor: pointer;
+        border-radius: 10px 10px 0px 0px;
+        background-color: blue;
+        color: white;
+        border: brown;
       }
     }
 
-    .contenu {
-      width: 97%;
-      position: absolute;
-      //opacity: 1;
+    .content {
+      width: 100%;
+      height: 50px;
+      position: relative;
 
-      // @keyframes fade {
-      //   from {
-      //     opacity: 0;
-      //   }
-      //   to {
-      //     opacity: 0;
-      //   }
-      // }
+      #postContent {
+        position: absolute;
+        opacity: 1;
+      }
+
+      #commentContent {
+        position: absolute;
+        opacity: 0;
+      }
     }
-
-    // .activeContenu {
-    //   animation: fade 0.5s forwards;
-    // }
-  }
-
-  .comment-contenu {
-    opacity: 1;
-  }
-
-  .post-contenu {
-    opacity: 1;
   }
 }
 </style>
