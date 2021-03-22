@@ -1,5 +1,6 @@
 <template>
   <div class="comments-box">
+    <br />
     <div class="report-title">
       <h2>Liste des commentaires signalés</h2>
     </div>
@@ -220,7 +221,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-  border: solid red 1px;
 
   .report-title {
     width: 100%;

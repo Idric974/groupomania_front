@@ -8,15 +8,15 @@
 
     <div class="container">
       <div class="container-onglets">
-        <div id="onglets " class="active" @click="reportedPOst()">
+        <div id="postOnglet" @click="reportedPost()">
           Postes
         </div>
-        <div id="onglets" @click="reportedComment()">
+        <div id="commentOnglet" @click="reportedComment()">
           Commentaires
         </div>
       </div>
 
-      <div class="content ">
+      <div class="content">
         <div id="postContent">
           <ReportedPost />
         </div>
@@ -41,18 +41,30 @@ export default {
   components: { BtnHome, BtnLogout, ReportedPost, ReportedComment },
   methods: {
     reportedComment() {
-      var postContent = document.getElementById("postContent");
+      let commentOnglet = document.getElementById("commentOnglet");
+      commentOnglet.style.border = "solid rgb(253, 45, 1) 2px";
+
+      let postOnglet = document.getElementById("postOnglet");
+      postOnglet.style.border = "solid #333 1px";
+
+      let postContent = document.getElementById("postContent");
       postContent.style.opacity = "0";
 
-      var commentContent = document.getElementById("commentContent");
+      let commentContent = document.getElementById("commentContent");
       commentContent.style.opacity = "1";
     },
 
-    reportedPOst() {
-      var postContent = document.getElementById("postContent");
+    reportedPost() {
+      let commentOnglet = document.getElementById("commentOnglet");
+      commentOnglet.style.border = "solid #333 1px";
+
+      let postOnglet = document.getElementById("postOnglet");
+      postOnglet.style.border = "solid rgb(253, 45, 1) 2px";
+
+      let postContent = document.getElementById("postContent");
       postContent.style.opacity = "1";
 
-      var commentContent = document.getElementById("commentContent");
+      let commentContent = document.getElementById("commentContent");
       commentContent.style.opacity = "0";
     },
   },
@@ -62,8 +74,6 @@ export default {
 <style scoped lang="scss">
 .ReportedComment {
   width: 100%;
-  display: flex;
-  flex-direction: column;
 
   .ReportedComment-nav {
     margin-top: 20px;
@@ -84,7 +94,8 @@ export default {
       display: flex;
       border-bottom: 1px solid #333;
 
-      #onglets {
+      #postOnglet,
+      #commentOnglet {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -97,18 +108,8 @@ export default {
         color: white;
       }
 
-      .active {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.3rem;
-        font-weight: bolder;
-        cursor: pointer;
-        border-radius: 10px 10px 0px 0px;
-        background-color: blue;
-        color: white;
-        border: brown;
+      #postOnglet {
+        border: solid rgb(253, 45, 1) 2px;
       }
     }
 
@@ -118,11 +119,13 @@ export default {
       position: relative;
 
       #postContent {
+        width: 100%;
         position: absolute;
         opacity: 1;
       }
 
       #commentContent {
+        width: 100%;
         position: absolute;
         opacity: 0;
       }
