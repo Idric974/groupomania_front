@@ -3,6 +3,7 @@
     <div class="btn_acc">
       <div class="btn_acc2"><BtnLogout /></div>
       <div class="btn_acc2"><BtnHome /></div>
+      <div class="btn_acc2"><BtnRetour /></div>
     </div>
 
     <div class="composant-title">
@@ -16,10 +17,11 @@
 <script>
 import BtnLogout from "@/components/BtnLogout.vue";
 import BtnHome from "@/components/BtnHome.vue";
+import BtnRetour from "@/components/BtnRetour.vue";
 import updateprofil from "@/components/updateprofil.vue";
 
 export default {
-  components: { BtnHome, BtnLogout, updateprofil },
+  components: { BtnHome, BtnLogout, updateprofil, BtnRetour },
   name: "updateMyProfil",
   props: {
     msg: String,

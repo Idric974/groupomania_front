@@ -19,7 +19,8 @@
 
       <div class="setup-button">
         <div class="eddit-supp" v-if="state == 1">
-          <router-link to="/UpDatePost"
+          <router-link
+            :to="{ name: 'UpdateComment', params: { id: comment.id } }"
             ><button type="submit" class="small">
               Modifier
             </button></router-link
@@ -226,6 +227,7 @@ export default {
 
           response.json().then(function(data) {
             console.log(data);
+            alert("⚠️ Ce commentaire a été signalé à l’administrateur ⚠️ ");
           });
         })
         .catch(function(err) {

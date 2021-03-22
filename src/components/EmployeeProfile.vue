@@ -14,7 +14,7 @@
         </button></router-link
       >
 
-      <button class="btn-appli" v-on:click="deleteProfil()">
+      <button class="btn-appli" v-on:click="deleteUser()">
         <i class="fas fa-user-plus"></i>Supprimer profil
       </button>
     </div>
@@ -70,9 +70,60 @@ export default {
         });
     },
 
-    deleteProfil() {
-      console.log("Fonction à déveloper");
+    //* ✅ 👉 Supprimer le profil utilisateur.
+    deleteUser() {
+      //* ✅ 👉 Définition du headers.
+      const userIdStorage = localStorage.getItem("groupomania");
+
+      const objJson = JSON.parse(userIdStorage);
+
+      const token = objJson.token;
+      const userId = objJson.userId;
+
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+
+      // //* ✅ 👉 Définition du body de la requête.
+
+      const values = {
+        userId: userId,
+        token: token,
+      };
+      console.log(values);
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/user/deleteUser/" + userId;
+
+      fetch(url, parametresDeRequete)
+        .then(function(response) {
+          if (response.status !== 200) {
+            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+
+            return;
+          }
+
+          response.json().then(function(data) {
+            console.log(data);
+
+            alert("⚠️ Votre profil a été Supprimé ⚠️");
+
+            window.location.href = "/home";
+          });
+        })
+        .catch(function(err) {
+          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        });
     },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {

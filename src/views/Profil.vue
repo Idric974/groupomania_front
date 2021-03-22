@@ -16,6 +16,7 @@
 <script>
 import BtnLogout from "@/components/BtnLogout.vue";
 import BtnHome from "@/components/BtnHome.vue";
+
 import EmployeeProfile from "@/components/EmployeeProfile.vue";
 
 export default {

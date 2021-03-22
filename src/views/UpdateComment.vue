@@ -8,7 +8,7 @@
     <hr />
 
     <div class="menu_composant">
-      <h1>Modifier mon poste</h1>
+      <h1>Modifier mon commentaire</h1>
     </div>
 
     <div class="post-form">
@@ -29,8 +29,12 @@
           v-model="input.content"
         />
 
-        <button type="submit" v-on:click.prevent="updatePost()" class="poster">
-          Modifier Poste
+        <button
+          type="submit"
+          v-on:click.prevent="updateComment()"
+          class="poster"
+        >
+          Modifier Commentaire
         </button>
       </form>
     </div>
@@ -54,7 +58,7 @@ export default {
     };
   },
   methods: {
-    readPost() {
+    readComment() {
       console.log("Hello");
       const params = this.$route.params.id;
       console.log(params);
@@ -69,7 +73,7 @@ export default {
       headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/findOne/" + params;
+      let url = "http://localhost:3000/api/comment/findOneComment/" + params;
       console.log(url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
@@ -81,9 +85,9 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            this.posts = result.posts;
-            this.input.title = this.posts.title;
-            this.input.content = this.posts.content;
+            this.comments = result.comments;
+            this.input.title = this.comments.title;
+            this.input.content = this.comments.comment;
           });
         })
         .catch(function(error) {
@@ -94,7 +98,7 @@ export default {
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
     //* ✅ 👉 Mise à jour du profil enregistrées.
-    updatePost() {
+    updateComment() {
       const storage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storage);
       const token = objJson.token;
@@ -117,7 +121,7 @@ export default {
       console.log("✔️✔️✔️ 👉  HEADERS", headers);
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/updatePost/" + params;
+      let url = "http://localhost:3000/api/comment/updateComment/" + params;
       console.log("✔️✔️✔️ 👉  URL", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
@@ -140,7 +144,7 @@ export default {
           response.json().then(function(data) {
             console.log(data);
             window.location.reload();
-            alert("⚠️ Votre poste a été modifié ⚠️ ");
+            alert("⚠️ Votre commentaire a été modifié ⚠️ ");
             window.history.go(-1);
           });
         })
@@ -151,7 +155,7 @@ export default {
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
   mounted() {
-    this.readPost();
+    this.readComment();
   },
 };
 </script>

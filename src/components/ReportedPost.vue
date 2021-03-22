@@ -89,7 +89,10 @@ export default {
           success.json().then((result) => {
             this.posts = result.posts.map((post) => {
               post.formatedDate = FORMAT_DATE(post.createdAt);
-
+              console.log(result.posts.length);
+              if (result.posts.length != 1) {
+                console.log("Array is empty!");
+              }
               return post;
             });
           });
