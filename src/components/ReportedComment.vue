@@ -4,6 +4,7 @@
     <div class="report-title">
       <h2>Liste des commentaires signalés</h2>
     </div>
+    <div id="infoComment"></div>
 
     <div class="comments" v-for="comment in comments" :key="comment.id">
       <div class="user-name">
@@ -88,6 +89,13 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
+            console.log(result.comments.length);
+            if (result.comments.length == 0) {
+              console.log("Pas de commentaire a signaler");
+
+              let infoComment = document.getElementById("infoComment");
+              infoComment.innerHTML = `Il n'y a pas de commentaire signalé pour l'instant.`;
+            }
             this.comments = result.comments.map((comment) => {
               comment.formatedDate = FORMAT_DATE(comment.createdAt);
 
@@ -272,6 +280,12 @@ export default {
       display: flex;
       justify-content: center;
     }
+  }
+
+  #infoComment {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: red;
   }
 }
 </style>

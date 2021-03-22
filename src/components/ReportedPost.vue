@@ -2,6 +2,7 @@
   <div class="ReportedComment">
     <div class="repoted-object">
       <h2 class="repoted-title">Liste des postes signalés</h2>
+      <div id="info"></div>
 
       <div class="post" v-for="post in posts" :key="post.id">
         <div class="alias">
@@ -87,12 +88,17 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
+            console.log(result.posts.length);
+            if (result.posts.length == 0) {
+              console.log("Pas de poste à signaler");
+
+              let info = document.getElementById("info");
+              info.innerHTML = `Paragraphe créé et inséré grâce au JavaScript`;
+            }
+
             this.posts = result.posts.map((post) => {
               post.formatedDate = FORMAT_DATE(post.createdAt);
-              console.log(result.posts.length);
-              if (result.posts.length != 1) {
-                console.log("Array is empty!");
-              }
+
               return post;
             });
           });
@@ -278,6 +284,12 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
+  }
+
+  #info {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: red;
   }
 }
 </style>
