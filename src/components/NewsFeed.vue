@@ -2,6 +2,7 @@
   <!-- 👉 Components FilActualite 👈-->
 
   <div class="news-feed">
+    <div id="home"></div>
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
     <div class="post" v-for="post in posts" :key="post.id">
@@ -76,6 +77,13 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
+            if (result.posts.length == 0) {
+              console.log("Pas de commentaire a signaler");
+
+              let home = document.getElementById("home");
+              home.innerHTML = `Pas de poste à afficher 😃`;
+            }
+
             this.posts = result.posts.map((post) => {
               post.formatedDate = FORMAT_DATE(post.createdAt);
 
@@ -250,5 +258,9 @@ export default {
   .setup-button {
     width: 100%;
   }
+}
+#home {
+  font-size: 1.5rem;
+  color: red;
 }
 </style>

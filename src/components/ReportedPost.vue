@@ -93,7 +93,7 @@ export default {
               console.log("Pas de poste à signaler");
 
               let info = document.getElementById("info");
-              info.innerHTML = `Paragraphe créé et inséré grâce au JavaScript`;
+              info.innerHTML = `Pas poste signalé pour l'instant 😃`;
             }
 
             this.posts = result.posts.map((post) => {
@@ -288,7 +288,6 @@ export default {
 
   #info {
     font-size: 1.5rem;
-    font-weight: bolder;
     color: red;
   }
 }

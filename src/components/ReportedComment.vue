@@ -94,7 +94,7 @@ export default {
               console.log("Pas de commentaire a signaler");
 
               let infoComment = document.getElementById("infoComment");
-              infoComment.innerHTML = `Il n'y a pas de commentaire signalé pour l'instant.`;
+              infoComment.innerHTML = `Pas de commentaire signalé pour l'instant 😃`;
             }
             this.comments = result.comments.map((comment) => {
               comment.formatedDate = FORMAT_DATE(comment.createdAt);
@@ -284,7 +284,6 @@ export default {
 
   #infoComment {
     font-size: 1.5rem;
-    font-weight: bolder;
     color: red;
   }
 }
