@@ -26,7 +26,7 @@
       <div class="setup-button" v-if="state == '1'">
         <button
           type="submit"
-          v-on:click="deletComment(post.id)"
+          v-on:click="deletComment(comment.id)"
           class="small color"
         >
           Supprimer
@@ -34,7 +34,7 @@
 
         <button
           type="submit"
-          v-on:click="supReportComment(post.id)"
+          v-on:click="supReportComment(comment.id)"
           class="small color-green"
         >
           Annuler
@@ -107,9 +107,10 @@ export default {
           console.log(error);
         });
     },
+
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-    //* ✅ 👉 Supprimer le poste sélectionné.
+    //* ✅ 👉 Supprimer le commentaire sélectionné.
     deletComment(id) {
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
@@ -136,7 +137,7 @@ export default {
       };
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/deleteComment/" + id;
+      let url = "http://localhost:3000/api/comment/deleteComment/" + id;
 
       fetch(url, parametresDeRequete)
         .then(function(response) {
@@ -161,9 +162,8 @@ export default {
 
     //* ✅ 👉 Signaler un post.
     supReportComment(id) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
+      const storage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storage);
       const token = objJson.token;
 
       //* ✅ 👉 Définition du body de la requête.
@@ -182,7 +182,7 @@ export default {
       console.log("✔️✔️✔️ 👉  HEADERS =", headers);
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/supReportComment/" + id;
+      let url = "http://localhost:3000/api/comment/supReportComment/" + id;
       console.log("✔️✔️✔️ 👉  URL =", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.

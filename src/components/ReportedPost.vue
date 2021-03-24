@@ -47,6 +47,7 @@
 
 <script>
 import { FORMAT_DATE } from "../services/utilities";
+import { userIdTest } from "../services/utilities";
 export default {
   name: "Reported",
   data: () => ({
@@ -57,6 +58,7 @@ export default {
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
+      console.log("❌❌❌❌❌❌❌❌❌❌ ", userIdTest);
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;

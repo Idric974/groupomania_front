@@ -56,9 +56,6 @@
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
-//import { userId } from "../services/utilities";
-//console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserId =", userId);
-
 export default {
   name: "updateprofil",
   components: {},

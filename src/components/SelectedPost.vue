@@ -75,12 +75,6 @@
 <script>
 import { FORMAT_DATE } from "../services/utilities";
 
-import { userId } from "../services/utilities";
-console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserId =", userId);
-
-import { token } from "../services/utilities";
-console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► SelectedPost UserToken =", token);
-
 export default {
   components: {},
   data() {
@@ -207,6 +201,11 @@ export default {
 
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletPost() {
+      const storage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storage);
+      const userId = objJson.userId;
+      const token = objJson.token;
+
       //* ✅ 👉 Définition du headers.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -258,6 +257,11 @@ export default {
 
     //* ✅ 👉 Signaler un post.
     reportPost() {
+      const storage = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storage);
+      const userId = objJson.userId;
+      const token = objJson.token;
+
       console.log("✔️✔️✔️ 👉  USER ID =", userId);
       console.log("✔️✔️✔️ 👉  TOKEN =", token);
       console.log("✔️✔️✔️ 👉  POST ID =", this.posts.id);

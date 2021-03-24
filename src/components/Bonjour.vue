@@ -15,7 +15,6 @@ export default {
   methods: {
     findOneUser() {
       const userIdStorage = localStorage.getItem("groupomania");
-
       const objJson = JSON.parse(userIdStorage);
 
       const token = objJson.token;

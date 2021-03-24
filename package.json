@@ -10,6 +10,7 @@
   "dependencies": {
     "@braid/vue-formulate": "^2.5.0",
     "core-js": "^3.6.5",
+    "eslint-loader": "^2.1.2",
     "npm": "^7.5.2",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1",

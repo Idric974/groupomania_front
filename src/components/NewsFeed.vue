@@ -78,7 +78,7 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             if (result.posts.length == 0) {
-              console.log("Pas de commentaire a signaler");
+              console.log("Pas de poste à afficher");
 
               let home = document.getElementById("home");
               home.innerHTML = `Pas de poste à afficher 😃`;
