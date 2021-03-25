@@ -47,7 +47,7 @@
 
 <script>
 import { FORMAT_DATE } from "../services/utilities";
-import { userIdTest } from "../services/utilities";
+import { loggedInUser } from "../services/utilities";
 export default {
   name: "Reported",
   data: () => ({
@@ -58,7 +58,7 @@ export default {
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
-      console.log("❌❌❌❌❌❌❌❌❌❌ ", userIdTest);
+      console.log("❌❌❌❌❌❌❌❌❌❌ ", loggedInUser);
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;
@@ -91,6 +91,7 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             console.log(result.posts.length);
+
             if (result.posts.length == 0) {
               console.log("Pas de poste à signaler");
 

@@ -125,7 +125,6 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-            console.log(this.users.admin);
 
             if (this.users.admin == true) {
               this.state = 1;
