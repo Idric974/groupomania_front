@@ -47,7 +47,8 @@
 
 <script>
 import { FORMAT_DATE } from "../services/utilities";
-import { loggedInUser } from "../services/utilities";
+//import { LOGGED_IN_USER } from "../store/index";
+
 export default {
   name: "Reported",
   data: () => ({
@@ -58,7 +59,8 @@ export default {
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
-      console.log("❌❌❌❌❌❌❌❌❌❌ ", loggedInUser);
+      const idric = this.$store.state;
+      console.log("Le state", idric);
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;
@@ -71,13 +73,12 @@ export default {
 
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/readAllReported/";
-      console.log(url);
 
       const values = {
         userId: userId,
         token: token,
       };
-      console.log(values);
+
       const body = JSON.stringify(values);
 
       //* ✅ 👉 Définition des paramètres de la requête.

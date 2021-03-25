@@ -35,13 +35,11 @@ export default {
         headers: headers,
       };
 
-      console.log(parametresDeRequete);
-
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-            console.log(this.users);
+            //console.log(this.users);
           });
         })
         .catch(function(error) {

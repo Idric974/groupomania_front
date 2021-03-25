@@ -42,8 +42,6 @@ export default {
         headers: headers,
       };
 
-      console.log(parametresDeRequete);
-
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
@@ -51,7 +49,7 @@ export default {
 
             console.log(
               "%c ✔️ User admin state ===>>",
-              "color:red ;  font-size: 15px",
+              "color:green ;  font-size: 15px",
               this.users.admin
             );
             if (this.users.admin !== true) {

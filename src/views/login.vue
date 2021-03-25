@@ -50,6 +50,8 @@ export default {
   },
   methods: {
     async login() {
+      this.$store.commit("LOGGED_USER_ID");
+
       //⇓⇓ URL de la requête⇓⇓.
       let url = "http://localhost:3000/api/user/login";
 
@@ -66,14 +68,12 @@ export default {
       const success = await fetch(url, parametresDeRequete);
 
       if (success.status == 200) {
-        console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► user logged 👍", success);
-        const result = await success.json();
-        console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Id + Token user 👍", result);
         console.log(
-          "%c ✔️ UserIdLogged ===>>",
-          "color:red ;  font-size: 15px",
-          result.userId
+          "%c ✔️ User is logged ===>>",
+          "color:green ;  font-size: 15px ",
+          success
         );
+        const result = await success.json();
 
         window.localStorage.setItem("groupomania", JSON.stringify(result));
 

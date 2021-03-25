@@ -70,13 +70,12 @@ export default {
 
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/readAllReported/";
-      console.log(url);
 
       const values = {
         userId: userId,
         token: token,
       };
-      console.log(values);
+
       const body = JSON.stringify(values);
 
       //* ✅ 👉 Définition des paramètres de la requête.
