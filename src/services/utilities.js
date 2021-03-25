@@ -66,9 +66,6 @@ export const userIdTest = () => {
 
       response.json().then(function(data) {
         console.log("userId ====>>", data.data);
-
-        const userId = this.data.data;
-        return userId;
       });
     })
     .catch(function(err) {
