@@ -3,6 +3,8 @@
     <div><Bonjour /></div>
     <div class="logo"></div>
 
+    <div></div>
+
     <!--✅ 👉 Bouton page accueil-->
     <div class="home-btn">
       <div><BtnLogout /></div>
@@ -42,6 +44,20 @@ export default {
     data() {
       return {};
     },
+  },
+
+  methods: {
+    test() {
+      const idric = this.$store.state;
+      console.log(
+        "%c ✔️ User id ultime ===>>",
+        "color:red ;  font-size: 15px",
+        idric.loggedUser
+      );
+    },
+  },
+  mounted() {
+    this.test();
   },
 };
 </script>

@@ -69,9 +69,8 @@ export default {
 
       if (success.status == 200) {
         console.log(
-          "%c ✔️ User is logged ===>>",
-          "color:green ;  font-size: 15px ",
-          success
+          "%c ✔️ User is logged OK",
+          "color:green ;  font-size: 15px "
         );
         const result = await success.json();
 

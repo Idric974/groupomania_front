@@ -59,8 +59,6 @@ export default {
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
-      const idric = this.$store.state;
-      console.log("Le state", idric);
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
       const token = objJson.token;

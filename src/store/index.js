@@ -4,14 +4,13 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  data() {
-    return {
-      state: "",
-    };
+  state: {
+    loggedUser: "",
   },
+
   mutations: {
     LOGGED_USER_ID(state) {
-      console.log("Salut la terre", state);
+      console.log(state);
 
       const userIdStorage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(userIdStorage);
@@ -44,11 +43,7 @@ export default new Vuex.Store({
               "color:green ;  font-size: 15px ",
               data.data
             );
-
-            if (data == data) {
-              console.log("userId connecté est différent de postUserId ❌❌❌");
-              state = data.data;
-            }
+            // let user = data.data;
           });
         })
 
