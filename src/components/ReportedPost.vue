@@ -59,11 +59,12 @@ export default {
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      const userId = objJson.userId;
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -113,10 +114,12 @@ export default {
 
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletPost(id) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
-      const userId = objJson.userId;
+
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -163,9 +166,8 @@ export default {
 
     //* ✅ 👉 Signaler un post.
     supReportPost(id) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
       //* ✅ 👉 Définition du body de la requête.

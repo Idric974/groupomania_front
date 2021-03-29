@@ -10,10 +10,11 @@ export default new Vuex.Store({
 
   mutations: {
     LOGGED_USER_ID(state) {
-      console.log(state);
+      let userId;
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaa", userId);
 
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
       const params = token;
@@ -39,10 +40,12 @@ export default new Vuex.Store({
 
           response.json().then(function(data) {
             console.log(
-              "%c ✔️ Logged id user ===>>",
+              "%c ✔️ Logged Id user is ===>>",
               "color:green ;  font-size: 15px ",
               data.data
             );
+            userId = data.data;
+            state.loggedUser = userId;
           });
         })
 
@@ -52,7 +55,7 @@ export default new Vuex.Store({
     },
 
     mounted() {
-      this.loggedInUser();
+      this.LOGGED_USER_ID();
     },
   },
   actions: {},

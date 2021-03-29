@@ -51,7 +51,6 @@ export default {
   methods: {
     async login() {
       this.$store.commit("LOGGED_USER_ID");
-
       //⇓⇓ URL de la requête⇓⇓.
       let url = "http://localhost:3000/api/user/login";
 
@@ -72,11 +71,15 @@ export default {
           "%c ✔️ User is logged OK",
           "color:green ;  font-size: 15px "
         );
-        const result = await success.json();
 
-        window.localStorage.setItem("groupomania", JSON.stringify(result));
+        const result = await success.json();
+        let token = {
+          token: result.token,
+        };
+        window.localStorage.setItem("groupomania", JSON.stringify(token));
 
         this.$emit("authenticated", true);
+
         this.$router.push({ name: "home" });
       }
     },

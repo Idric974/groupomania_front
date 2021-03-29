@@ -60,11 +60,9 @@ export default {
   },
   methods: {
     handleSubmit() {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
-      console.log(objJson.token);
 
       const title = this.input.title;
       const content = this.input.content;

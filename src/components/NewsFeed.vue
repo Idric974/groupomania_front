@@ -57,8 +57,8 @@ export default {
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
       //* ✅ 👉 Définition des en-têtes.
@@ -99,13 +99,12 @@ export default {
 
     //*✅👉 Afficher le bouton Supprimer si utilisateur et admin.
     findOneUser() {
-      const userIdStorage = localStorage.getItem("groupomania");
-
-      const objJson = JSON.parse(userIdStorage);
-
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      const userId = objJson.userId;
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -141,10 +140,12 @@ export default {
 
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletPost(id) {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
-      const userId = objJson.userId;
+
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);

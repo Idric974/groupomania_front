@@ -68,17 +68,15 @@ export default {
       const params = this.$route.params.id;
       console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Comments Post Id", params);
 
-      const infoStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(infoStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
 
-      const userId = objJson.userId;
-      //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userId", userId);
-
-      const userToken = objJson.token;
-      //console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► userToken", objJson.token);
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       const headers = new Headers();
-      headers.append("Authorization", `Bearer ${userToken}`);
+      headers.append("Authorization", `Bearer ${token}`);
 
       // //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
@@ -126,10 +124,12 @@ export default {
 
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletComment(comment) {
-      const storage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storage);
-      const userId = objJson.userId;
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       //* ✅ 👉 Définition du headers.
       const headers = new Headers();
@@ -184,10 +184,12 @@ export default {
 
     //* ✅ 👉 Signaler un commentaire.
     reportComment(id) {
-      const storage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storage);
-      const userId = objJson.userId;
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       console.log("✔️✔️✔️ 👉  USER ID =", userId);
       console.log("✔️✔️✔️ 👉  TOKEN =", token);

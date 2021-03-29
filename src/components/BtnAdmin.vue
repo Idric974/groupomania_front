@@ -20,13 +20,12 @@ export default {
 
   methods: {
     findOneUser() {
-      const userIdStorage = localStorage.getItem("groupomania");
-
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      const UserIdJson = JSON.parse(userIdStorage);
-      const userId = UserIdJson.userId;
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();

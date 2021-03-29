@@ -92,13 +92,13 @@ export default {
     //* ✅ 👉 Afficher le poste sélectionné.
     findOne() {
       const params = this.$route.params.id;
-      const userIdStorage = localStorage.getItem("groupomania");
 
-      const objJson = JSON.parse(userIdStorage);
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      const UserIdJson = JSON.parse(userIdStorage);
-      const userId = UserIdJson.userId;
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -145,11 +145,9 @@ export default {
 
     //* ✅ 👉 Poster un commentaire.
     submitComment() {
-      const userIdStorage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(userIdStorage);
-
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
-      console.log(objJson.token);
 
       const title = this.input.title;
       const comment = this.input.comment;
@@ -201,10 +199,12 @@ export default {
 
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletPost() {
-      const storage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storage);
-      const userId = objJson.userId;
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       //* ✅ 👉 Définition du headers.
       const headers = new Headers();
@@ -257,10 +257,12 @@ export default {
 
     //* ✅ 👉 Signaler un post.
     reportPost() {
-      const storage = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storage);
-      const userId = objJson.userId;
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      let userInfo = this.$store.state;
+      let userId = userInfo.loggedUser;
 
       console.log("✔️✔️✔️ 👉  USER ID =", userId);
       console.log("✔️✔️✔️ 👉  TOKEN =", token);

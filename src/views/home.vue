@@ -46,19 +46,7 @@ export default {
     },
   },
 
-  methods: {
-    test() {
-      const idric = this.$store.state;
-      console.log(
-        "%c ✔️ User id ultime ===>>",
-        "color:red ;  font-size: 15px",
-        idric.loggedUser
-      );
-    },
-  },
-  mounted() {
-    this.test();
-  },
+  methods: {},
 };
 </script>
 
