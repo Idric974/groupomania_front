@@ -43,7 +43,6 @@ export default new Vuex.Store({
               "color:green ;  font-size: 15px ",
               data.data
             );
-            // let user = data.data;
           });
         })
 
