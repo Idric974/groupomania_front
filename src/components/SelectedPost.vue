@@ -1,8 +1,8 @@
 <template>
   <!-- 👉 Le poste séléctioné-->
   <div class="selected-post">
-    <div class="post" v-if="vue == '1'">
-      <div class="user-name">
+    <div class="post">
+      <div class="user-name" v-if="vue == 0">
         <br />
         <i class="fas fa-user"></i>
         {{ posts.user.name }} {{ posts.user.firstname }}
@@ -118,22 +118,25 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.posts = result.posts;
-            console.log(this.posts);
 
             this.date = FORMAT_DATE(result.posts.createdAt);
-            console.log(this.date);
+
             const userIdPost = result.posts.userId;
+            console.log(result.posts);
             console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
             console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
 
+            if (result.posts != 0) {
+              console.log(result.posts.content);
+              this.vue = 1;
+            }
+
             if (userIdPost !== userId) {
-              console.log("userId connecté est différent de postUserId ❌❌❌");
-              this.state = 0;
+              console.log("User connecté est différent de postUserId ❌❌❌");
+
               this.vue == 0;
             } else {
-              console.log(
-                "userId connecté est le même que postUserId 👍 👍 👍"
-              );
+              console.log("User  connecté est le même que postUserId 👍 👍 👍");
               this.state = 1;
             }
           });

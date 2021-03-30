@@ -73,11 +73,9 @@ export default {
           token: result.token,
         };
 
-        console.log("Token du login", token);
-
         window.localStorage.setItem("groupomania", JSON.stringify(token));
 
-        this.$store.commit("LOGGED_USER_ID");
+        this.$store.dispatch("LOGGED_USER_ID");
 
         this.$router.push({ name: "home" });
       }

@@ -47,6 +47,7 @@ export default {
 
 .bonjour {
   width: 98%;
+
   background-color: black;
   color: white;
   position: fixed;

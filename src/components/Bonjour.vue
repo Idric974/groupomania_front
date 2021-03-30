@@ -1,7 +1,5 @@
 <template>
-  <div class="bonjour" v-if="vue == '1'">
-    Bonjour {{ users.firstname }} {{ users.name }}
-  </div>
+  <div class="bonjour">Bonjour {{ users.firstname }} {{ users.name }}</div>
 </template>
 
 <script>
@@ -21,8 +19,13 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.loggedUser;
+
+      console.log(
+        "%c ⚠️ Bonjour User Id ⚠️ ===>>",
+        "color:red ;  font-size: 15px",
+        userId
+      );
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -42,10 +45,6 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-
-            if (result.users.length == null) {
-              this.vue = 1;
-            }
           });
         })
         .catch(function(error) {

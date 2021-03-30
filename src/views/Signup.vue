@@ -95,12 +95,13 @@ export default {
         headers: headers,
       };
 
-      console.log(parametresDeRequete);
-
       fetch(url, parametresDeRequete)
         .then((success) => {
           if (success.status == 201) {
-            console.log("=====> user created 👍", success);
+            console.log(
+              "%c ✔️ ⚠️ User Created  ⚠️",
+              "color:green ;  font-size: 15px"
+            );
             this.$router.push("/");
           }
         })

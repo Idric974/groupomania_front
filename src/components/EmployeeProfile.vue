@@ -55,13 +55,10 @@ export default {
         headers: headers,
       };
 
-      console.log(parametresDeRequete);
-
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-            console.log(this.users);
           });
         })
         .catch(function(error) {
@@ -89,7 +86,7 @@ export default {
         userId: userId,
         token: token,
       };
-      console.log(values);
+
       const body = JSON.stringify(values);
 
       //* ✅ 👉 Définition des paramètres de la requête.

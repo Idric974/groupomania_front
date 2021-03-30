@@ -72,11 +72,9 @@ export default {
         content: content,
         userId: objJson.userId,
       };
-      console.log(values);
 
       //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
-      console.log(body);
 
       //* ✅ 👉 Définition des en-têtes de la requête.
       const headers = new Headers();
@@ -92,8 +90,6 @@ export default {
 
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/createPost";
-
-      console.log(parametresDeRequete);
 
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)

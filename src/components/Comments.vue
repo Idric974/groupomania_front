@@ -111,8 +111,6 @@ export default {
 
               return comment;
             });
-
-            console.log(this.comments);
           });
         })
         .catch(function(error) {

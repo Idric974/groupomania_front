@@ -10,6 +10,11 @@ export default new Vuex.Store({
 
   mutations: {
     LOGGED_USER_ID(state) {
+      console.log(
+        "%c ⚠️ Le state ⚠️ ===>> ",
+        "color:red ;  font-size: 15px",
+        state
+      );
       let userId;
 
       const storageToken = localStorage.getItem("groupomania");
@@ -17,7 +22,6 @@ export default new Vuex.Store({
       const token = objJson.token;
 
       const params = token;
-      console.log("Token de la mutation", params);
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -40,8 +44,13 @@ export default new Vuex.Store({
 
           response.json().then(function(data) {
             userId = data.data;
-            console.log(userId);
+
             state.loggedUser = userId;
+            console.log(
+              "%c ⚠️ Logged User Id ⚠️ ===>>",
+              "color:red ;  font-size: 15px",
+              userId
+            );
           });
         })
 
@@ -49,12 +58,12 @@ export default new Vuex.Store({
           console.log("Fetch Error :-S", err);
         });
     },
-
-    mounted() {
-      this.LOGGED_USER_ID();
+  },
+  actions: {
+    LOGGED_USER_ID(context) {
+      context.commit("LOGGED_USER_ID");
     },
   },
-  actions: {},
   modules: {},
   getters: {},
 });
