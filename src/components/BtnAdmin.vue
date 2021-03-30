@@ -46,11 +46,6 @@ export default {
           success.json().then((result) => {
             this.users = result.users;
 
-            console.log(
-              "%c ✔️ User admin state ===>>",
-              "color:green ;  font-size: 15px",
-              this.users.admin
-            );
             if (this.users.admin !== true) {
               this.state = 0;
             } else {

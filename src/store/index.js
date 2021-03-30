@@ -11,13 +11,13 @@ export default new Vuex.Store({
   mutations: {
     LOGGED_USER_ID(state) {
       let userId;
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaa", userId);
 
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
       const params = token;
+      console.log("Token de la mutation", params);
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -39,12 +39,8 @@ export default new Vuex.Store({
           }
 
           response.json().then(function(data) {
-            console.log(
-              "%c ✔️ Logged Id user is ===>>",
-              "color:green ;  font-size: 15px ",
-              data.data
-            );
             userId = data.data;
+            console.log(userId);
             state.loggedUser = userId;
           });
         })

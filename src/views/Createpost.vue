@@ -99,7 +99,9 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Poste crée " + success);
-          window.location.reload();
+
+          this.input.title = "";
+          this.input.content = "";
         })
         .catch(function(error) {
           console.log(

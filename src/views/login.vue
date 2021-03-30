@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     async login() {
-      this.$store.commit("LOGGED_USER_ID");
       //⇓⇓ URL de la requête⇓⇓.
       let url = "http://localhost:3000/api/user/login";
 
@@ -67,18 +66,18 @@ export default {
       const success = await fetch(url, parametresDeRequete);
 
       if (success.status == 200) {
-        console.log(
-          "%c ✔️ User is logged OK",
-          "color:green ;  font-size: 15px "
-        );
+        console.log("%c ✔️ User is logged", "color:green ;  font-size: 15px ");
 
         const result = await success.json();
         let token = {
           token: result.token,
         };
+
+        console.log("Token du login", token);
+
         window.localStorage.setItem("groupomania", JSON.stringify(token));
 
-        this.$emit("authenticated", true);
+        this.$store.commit("LOGGED_USER_ID");
 
         this.$router.push({ name: "home" });
       }

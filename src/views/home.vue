@@ -22,10 +22,10 @@
 </template>
 
 <script>
+import BoxNewsFeed from "../components/BoxNewsFeed.vue";
 import Bonjour from "../components/Bonjour.vue";
 import BtnSeeProfile from "@/components/BtnSeeProfile.vue";
 import BtnSendContent from "../components/BtnSendContent.vue";
-import BoxNewsFeed from "../components/BoxNewsFeed.vue";
 import BtnLogout from "../components/BtnLogout.vue";
 import BtnAdmin from "../components/BtnAdmin.vue";
 

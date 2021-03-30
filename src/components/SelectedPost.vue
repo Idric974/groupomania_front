@@ -1,7 +1,7 @@
 <template>
   <!-- 👉 Le poste séléctioné-->
   <div class="selected-post">
-    <div class="post">
+    <div class="post" v-if="vue == '1'">
       <div class="user-name">
         <br />
         <i class="fas fa-user"></i>
@@ -19,8 +19,8 @@
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button">
-        <div class="eddit-supp" v-if="state == 1">
+      <div class="setup-button" v-if="state == 1">
+        <div class="eddit-supp">
           <router-link :to="{ name: 'UpDatePost', params: { id: posts.id } }"
             ><button type="submit" class="small">
               Modifier
@@ -85,6 +85,7 @@ export default {
       date: [],
       formValues: {},
       state: "",
+      vue: "",
     };
   },
 
@@ -128,6 +129,7 @@ export default {
             if (userIdPost !== userId) {
               console.log("userId connecté est différent de postUserId ❌❌❌");
               this.state = 0;
+              this.vue == 0;
             } else {
               console.log(
                 "userId connecté est le même que postUserId 👍 👍 👍"
@@ -186,7 +188,8 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           console.log("Commentaire crée" + success);
-          window.location.reload();
+          this.input.title = "";
+          this.input.comment = "";
         })
         .catch(function(error) {
           console.log(

@@ -6,7 +6,7 @@
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
     <div class="post" v-for="post in posts" :key="post.id">
-      <div class="alias">
+      <div class="alias" v-if="vue == '1'">
         <i class="fas fa-user"></i>{{ post.user.name }}
         {{ post.user.firstname }}
       </div>
@@ -21,7 +21,7 @@
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Bouton pour lire les commentaires. -->
-      <div class="btnReadComment">
+      <div class="btnReadComment" v-if="state == '1'">
         <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
           ><button class="large">
             Lire la suite du poste
@@ -30,7 +30,7 @@
       </div>
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button" v-if="state == '1'">
+      <div class="setup-button">
         <button
           type="submit"
           v-on:click="deletPost(post.id)"
@@ -53,6 +53,7 @@ export default {
   data: () => ({
     posts: [],
     state: "",
+    vue: "",
   }),
   methods: {
     //* ✅ 👉 Afficher tous les postes.
@@ -79,6 +80,8 @@ export default {
           success.json().then((result) => {
             if (result.posts.length == 0) {
               console.log("Pas de poste à afficher");
+
+              this.vue = 0;
 
               let home = document.getElementById("home");
               home.innerHTML = `Pas de poste à afficher 😃`;
