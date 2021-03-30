@@ -1,12 +1,12 @@
 <template>
   <!-- 👉 Components FilActualite 👈-->
 
-  <div class="news-feed">
+  <div class="news-feed" v-if="vue == 1">
     <div id="home"></div>
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
     <div class="post" v-for="post in posts" :key="post.id">
-      <div class="alias" v-if="vue == '1'">
+      <div class="alias">
         <i class="fas fa-user"></i>{{ post.user.name }}
         {{ post.user.firstname }}
       </div>
@@ -78,10 +78,9 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
+            this.vue = 1;
             if (result.posts.length == 0) {
               console.log("Pas de poste à afficher");
-
-              this.vue = 0;
 
               let home = document.getElementById("home");
               home.innerHTML = `Pas de poste à afficher 😃`;
