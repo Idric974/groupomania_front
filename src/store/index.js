@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
+let userIdInfo = "";
 
 export default new Vuex.Store({
   state: {
@@ -9,33 +10,30 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    LOGGED_USER_ID(state) {
-      console.log(
-        "%c ⚠️ Le state ⚠️ ===>> ",
-        "color:red ;  font-size: 15px",
-        state
-      );
+    UPDATE_USERID(state) {
+      state.loggedUser = userIdInfo;
+    },
+  },
+  actions: {
+    async UPDATE_USERID({ commit }) {
+      try {
+        const storageToken = localStorage.getItem("groupomania");
+        const objJson = JSON.parse(storageToken);
+        const token = objJson.token;
 
-      let userId;
+        const params = token;
 
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
+        const headers = new Headers();
+        headers.append("Authorization", `Bearer ${token}`);
 
-      const params = token;
+        let url = "http://localhost:3000/api/user/userId/" + params;
 
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
+        const parametresDeRequete = {
+          method: "GET",
+          headers: headers,
+        };
 
-      let url = "http://localhost:3000/api/user/userId/" + params;
-
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then(function(response) {
+        await fetch(url, parametresDeRequete).then(function(response) {
           if (response.status !== 200) {
             console.log(
               "Looks like there was a problem. Status Code: " + response.status
@@ -44,27 +42,26 @@ export default new Vuex.Store({
           }
 
           response.json().then(function(data) {
-            userId = data.data;
-            state.loggedUser = userId;
+            commit("UPDATE_USERID");
+            userIdInfo = data.data;
 
             console.log(
               "%c ⚠️ Logged User Id ⚠️ ===>>",
               "color:red ;  font-size: 15px",
-              userId
+              userIdInfo
             );
           });
-        })
-
-        .catch(function(err) {
-          console.log("Fetch Error :-S", err);
         });
+      } catch (e) {
+        console.log(
+          "%c ❌ CATCH ERROR ===>>",
+          "color:orange ;  font-size: 15px",
+          e
+        );
+      }
     },
   },
-  actions: {
-    LOGGED_USER_ID(context) {
-      context.commit("LOGGED_USER_ID");
-    },
-  },
+
   modules: {},
   getters: {},
 });

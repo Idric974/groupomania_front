@@ -75,7 +75,7 @@ export default {
 
         window.localStorage.setItem("groupomania", JSON.stringify(token));
 
-        this.$store.dispatch("LOGGED_USER_ID");
+        this.$store.dispatch("UPDATE_USERID");
 
         this.$router.push({ name: "home" });
       }

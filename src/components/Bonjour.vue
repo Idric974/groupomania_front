@@ -1,5 +1,9 @@
 <template>
-  <div class="bonjour">Bonjour {{ users.firstname }} {{ users.name }}</div>
+  <div class="bonjour">
+    Bonjour {{ users.firstname }} {{ users.name }}
+
+    <div>userId est : {{ userIdInfo }}</div>
+  </div>
 </template>
 
 <script>
@@ -10,7 +14,7 @@ export default {
     return {
       users: [],
       vue: "",
-      getUserId: [],
+      userId: "",
     };
   },
 
@@ -21,6 +25,8 @@ export default {
       const token = objJson.token;
 
       let userId = this.$store.state.loggedUser;
+
+      this.userIdInfo = userId;
 
       console.log(
         "%c ⚠️ Bonjour User Id ⚠️ ===>>",
