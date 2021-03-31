@@ -6,7 +6,7 @@
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
     <div class="post" v-for="post in posts" :key="post.id">
-      <div class="alias" v-if="vue == 0">
+      <div class="alias" v-if="vue == 1">
         <i class="fas fa-user"></i>{{ post.user.name }}
         {{ post.user.firstname }}
       </div>
@@ -79,7 +79,7 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             if (result.posts.length != 0) {
-              this.vue = 1;
+              this.vue = 0;
               this.state = 1;
             }
 

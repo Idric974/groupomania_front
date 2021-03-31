@@ -15,6 +15,7 @@ export default new Vuex.Store({
         "color:red ;  font-size: 15px",
         state
       );
+
       let userId;
 
       const storageToken = localStorage.getItem("groupomania");
@@ -44,8 +45,8 @@ export default new Vuex.Store({
 
           response.json().then(function(data) {
             userId = data.data;
-
             state.loggedUser = userId;
+
             console.log(
               "%c ⚠️ Logged User Id ⚠️ ===>>",
               "color:red ;  font-size: 15px",
