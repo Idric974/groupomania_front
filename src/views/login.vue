@@ -50,24 +50,20 @@ export default {
   },
   methods: {
     async login() {
-      //⇓⇓ URL de la requête⇓⇓.
-      let url = "http://localhost:3000/api/user/login";
-
       const headers = new Headers();
       headers.append("Content-Type", "application/json; charset=utf-8");
 
-      //⇓⇓ Paramètres de la requête⇓⇓.
       const parametresDeRequete = {
         method: "POST",
         body: JSON.stringify(this.input),
         headers: headers,
       };
 
+      let url = "http://localhost:3000/api/user/login";
+
       const success = await fetch(url, parametresDeRequete);
 
       if (success.status == 200) {
-        console.log("%c ✔️ User is logged", "color:green ;  font-size: 15px ");
-
         const result = await success.json();
         let token = {
           token: result.token,
@@ -78,6 +74,8 @@ export default {
         this.$store.dispatch("UPDATE_USERID");
 
         this.$router.push({ name: "home" });
+
+        console.log("%c ✔️ User is logged", "color:green ;  font-size: 15px ");
       }
     },
   },

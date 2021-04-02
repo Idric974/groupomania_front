@@ -19,48 +19,39 @@ export default {
   },
 
   methods: {
-    findOneUser() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
+    async findOneUser() {
+      try {
+        const storageToken = localStorage.getItem("groupomania");
+        const objJson = JSON.parse(storageToken);
+        const token = objJson.token;
 
-      let userId = this.$store.state.loggedUser;
+        let userId = this.$store.state.loggedUser;
 
-      this.userIdInfo = userId;
+        this.userIdInfo = userId;
 
-      console.log(
-        "%c ⚠️ Bonjour User Id ⚠️ ===>>",
-        "color:red ;  font-size: 15px",
-        userId
-      );
+        const headers = new Headers();
+        headers.append("Authorization", `Bearer ${token}`);
+        headers.append("Content-Type", "application/json");
 
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
+        let url = "http://localhost:3000/api/user/findOne/" + userId;
 
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/user/findOne/" + userId;
+        const parametresDeRequete = {
+          method: "GET",
+          headers: headers,
+        };
 
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
+        await fetch(url, parametresDeRequete).then((success) => {
           success.json().then((result) => {
             this.users = result.users;
           });
-        })
-        .catch(function(error) {
-          console.log(error);
         });
-    },
-
-    deleteProfil() {
-      console.log("Fonction à déveloper");
+      } catch (e) {
+        console.log(
+          "%c ❌ BONJOUR CATCH ERROR ===>>",
+          "color:orange ;  font-size: 15px",
+          e
+        );
+      }
     },
   },
 

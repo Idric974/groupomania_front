@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
+
 let userIdInfo = "";
 
 export default new Vuex.Store({
