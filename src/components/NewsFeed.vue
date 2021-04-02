@@ -5,23 +5,27 @@
     <div id="home"></div>
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
-    <div class="post" v-for="post in posts" :key="post.id">
-      <div class="alias" v-if="vue == 1">
-        <i class="fas fa-user"></i>{{ post.user.name }}
-        {{ post.user.firstname }}
-      </div>
+    <div class="feed" v-for="post in posts" :key="post.id">
+      <div class="post">
+        <div class="alias">
+          <i class="fas fa-user"></i>{{ post.user.name }}
+          {{ post.user.firstname }}
+        </div>
 
-      <div class="formated-date">{{ post.formatedDate }}</div>
+        <div class="formated-date">{{ post.formatedDate }}</div>
 
-      <div class="title">Titre : {{ post.title }}</div>
+        <div class="title">Titre : {{ post.title }}</div>
 
-      <div class="content">
-        {{ post.content }}
+        <div class="content">
+          {{ post.content }}
+        </div>
+
+        <div>Post userId {{ post.userId }}</div>
       </div>
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Bouton pour lire les commentaires. -->
-      <div class="btnReadComment" v-if="state == 1">
+      <div class="btnReadComment">
         <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
           ><button class="large">
             Lire la suite du poste
@@ -30,13 +34,13 @@
       </div>
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button">
+      <div class="setup-button" v-if="admin == 1">
         <button
           type="submit"
           v-on:click="deletPost(post.id)"
           class="small color"
         >
-          Supprimer
+          Supprimer mon poste
         </button>
       </div>
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
@@ -53,7 +57,7 @@ export default {
   data: () => ({
     posts: [],
     state: "",
-    vue: "",
+    admin: "",
   }),
   methods: {
     //* ✅ 👉 Afficher tous les postes.
@@ -61,6 +65,8 @@ export default {
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      let userId = this.$store.state.userId;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -78,9 +84,19 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            if (result.posts.length != 0) {
-              this.vue = 0;
-              this.state = 1;
+            this.post = result.posts;
+
+            if (result.posts.length >= 1) {
+              this.state === 1;
+              console.log("Nombre de post dans le fil", result.posts.length);
+            }
+
+            if (this.post.userId == userId) {
+              console.log("HELLO LA TERRE");
+
+              console.log("userId", userId);
+              console.log("this post userId", this.post.userId);
+              this.btnDelete === 1;
             }
 
             if (result.posts.length == 0) {
@@ -109,8 +125,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -130,12 +145,6 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-
-            if (this.users.admin == true) {
-              this.state = 1;
-            } else {
-              this.state = 0;
-            }
           });
         })
         .catch(function(error) {
@@ -150,8 +159,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -195,11 +203,20 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    findAdmin() {
+      let userId = this.$store.state.admin;
+      console.log(userId);
+      if (userId == true) {
+        this.admin = 1;
+      }
+    },
   },
 
   mounted() {
     this.readAllPosts();
     this.findOneUser();
+    this.findAdmin();
   },
 };
 </script>
@@ -215,7 +232,7 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 
-  .post {
+  .feed {
     margin-top: 20px;
     margin-bottom: 20px;
     box-shadow: #1e3d59 0px 0px 10px 5px;

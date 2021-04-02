@@ -18,7 +18,7 @@
       </div>
 
       <div class="setup-button">
-        <div class="eddit-supp" v-if="state == 1">
+        <div class="eddit-supp">
           <router-link
             :to="{ name: 'UpdateComment', params: { id: comment.id } }"
             ><button type="submit" class="small">
@@ -34,7 +34,7 @@
           </button>
         </div>
 
-        <div class="signale" v-if="state == 0">
+        <div class="signale">
           <button
             type="submit"
             v-on:click="reportComment(comment.id)"
@@ -72,8 +72,8 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
+      console.log(userId);
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -93,21 +93,17 @@ export default {
             this.comments = result.comments.map((comment) => {
               comment.formatedDate = FORMAT_DATE(comment.createdAt);
 
-              const userIdPost = comment.userId;
-              console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
-              console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
+              result.comments.forEach(function(comment) {
+                console.log(comment.userId);
+                console.log(userId);
 
-              if (userIdPost !== userId) {
-                console.log(
-                  "userId connecté est différent de postUserId ❌❌❌"
-                );
-                this.state = 0;
-              } else {
-                console.log(
-                  "userId connecté est le même que postUserId 👍 👍 👍"
-                );
-                this.state = 1;
-              }
+                if (comment.userId == userId) {
+                  console.log("égale");
+                  //this.modif = 1;
+                } else {
+                  console.log("non égale");
+                }
+              });
 
               return comment;
             });
@@ -126,8 +122,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       //* ✅ 👉 Définition du headers.
       const headers = new Headers();

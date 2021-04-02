@@ -50,32 +50,44 @@ export default {
   },
   methods: {
     async login() {
-      const headers = new Headers();
-      headers.append("Content-Type", "application/json; charset=utf-8");
+      try {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=utf-8");
 
-      const parametresDeRequete = {
-        method: "POST",
-        body: JSON.stringify(this.input),
-        headers: headers,
-      };
-
-      let url = "http://localhost:3000/api/user/login";
-
-      const success = await fetch(url, parametresDeRequete);
-
-      if (success.status == 200) {
-        const result = await success.json();
-        let token = {
-          token: result.token,
+        const parametresDeRequete = {
+          method: "POST",
+          body: JSON.stringify(this.input),
+          headers: headers,
         };
 
-        window.localStorage.setItem("groupomania", JSON.stringify(token));
+        let url = "http://localhost:3000/api/user/login";
 
-        this.$store.dispatch("LOGGED_USER");
+        const success = await fetch(url, parametresDeRequete);
 
-        this.$router.push({ name: "home" });
+        if (success.status == 200) {
+          const result = await success.json();
+          let token = {
+            token: result.token,
+          };
 
-        console.log("%c ✔️ User is logged", "color:green ;  font-size: 15px ");
+          window.localStorage.setItem("groupomania", JSON.stringify(token));
+
+          this.$store.dispatch("LOGGED_USER");
+
+          this.$router.push({ name: "home" });
+
+          console.log(
+            "%c ✔️ User is logged",
+            "color:green ;  font-size: 15px "
+          );
+        }
+      } catch (e) {
+        alert("Hello");
+        console.log(
+          "%c ❌ CATCH ERROR LOGGED",
+          "color:orange ;  font-size: 15px",
+          e
+        );
       }
     },
   },

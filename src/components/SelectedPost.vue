@@ -2,7 +2,7 @@
   <!-- 👉 Le poste séléctioné-->
   <div class="selected-post">
     <div class="post">
-      <div class="user-name" v-if="vue == 0">
+      <div class="user-name">
         <br />
         <i class="fas fa-user"></i>
         {{ posts.user.name }} {{ posts.user.firstname }}
@@ -19,19 +19,21 @@
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button" v-if="state == 1">
+      <div class="setup-button">
         <div class="eddit-supp">
-          <router-link :to="{ name: 'UpDatePost', params: { id: posts.id } }"
-            ><button type="submit" class="small">
-              Modifier
-            </button></router-link
-          >
-          <button type="submit" v-on:click="deletPost(post.id)" class="small">
-            Supprimer
-          </button>
+          <div class="Modifier" v-if="state == 1">
+            <router-link :to="{ name: 'UpDatePost', params: { id: posts.id } }"
+              ><button type="submit" class="small">
+                Modifier
+              </button></router-link
+            >
+            <button type="submit" v-on:click="deletPost(post.id)" class="small">
+              Supprimer
+            </button>
+          </div>
         </div>
 
-        <div class="signale" v-if="state == 0">
+        <div class="signale" v-if="report == 1">
           <button
             type="submit"
             v-on:click="reportPost(post.id)"
@@ -85,7 +87,7 @@ export default {
       date: [],
       formValues: {},
       state: "",
-      vue: "",
+      report: "",
     };
   },
 
@@ -98,8 +100,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -121,22 +122,12 @@ export default {
 
             this.date = FORMAT_DATE(result.posts.createdAt);
 
-            const userIdPost = result.posts.userId;
-            console.log(result.posts);
-            console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id Post=", userIdPost);
-            console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► User Id =", userId);
-
-            if (result.posts != 0) {
-              console.log(result.posts.content);
-              this.vue = 1;
-            }
-
-            if (userIdPost !== userId) {
-              console.log("User connecté est différent de postUserId ❌❌❌");
-
-              this.vue == 0;
+            if (result.posts.userId != userId) {
+              console.log(result.posts.userId);
+              console.log(userId);
+              this.report = 1;
+              this.state = 0;
             } else {
-              console.log("User  connecté est le même que postUserId 👍 👍 👍");
               this.state = 1;
             }
           });
@@ -158,11 +149,13 @@ export default {
       const comment = this.input.comment;
       const postId = this.posts.id;
 
+      let userId = this.$store.state.userId;
+
       const values = {
         title: title,
         comment: comment,
         postId: postId,
-        userId: objJson.userId,
+        userId: userId,
       };
       console.log(values);
 
@@ -209,8 +202,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       //* ✅ 👉 Définition du headers.
       const headers = new Headers();
@@ -267,8 +259,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       console.log("✔️✔️✔️ 👉  USER ID =", userId);
       console.log("✔️✔️✔️ 👉  TOKEN =", token);
@@ -427,7 +418,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
 
-  .eddit-supp {
+  .eddit-supp,
+  .Modifier {
     display: flex;
   }
 }

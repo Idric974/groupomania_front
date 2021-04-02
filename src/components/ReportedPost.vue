@@ -63,8 +63,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -118,8 +117,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
+      let userId = this.$store.state.userId;
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);

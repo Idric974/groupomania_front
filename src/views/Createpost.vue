@@ -64,13 +64,15 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
+      let userId = this.$store.state.userId;
+
       const title = this.input.title;
       const content = this.input.content;
 
       const values = {
         title: title,
         content: content,
-        userId: objJson.userId,
+        userId: userId,
       };
 
       //* ✅ 👉 Définition du body de la requête.

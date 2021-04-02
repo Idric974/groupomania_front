@@ -54,12 +54,6 @@ export default new Vuex.Store({
             nameInfo = result.users.name;
             userIdInfo = result.users.id;
             adminInfo = result.users.admin;
-
-            console.log(
-              "%c ⚠️⚠️⚠️⚠️⚠️ RESULT LOGGED_USER",
-              "color:orange ;  font-size: 15px",
-              result.users
-            );
           });
         });
       } catch (e) {
