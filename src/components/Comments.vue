@@ -7,7 +7,7 @@
         {{ comment.user.alias }}
       </div>
 
-      <div class="formated-date">{{ comment.formatedDate }}</div>
+      <div class="formated-date">{{ date }}</div>
 
       <div class="title">
         {{ comment.title }}
@@ -54,17 +54,27 @@
 <script>
 import { FORMAT_DATE } from "../services/utilities";
 
+let commentDate;
+
 export default {
   name: "Comments",
-  data: () => ({
-    comments: [],
-    comment: [],
-    state: "",
-  }),
+
+  data() {
+    return {
+      comments: [],
+      comment: [],
+      state: "",
+      date: [],
+    };
+  },
 
   methods: {
     //* ✅ 👉 Afficher le poste.
     findAll() {
+      let date = commentDate;
+      console.log(date);
+      this.date = date;
+
       const params = this.$route.params.id;
       console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Comments Post Id", params);
 
@@ -90,22 +100,21 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            this.comments = result.comments.map((comment) => {
-              comment.formatedDate = FORMAT_DATE(comment.createdAt);
+            this.comments = result.comments;
 
-              result.comments.forEach(function(comment) {
-                console.log(comment.userId);
-                console.log(userId);
+            result.comments.forEach(function(comment) {
+              commentDate = FORMAT_DATE(comment.createdAt);
 
-                if (comment.userId == userId) {
-                  console.log("égale");
-                  //this.modif = 1;
-                } else {
-                  console.log("non égale");
-                }
-              });
+              console.log("La date formatée", commentDate);
 
-              return comment;
+              console.log(comment.userId);
+              console.log(userId);
+
+              if (comment.userId == userId) {
+                console.log("égale");
+              } else {
+                console.log("non égale");
+              }
             });
           });
         })
