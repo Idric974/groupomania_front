@@ -96,15 +96,10 @@ export default {
           success.json().then((result) => {
             this.comments = result.comments;
 
-            let date;
-
-            console.log(date);
-
             result.comments.forEach(function(comment) {
               let commentDate = FORMAT_DATE(comment.createdAt);
-              date = commentDate;
 
-              this.date = "idric";
+              let date = commentDate;
 
               console.log("Voici la date formatée", date);
 
