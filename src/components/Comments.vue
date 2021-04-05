@@ -54,8 +54,6 @@
 <script>
 import { FORMAT_DATE } from "../services/utilities";
 
-let commentDate;
-
 export default {
   name: "Comments",
 
@@ -71,10 +69,6 @@ export default {
   methods: {
     //* ✅ 👉 Afficher le poste.
     findAll() {
-      let date = commentDate;
-      console.log(date);
-      this.date = date;
-
       const params = this.$route.params.id;
       console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Comments Post Id", params);
 
@@ -102,10 +96,17 @@ export default {
           success.json().then((result) => {
             this.comments = result.comments;
 
-            result.comments.forEach(function(comment) {
-              commentDate = FORMAT_DATE(comment.createdAt);
+            let date;
 
-              console.log("La date formatée", commentDate);
+            console.log(date);
+
+            result.comments.forEach(function(comment) {
+              let commentDate = FORMAT_DATE(comment.createdAt);
+              date = commentDate;
+
+              this.date = "idric";
+
+              console.log("Voici la date formatée", date);
 
               console.log(comment.userId);
               console.log(userId);
