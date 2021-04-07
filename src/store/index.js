@@ -6,20 +6,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     alias: "",
-    firstName: "",
+    firstname: "",
     name: "",
     userId: "",
     admin: "",
+    id: "",
+    email: "",
   },
 
   mutations: {
     SET_USER(state, payload) {
-      console.log(payload);
       state.name = payload.name;
-      state.firstName = payload.firstName;
+      state.firstname = payload.firstname;
       state.alias = payload.alias;
       state.userId = payload.userId;
       state.admin = payload.admin;
+      state.id = payload.id;
+      state.email = payload.email;
     },
   },
   actions: {

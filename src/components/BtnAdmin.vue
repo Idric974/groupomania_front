@@ -1,5 +1,5 @@
 <template>
-  <div class="btn-appli" v-if="state == 1">
+  <div class="btn-appli" v-if="admin == 1">
     <div class="font">
       <i class="fas fa-users-cog"></i>
     </div>
@@ -10,26 +10,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "BtnLogout",
-  data() {
-    return {
-      state: "",
-    };
-  },
 
-  methods: {
-    findAdmin() {
-      let userId = this.$store.state.admin;
-      console.log(userId);
-      if (userId == true) {
-        this.state = 1;
-      }
-    },
-  },
-
-  mounted() {
-    this.findAdmin();
+  computed: {
+    ...mapState([
+      "firstname",
+      "name",
+      "alias",
+      "userId",
+      "admin",
+      "id",
+      "email",
+    ]),
   },
 };
 </script>

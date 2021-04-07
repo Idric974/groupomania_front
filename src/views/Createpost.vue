@@ -47,6 +47,8 @@
 <script>
 import BtnLogout from "@/components/BtnLogout.vue";
 import BtnHome from "@/components/BtnHome.vue";
+import { mapState } from "vuex";
+
 export default {
   components: { BtnHome, BtnLogout },
   name: "CreatePost",
@@ -58,13 +60,27 @@ export default {
       },
     };
   },
+
+  computed: {
+    ...mapState([
+      "firstname",
+      "name",
+      "alias",
+      "userId",
+      "admin",
+      "id",
+      "email",
+    ]),
+  },
+
   methods: {
     handleSubmit() {
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
+      console.log(userId);
 
       const title = this.input.title;
       const content = this.input.content;

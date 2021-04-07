@@ -2,12 +2,11 @@
   <!-- 👉 Components FilActualite 👈-->
 
   <div class="news-feed">
-    <div id="home"></div>
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
     <div class="feed" v-for="post in posts" :key="post.id">
       <div class="post">
-        <div class="alias">
+        <div class="alias" v-if="firstname != null">
           <i class="fas fa-user"></i>{{ post.user.name }}
           {{ post.user.firstname }}
         </div>
@@ -52,13 +51,28 @@
 
 <script>
 import { FORMAT_DATE } from "../services/utilities";
+import { mapState } from "vuex";
+
 export default {
   name: "NewsFeed",
+
   data: () => ({
     posts: [],
     state: "",
-    admin: "",
   }),
+
+  computed: {
+    ...mapState([
+      "firstname",
+      "name",
+      "alias",
+      "userId",
+      "admin",
+      "id",
+      "email",
+    ]),
+  },
+
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
@@ -93,7 +107,6 @@ export default {
 
             if (this.post.userId == userId) {
               console.log("HELLO LA TERRE");
-
               console.log("userId", userId);
               console.log("this post userId", this.post.userId);
               this.btnDelete === 1;
@@ -118,40 +131,6 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    //*✅👉 Afficher le bouton Supprimer si utilisateur et admin.
-    findOneUser() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.$store.state.userId;
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/user/findOne/" + userId;
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            this.users = result.users;
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletPost(id) {
@@ -203,20 +182,10 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    findAdmin() {
-      let userId = this.$store.state.admin;
-      console.log(userId);
-      if (userId == true) {
-        this.admin = 1;
-      }
-    },
   },
 
   mounted() {
     this.readAllPosts();
-    this.findOneUser();
-    this.findAdmin();
   },
 };
 </script>
@@ -281,9 +250,5 @@ export default {
   .setup-button {
     width: 100%;
   }
-}
-#home {
-  font-size: 1.5rem;
-  color: red;
 }
 </style>

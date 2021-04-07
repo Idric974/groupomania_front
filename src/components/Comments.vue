@@ -7,7 +7,7 @@
         {{ comment.user.alias }}
       </div>
 
-      <div class="formated-date">{{ date }}</div>
+      <div class="formated-date">{{ comment.formatedDate }}</div>
 
       <div class="title">
         {{ comment.title }}
@@ -18,7 +18,7 @@
       </div>
 
       <div class="setup-button">
-        <div class="eddit-supp">
+        <div class="eddit-supp" v-if="edit == 1">
           <router-link
             :to="{ name: 'UpdateComment', params: { id: comment.id } }"
             ><button type="submit" class="small">
@@ -34,7 +34,7 @@
           </button>
         </div>
 
-        <div class="signale">
+        <div class="signale" v-if="signal == 1">
           <button
             type="submit"
             v-on:click="reportComment(comment.id)"
@@ -63,6 +63,8 @@ export default {
       comment: [],
       state: "",
       date: [],
+      edit: "",
+      signal: "",
     };
   },
 
@@ -70,13 +72,12 @@ export default {
     //* ✅ 👉 Afficher le poste.
     findAll() {
       const params = this.$route.params.id;
-      console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Comments Post Id", params);
 
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
       console.log(userId);
 
       const headers = new Headers();
@@ -95,22 +96,27 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.comments = result.comments;
+            console.log(this.comments);
 
-            result.comments.forEach(function(comment) {
-              let commentDate = FORMAT_DATE(comment.createdAt);
+            result.comments.forEach((item, index) => {
+              console.log("item userId", item.userId); //value
+              console.log("Numéro de post", index); //index
 
-              let date = commentDate;
-
-              console.log("Voici la date formatée", date);
-
-              console.log(comment.userId);
-              console.log(userId);
-
-              if (comment.userId == userId) {
-                console.log("égale");
-              } else {
-                console.log("non égale");
+              if (item.userId == userId) {
+                console.log("item.userId == userId");
+                this.edit = 1;
               }
+
+              if (item.userId != userId) {
+                console.log("item.userId == userId");
+                this.signal = 1;
+              }
+            });
+
+            this.comments = result.comments.map((comment) => {
+              comment.formatedDate = FORMAT_DATE(comment.createdAt);
+
+              return comment;
             });
           });
         })

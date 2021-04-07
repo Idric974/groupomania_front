@@ -14,14 +14,12 @@
 
       <div class="content">{{ posts.content }}</div>
 
-      <div>{{ posts.id }}</div>
-
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
       <div class="setup-button">
         <div class="eddit-supp">
-          <div class="Modifier" v-if="state == 1">
+          <div class="Modifier" v-if="edit == 1">
             <router-link :to="{ name: 'UpDatePost', params: { id: posts.id } }"
               ><button type="submit" class="small">
                 Modifier
@@ -86,7 +84,7 @@ export default {
       post: [],
       date: [],
       formValues: {},
-      state: "",
+      edit: "",
       report: "",
     };
   },
@@ -100,7 +98,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -119,16 +117,29 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.posts = result.posts;
+            console.log(this.posts.userId);
 
             this.date = FORMAT_DATE(result.posts.createdAt);
 
-            if (result.posts.userId != userId) {
+            if (this.posts.userId == userId) {
+              console.log(
+                "HELLLLLLO ===> posts.userId == userId ==> Modif + Supp possible"
+              );
+              console.log(result.posts.userId);
+              console.log(userId);
+
+              this.edit = 1;
+            } else {
+              this.edit = 0;
+            }
+
+            if (this.posts.userId != userId) {
+              console.log(
+                "HELLLLLLO ===> posts.userId != userId ==> Signale possible"
+              );
               console.log(result.posts.userId);
               console.log(userId);
               this.report = 1;
-              this.state = 0;
-            } else {
-              this.state = 1;
             }
           });
         })
@@ -149,7 +160,7 @@ export default {
       const comment = this.input.comment;
       const postId = this.posts.id;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
 
       const values = {
         title: title,

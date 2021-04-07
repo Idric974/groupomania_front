@@ -1,10 +1,10 @@
 <template>
   <div class="employee-profile">
     <div class="employee-box">
-      <div class="box ">Alias : {{ users.alias }}</div>
-      <div class="box ">Email : {{ users.email }}</div>
-      <div class="box ">Prénom : {{ users.firstname }}</div>
-      <div class="box ">Nom : {{ users.name }}</div>
+      <div class="box ">Alias : {{ alias }}</div>
+      <div class="box ">Email : {{ email }}</div>
+      <div class="box ">Prénom : {{ firstname }}</div>
+      <div class="box ">Nom : {{ name }}</div>
     </div>
 
     <div class="btn_profil">
@@ -24,6 +24,8 @@
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "EmployeeProfile",
   data() {
@@ -32,41 +34,19 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState([
+      "firstname",
+      "name",
+      "alias",
+      "userId",
+      "admin",
+      "id",
+      "email",
+    ]),
+  },
+
   methods: {
-    findOneUser() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.$store.state.userId;
-      console.log(userId);
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "api/user/findOne/" + userId;
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            this.users = result.users;
-            console.log(this.users);
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
     //* ✅ 👉 Supprimer le profil utilisateur.
     deleteUser() {
       //* ✅ 👉 Définition du headers.
@@ -120,10 +100,6 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-  },
-
-  mounted() {
-    this.findOneUser();
   },
 };
 </script>

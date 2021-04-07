@@ -1,6 +1,11 @@
 <template>
   <div class="bonjour">
-    <div>Bonjour {{ firstName }} {{ name }}</div>
+    <div>firstname = {{ firstname }}</div>
+    <div>name = {{ name }}</div>
+    <div>id = {{ id }}</div>
+    <div>email = {{ email }}</div>
+    <div>admin = {{ admin }}</div>
+    <div>alias = {{ alias }}</div>
   </div>
 </template>
 
@@ -11,7 +16,15 @@ export default {
   name: "BtnLogout",
 
   computed: {
-    ...mapState(["firstName", "name", "alias", "userId", "admin"]),
+    ...mapState([
+      "firstname",
+      "name",
+      "alias",
+      "userId",
+      "admin",
+      "id",
+      "email",
+    ]),
   },
 
   methods: {},
