@@ -39,6 +39,7 @@ export default {
       const token = objJson.token;
 
       let userId = this.$store.state.userId;
+      console.log(userId);
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -46,7 +47,7 @@ export default {
       headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/user/findOne/" + userId;
+      let url = "api/user/findOne/" + userId;
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -58,6 +59,7 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
+            console.log(this.users);
           });
         })
         .catch(function(error) {

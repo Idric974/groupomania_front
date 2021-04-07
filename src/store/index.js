@@ -2,11 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
-let aliasInfo;
-let firstNameInfo;
-let nameInfo;
-let userIdInfo;
-let adminInfo;
 
 export default new Vuex.Store({
   state: {
@@ -18,12 +13,13 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    LOGGED_USER(state) {
-      state.name = nameInfo;
-      state.firstName = firstNameInfo;
-      state.alias = aliasInfo;
-      state.userId = userIdInfo;
-      state.admin = adminInfo;
+    SET_USER(state, payload) {
+      console.log(payload);
+      state.name = payload.name;
+      state.firstName = payload.firstName;
+      state.alias = payload.alias;
+      state.userId = payload.userId;
+      state.admin = payload.admin;
     },
   },
   actions: {
@@ -48,12 +44,7 @@ export default new Vuex.Store({
 
         await fetch(url, parametresDeRequete).then((success) => {
           success.json().then((result) => {
-            commit("LOGGED_USER");
-            aliasInfo = result.users.alias;
-            firstNameInfo = result.users.firstname;
-            nameInfo = result.users.name;
-            userIdInfo = result.users.id;
-            adminInfo = result.users.admin;
+            commit("SET_USER", result.users);
           });
         });
       } catch (e) {

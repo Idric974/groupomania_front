@@ -15,6 +15,7 @@ export default {
   methods: {
     clearLocalStorage() {
       localStorage.removeItem("groupomania");
+      console.log("Delog");
     },
   },
 };
