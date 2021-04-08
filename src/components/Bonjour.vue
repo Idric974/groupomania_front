@@ -1,11 +1,6 @@
 <template>
   <div class="bonjour">
-    <div>firstname = {{ firstname }}</div>
-    <div>name = {{ name }}</div>
-    <div>id = {{ id }}</div>
-    <div>email = {{ email }}</div>
-    <div>admin = {{ admin }}</div>
-    <div>alias = {{ alias }}</div>
+    <div>Bonjour {{ firstname }} {{ name }}</div>
   </div>
 </template>
 

@@ -117,16 +117,20 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.posts = result.posts;
-            console.log(this.posts.userId);
 
             this.date = FORMAT_DATE(result.posts.createdAt);
 
             if (this.posts.userId == userId) {
               console.log(
-                "HELLLLLLO ===> posts.userId == userId ==> Modif + Supp possible"
+                "%cPost Id",
+                "color:green ;  font-size: 15px",
+                this.posts.id
               );
-              console.log(result.posts.userId);
-              console.log(userId);
+              console.log("Post userId", result.posts.userId);
+              console.log("Logged userId", userId);
+              console.log(
+                "Signalement impossible || Modifications du post possible"
+              );
 
               this.edit = 1;
             } else {
@@ -135,10 +139,17 @@ export default {
 
             if (this.posts.userId != userId) {
               console.log(
-                "HELLLLLLO ===> posts.userId != userId ==> Signale possible"
+                "%cPost Id",
+                "color:green ;  font-size: 15px",
+                this.posts.id
               );
-              console.log(result.posts.userId);
-              console.log(userId);
+
+              console.log("Post userId", result.posts.userId);
+              console.log("Logged userId", userId);
+              console.log(
+                "Signalement possible || Modifications du post impossible"
+              );
+
               this.report = 1;
             }
           });

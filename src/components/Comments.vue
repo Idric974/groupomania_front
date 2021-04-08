@@ -78,7 +78,6 @@ export default {
       const token = objJson.token;
 
       let userId = this.$store.state.id;
-      console.log(userId);
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -95,21 +94,33 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            this.comments = result.comments;
-            console.log(this.comments);
-
             result.comments.forEach((item, index) => {
-              console.log("item userId", item.userId); //value
-              console.log("Numéro de post", index); //index
+              this.comments = result.comments;
+
+              console.log(
+                "%cComment Index",
+                "color:orange ;  font-size: 15px",
+                index
+              );
+              console.log("Comment userId", item.userId);
+              console.log("Logged userId", userId);
 
               if (item.userId == userId) {
-                console.log("item.userId == userId");
                 this.edit = 1;
-              }
-
-              if (item.userId != userId) {
-                console.log("item.userId == userId");
+                console.log("edit = ", this.edit);
+                this.signal = 0;
+                console.log("signal = ", this.signal);
+                console.log(
+                  "Signalement impossible || Modifications du commentaire possible"
+                );
+              } else {
+                this.edit = 0;
+                console.log("edit = ", this.edit);
                 this.signal = 1;
+                console.log("signal = ", this.signal);
+                console.log(
+                  "Signalement possible || Modifications du commentaire impossible"
+                );
               }
             });
 

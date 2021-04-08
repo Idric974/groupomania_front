@@ -18,29 +18,29 @@
         <div class="content">
           {{ post.content }}
         </div>
-
-        <div>Post userId {{ post.userId }}</div>
       </div>
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Bouton pour lire les commentaires. -->
-      <div class="btnReadComment">
-        <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
-          ><button class="large">
-            Lire la suite du poste
-          </button></router-link
-        >
-      </div>
+      <div class="new-feed-button">
+        <div class="btnReadComment">
+          <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
+            ><button class="large">
+              Lire la suite du poste
+            </button></router-link
+          >
+        </div>
 
-      <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
-      <div class="setup-button" v-if="admin == 1">
-        <button
-          type="submit"
-          v-on:click="deletPost(post.id)"
-          class="small color"
-        >
-          Supprimer mon poste
-        </button>
+        <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
+        <div class="setup-button" v-if="admin === true">
+          <button
+            type="submit"
+            v-on:click="deletPost(post.id)"
+            class="small color"
+          >
+            Supprimer
+          </button>
+        </div>
       </div>
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
     </div>
@@ -80,7 +80,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -98,27 +98,36 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            this.post = result.posts;
+            result.posts.forEach((item, index) => {
+              this.post = result.posts;
 
-            if (result.posts.length >= 1) {
-              this.state === 1;
-              console.log("Nombre de post dans le fil", result.posts.length);
-            }
+              console.log(
+                "%cPost Index",
+                "color:green ;  font-size: 15px",
+                index
+              );
 
-            if (this.post.userId == userId) {
-              console.log("HELLO LA TERRE");
-              console.log("userId", userId);
-              console.log("this post userId", this.post.userId);
-              this.btnDelete === 1;
-            }
+              console.log("userId Item = ", item.userId);
+              console.log("Logged userId = ", userId);
 
-            if (result.posts.length == 0) {
-              console.log("Pas de poste à afficher");
+              if (result.posts.length >= 1) {
+                this.state === 1;
+                console.log("Nombre de post dans le fil", result.posts.length);
+              }
 
-              let home = document.getElementById("home");
-              home.innerHTML = `Pas de poste à afficher 😃`;
-            }
+              // if (item.userId === userId) {
+              //   console.log("✔️ This is a logged post user");
+              //   this.admin = 1;
+              //   console.log(this.admin);
+              // }
 
+              if (result.posts.length == 0) {
+                console.log("Pas de poste à afficher");
+
+                let home = document.getElementById("home");
+                home.innerHTML = `Pas de poste à afficher 😃`;
+              }
+            });
             this.posts = result.posts.map((post) => {
               post.formatedDate = FORMAT_DATE(post.createdAt);
 
