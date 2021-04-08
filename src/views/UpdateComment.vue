@@ -61,7 +61,6 @@ export default {
     readComment() {
       console.log("Hello");
       const params = this.$route.params.id;
-      console.log(params);
 
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
@@ -74,7 +73,6 @@ export default {
 
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/findOneComment/" + params;
-      console.log(url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -111,18 +109,14 @@ export default {
 
       //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
-      console.log("✔️✔️✔️ 👉  BODY", body);
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
       headers.append("Content-Type", "application/json; charset=UTF-8");
 
-      console.log("✔️✔️✔️ 👉  HEADERS", headers);
-
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/updateComment/" + params;
-      console.log("✔️✔️✔️ 👉  URL", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -130,7 +124,6 @@ export default {
         headers: headers,
         body: body,
       };
-      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
 
       fetch(url, parametresDeRequete)
         .then(function(response) {
@@ -143,9 +136,8 @@ export default {
 
           response.json().then(function(data) {
             console.log(data);
-            window.location.reload();
+
             alert("⚠️ Votre commentaire a été modifié ⚠️ ");
-            window.history.go(-1);
           });
         })
         .catch(function(err) {

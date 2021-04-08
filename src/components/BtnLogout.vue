@@ -15,7 +15,8 @@ export default {
   methods: {
     clearLocalStorage() {
       localStorage.removeItem("groupomania");
-      console.log("Delog");
+
+      console.log("%c ❌ logged out user", "color:green ;  font-size: 15px");
     },
   },
 };

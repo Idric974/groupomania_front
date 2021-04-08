@@ -80,7 +80,6 @@ export default {
       const token = objJson.token;
 
       let userId = this.$store.state.id;
-      console.log(userId);
 
       const title = this.input.title;
       const content = this.input.content;
@@ -112,7 +111,11 @@ export default {
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log("✔️✔️✔️ 😃➖➖➖➖➖➖► Poste crée " + success);
+          console.log(
+            "%c ✔️ Poste crée",
+            "color:green ;  font-size: 15px",
+            success
+          );
 
           this.input.title = "";
           this.input.content = "";

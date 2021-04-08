@@ -77,7 +77,7 @@ export default {
           this.$router.push({ name: "home" });
 
           console.log(
-            "%c ✔️ User is logged",
+            "%c ✔️ logged in user",
             "color:green ;  font-size: 15px "
           );
         }

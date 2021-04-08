@@ -3,19 +3,23 @@
     <div><Bonjour /></div>
     <div class="logo"></div>
 
-    <div></div>
+    <div class="home-btn-menu">
+      <div class="bloc">
+        <div class="home-btn"><BtnLogout /></div>
+        <div class="home-btn"><BtnSeeProfile /></div>
+      </div>
 
-    <!--✅ 👉 Bouton page accueil-->
-    <div class="home-btn">
-      <div><BtnLogout /></div>
-      <div><BtnSeeProfile /></div>
-      <div><BtnSendContent /></div>
-      <div><BtnAdmin /></div>
+      <div class="bloc">
+        <div class="home-btn"><BtnSendContent /></div>
+        <div class="home-btn"><BtnAdmin /></div>
+      </div>
     </div>
+
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
     <!--✅ 👉 Section fil d'actualité-->
     <h1>Fil d'actualité</h1>
+    <div id="home"></div>
     <BoxNewsFeed />
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
   </div>
@@ -71,6 +75,29 @@ export default {
   @media screen and (min-width: 992px) {
     width: 30%;
     height: 300px;
+  }
+}
+
+#home {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-top: 20px;
+}
+
+.home-btn-menu {
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .bloc {
+    margin: auto;
+  }
+
+  @media screen and (min-width: 740px) and (max-width: 991px) {
+    display: flex;
+  }
+
+  @media screen and (min-width: 992px) {
+    display: flex;
   }
 }
 </style>

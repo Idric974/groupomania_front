@@ -78,17 +78,13 @@ export default {
   }),
   methods: {
     handleSubmit() {
-      console.log(this.formValues);
-
       let formValues = this.formValues;
 
-      //⇓⇓ URL de la requête⇓⇓.
       let url = "http://localhost:3000/api/user/signup";
 
       const headers = new Headers();
       headers.append("Content-Type", "application/json; charset=utf-8");
 
-      //⇓⇓ Paramètres de la requête⇓⇓.
       const parametresDeRequete = {
         method: "POST",
         body: JSON.stringify(formValues),

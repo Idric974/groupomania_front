@@ -47,7 +47,6 @@ export default {
 
 .bonjour {
   width: 98%;
-
   background-color: black;
   color: white;
   position: fixed;
@@ -55,9 +54,20 @@ export default {
   border-radius: 0px 0px 10px 10px;
   margin-left: auto;
   margin-right: auto;
-
   padding-top: 5px;
   padding-bottom: 5px;
+  align-items: center;
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    height: 40px;
+    .bonjour-text {
+      margin-top: 10px;
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+  }
 }
 
 .id {
@@ -74,7 +84,7 @@ export default {
   margin-right: auto;
 
   @media screen and (min-width: 742px) and (max-width: 991px) {
-    width: 300px;
+    width: 250px;
   }
 
   @media screen and (min-width: 992px) {

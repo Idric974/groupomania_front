@@ -1,6 +1,6 @@
 <template>
   <div class="bonjour">
-    <div>Bonjour {{ firstname }} {{ name }}</div>
+    <div class="bonjour-text">Bonjour {{ firstname }} {{ name }}</div>
   </div>
 </template>
 

@@ -179,11 +179,9 @@ export default {
         postId: postId,
         userId: userId,
       };
-      console.log(values);
 
       //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
-      console.log(body);
 
       //* ✅ 👉 Définition des en-têtes de la requête.
       const headers = new Headers();
@@ -199,8 +197,6 @@ export default {
 
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/createComment";
-
-      console.log(parametresDeRequete);
 
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
@@ -237,7 +233,7 @@ export default {
         userId: userId,
         token: token,
       };
-      console.log(values);
+
       const body = JSON.stringify(values);
 
       //* ✅ 👉 Définition des paramètres de la requête.
@@ -281,30 +277,20 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
-
-      console.log("✔️✔️✔️ 👉  USER ID =", userId);
-      console.log("✔️✔️✔️ 👉  TOKEN =", token);
-      console.log("✔️✔️✔️ 👉  POST ID =", this.posts.id);
-
       //* ✅ 👉 Définition du body de la requête.
       const values = {
         signale: "true",
       };
       console.log("✔️✔️✔️ 👉  VALUES =", values);
       const body = JSON.stringify(values);
-      console.log("✔️✔️✔️ 👉  BODY =", body);
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
       headers.append("Content-Type", "application/json; charset=UTF-8");
 
-      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
-
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/reportPost/" + this.posts.id;
-      console.log("✔️✔️✔️ 👉  URL =", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -312,7 +298,6 @@ export default {
         headers: headers,
         body: body,
       };
-      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
 
       fetch(url, parametresDeRequete)
         .then(function(response) {

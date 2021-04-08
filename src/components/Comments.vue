@@ -18,7 +18,7 @@
       </div>
 
       <div class="setup-button">
-        <div class="eddit-supp" v-if="edit == 1">
+        <div class="eddit-supp" v-if="edit">
           <router-link
             :to="{ name: 'UpdateComment', params: { id: comment.id } }"
             ><button type="submit" class="small">
@@ -34,7 +34,7 @@
           </button>
         </div>
 
-        <div class="signale" v-if="signal == 1">
+        <div class="signale" v-if="signale">
           <button
             type="submit"
             v-on:click="reportComment(comment.id)"
@@ -64,7 +64,7 @@ export default {
       state: "",
       date: [],
       edit: "",
-      signal: "",
+      signale: "",
     };
   },
 
@@ -106,21 +106,19 @@ export default {
               console.log("Logged userId", userId);
 
               if (item.userId == userId) {
-                this.edit = 1;
+                this.edit = true;
                 console.log("edit = ", this.edit);
-                this.signal = 0;
-                console.log("signal = ", this.signal);
-                console.log(
-                  "Signalement impossible || Modifications du commentaire possible"
-                );
               } else {
-                this.edit = 0;
+                this.edit = false;
                 console.log("edit = ", this.edit);
-                this.signal = 1;
-                console.log("signal = ", this.signal);
-                console.log(
-                  "Signalement possible || Modifications du commentaire impossible"
-                );
+              }
+
+              if (item.userId != userId) {
+                this.signale = true;
+                console.log("signale = ", this.signale);
+              } else {
+                this.signale = false;
+                console.log("signale = ", this.signale);
               }
             });
 
@@ -157,7 +155,7 @@ export default {
         userId: userId,
         token: token,
       };
-      console.log(values);
+
       const body = JSON.stringify(values);
 
       //* ✅ 👉 Définition des paramètres de la requête.
@@ -170,11 +168,9 @@ export default {
       //* ✅ 👉 Définition de la params.
 
       const params = comment;
-      console.log(params);
 
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/deleteComment/" + params;
-      console.log(url);
 
       fetch(url, parametresDeRequete)
         .then(function(response) {
@@ -188,7 +184,7 @@ export default {
             console.log(data);
 
             alert("⚠️ Votre commentaire a été Supprimé ⚠️");
-            window.location.reload();
+            window.history.go(0);
           });
         })
         .catch(function(err) {
@@ -203,31 +199,20 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userInfo = this.$store.state;
-      let userId = userInfo.loggedUser;
-
-      console.log("✔️✔️✔️ 👉  USER ID =", userId);
-      console.log("✔️✔️✔️ 👉  TOKEN =", token);
-      console.log("✔️✔️✔️ 👉  COMMENT ID =", id);
-
       //* ✅ 👉 Définition du body de la requête.
       const values = {
         signale: "true",
       };
-      console.log("✔️✔️✔️ 👉  VALUES =", values);
+
       const body = JSON.stringify(values);
-      console.log("✔️✔️✔️ 👉  BODY =", body);
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
       headers.append("Content-Type", "application/json; charset=UTF-8");
 
-      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
-
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/reportComment/" + id;
-      console.log("✔️✔️✔️ 👉  URL =", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -235,7 +220,6 @@ export default {
         headers: headers,
         body: body,
       };
-      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
 
       fetch(url, parametresDeRequete)
         .then(function(response) {

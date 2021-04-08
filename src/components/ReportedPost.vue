@@ -151,9 +151,8 @@ export default {
 
           response.json().then(function(data) {
             console.log(data);
-
             alert("⚠️ Votre poste a été Supprimé ⚠️");
-            window.location.reload();
+            window.history.go(0);
           });
         })
         .catch(function(err) {
@@ -174,18 +173,14 @@ export default {
       };
       console.log("✔️✔️✔️ 👉  VALUES =", values);
       const body = JSON.stringify(values);
-      console.log("✔️✔️✔️ 👉  BODY =", body);
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
       headers.append("Content-Type", "application/json; charset=UTF-8");
 
-      console.log("✔️✔️✔️ 👉  HEADERS =", headers);
-
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/supReportPost/" + id;
-      console.log("✔️✔️✔️ 👉  URL =", url);
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -193,7 +188,6 @@ export default {
         headers: headers,
         body: body,
       };
-      console.log("✔️✔️✔️ 👉 PARAMÈTRES DE REQUÊTE", parametresDeRequete);
 
       fetch(url, parametresDeRequete)
         .then(function(response) {
@@ -209,7 +203,7 @@ export default {
             console.log(data);
 
             alert("⚠️ Signalement annulé ⚠️");
-            window.location.reload();
+            window.history.go(0);
           });
         })
         .catch(function(err) {

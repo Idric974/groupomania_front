@@ -73,7 +73,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -111,7 +111,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
 
       const values = {
         alias: this.input.alias,
