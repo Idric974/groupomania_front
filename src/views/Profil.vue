@@ -1,15 +1,20 @@
 <template>
   <div class="Profil">
-    <div class="btn_acc">
-      <div class="btn_acc2"><BtnLogout /></div>
-      <div class="btn_acc2"><BtnHome /></div>
+    <!--⚠️ NAVIGATION SECTION ⚠️-->
+    <div class="nav-frame">
+      <div class="nav-block">
+        <div><BtnLogout /></div>
+        <div><BtnHome /></div>
+      </div>
     </div>
 
-    <div class="composant-title">
-      <h1>Mon Profil</h1>
+    <!--⚠️ CONTENT SECTION ⚠️-->
+    <div class="content-frame">
+      <div class="composant-title">
+        <h1>Mon Profil</h1>
+      </div>
+      <EmployeeProfile />
     </div>
-
-    <EmployeeProfile />
   </div>
 </template>
 

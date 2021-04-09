@@ -45,54 +45,154 @@ export default {
 }
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-.bonjour {
-  width: 98%;
-  background-color: black;
-  color: white;
-  position: fixed;
-  top: 0;
-  border-radius: 0px 0px 10px 10px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  align-items: center;
-
-  @media screen and (min-width: 742px) and (max-width: 991px) {
-    height: 40px;
-    .bonjour-text {
-      margin-top: 10px;
-      font-size: 1.5rem;
-    }
-  }
-
-  @media screen and (min-width: 992px) {
-  }
-}
-
 .id {
   margin-top: 5px;
   color: red;
   font-weight: bolder;
 }
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//*🔴👉 Button Style.
+//*🔴👉 bonjour.
 
-.home-btn {
-  width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+.bonjour-frame {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 30px;
+  //border: solid red 1px;
 
   @media screen and (min-width: 742px) and (max-width: 991px) {
-    width: 250px;
+    margin-bottom: 50px;
   }
 
   @media screen and (min-width: 992px) {
-    width: 300px;
+  }
+
+  .bonjour {
+    width: 100%;
+    background-color: black;
+    color: white;
+    border-radius: 0px 0px 10px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: auto;
+
+    .bonjour-text {
+      width: 100%;
+      text-align: center;
+    }
+
+    @media screen and (min-width: 742px) and (max-width: 991px) {
+      height: 40px;
+      .bonjour-text {
+        margin-top: 10px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 80%;
+    }
   }
 }
 
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//*🔴👉 Nav Div.
+.logo-frame {
+  background-image: url("./assets/icon-above-font.png");
+  width: 60%;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+
+  @media screen and (min-width: 740px) and (max-width: 991px) {
+    width: 40%;
+    height: 200px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 20%;
+    height: 150px;
+  }
+}
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//*🔴👉 Nav Div.
+.nav-frame {
+  width: 100%;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .nav-block {
+    width: 100%;
+    height: auto;
+
+    @media screen and (min-width: 742px) and (max-width: 991px) {
+      display: flex;
+      justify-content: center;
+    }
+
+    @media screen and (min-width: 992px) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+  }
+
+  @media screen and (min-width: 992px) {
+  }
+}
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//*🔴👉 Nav Div.
+.content-frame {
+  width: 100%;
+  height: auto;
+  //border: solid red 1px;
+}
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 .btn-appli {
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 5px #1e3d59;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin: 10px auto;
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    width: 250px;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 10px 10px 10px 10px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 10px 10px 10px 10px;
+  }
+}
+
+.btn-appli-action {
   width: 250px;
   border-radius: 10px;
   box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
@@ -109,13 +209,15 @@ export default {
   margin-right: auto;
 
   @media screen and (min-width: 742px) and (max-width: 991px) {
-    width: 100%;
+    width: 70%;
+    height: 50px;
     padding-left: 5px;
     padding-right: 5px;
   }
 
   @media screen and (min-width: 992px) {
-    width: 100%;
+    width: 70%;
+    height: 50px;
     padding-left: 10px;
     padding-right: 10px;
   }

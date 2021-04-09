@@ -1,38 +1,45 @@
 <template>
   <div class="create-post">
-    <div class="btn_acc2"><BtnLogout /></div>
-    <div class="btn_acc2"><BtnHome /></div>
-
-    <br />
-
-    <hr />
+    <!--✅ 👉 navigation section-->
+    <div class="nav-frame">
+      <div class="nav-block">
+        <div><BtnLogout /></div>
+        <div><BtnHome /></div>
+      </div>
+    </div>
 
     <div class="menu_composant">
       <h1>Modifier mon poste</h1>
     </div>
 
-    <div class="post-form">
-      <form class="form-setup">
-        <input
-          type="text"
-          name="title"
-          validation="required"
-          class="title"
-          v-model="input.title"
-        />
+    <div class="content-frame">
+      <div class="post-form">
+        <form class="form-setup">
+          <input
+            type="text"
+            name="title"
+            validation="required"
+            class="title"
+            v-model="input.title"
+          />
 
-        <input
-          type="textarea"
-          name="content"
-          validation="required"
-          class="content"
-          v-model="input.content"
-        />
+          <input
+            type="text"
+            name="content"
+            validation="required"
+            class="content"
+            v-model="input.content"
+          />
 
-        <button type="submit" v-on:click.prevent="updatePost()" class="poster">
-          Modifier Poste
-        </button>
-      </form>
+          <button
+            type="submit"
+            v-on:click.prevent="updatePost()"
+            class="poster"
+          >
+            Modifier Poste
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -167,6 +174,11 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: rgba(180, 207, 243, 0.8);
+
+  @media screen and (min-width: 992px) {
+    margin: auto;
+    width: 80%;
+  }
 }
 
 .title,

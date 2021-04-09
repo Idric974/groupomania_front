@@ -9,12 +9,12 @@
 
     <div class="btn_profil">
       <router-link to="updateMyProfil">
-        <button class="btn-appli">
+        <button class="btn-appli-action">
           <i class="fas fa-user-plus"></i>Modifier profil
         </button></router-link
       >
 
-      <button class="btn-appli" v-on:click="deleteUser()">
+      <button class="btn-appli-action" v-on:click="deleteUser()">
         <i class="fas fa-user-plus"></i>Supprimer profil
       </button>
     </div>

@@ -1,16 +1,25 @@
 <template>
   <div class="Profil">
-    <div class="btn_acc">
-      <div class="btn_acc2"><BtnLogout /></div>
-      <div class="btn_acc2"><BtnHome /></div>
-      <div class="btn_acc2"><BtnRetour /></div>
+    <!--⚠️ NAVIGATION SECTION ⚠️-->
+    <div class="nav-frame">
+      <div class="nav-block">
+        <div><BtnLogout /></div>
+        <div><BtnHome /></div>
+      </div>
+
+      <div class="nav-block">
+        <div><BtnRetour /></div>
+      </div>
     </div>
 
     <div class="composant-title">
       <h1>Modifier mon profile</h1>
     </div>
 
-    <updateprofil />
+    <!--⚠️ CONTENT SECTION ⚠️-->
+    <div class="content-frame">
+      <updateprofil />
+    </div>
   </div>
 </template>
 

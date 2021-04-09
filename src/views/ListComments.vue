@@ -2,20 +2,29 @@
   <!-- 👉 views ListComments 👈-->
 
   <div class="ListComments">
-    <div class="ajust"><Bonjour /></div>
-
-    <BtnLogout />
-    <BtnHome />
-    <br />
-    <hr />
-
-    <div class="selected-post">
-      <selectedPost />
+    <div class="bonjour-frame">
+      <div><Bonjour /></div>
     </div>
 
-    <div class="comments">
-      <h2>Commentaires sur ce poste</h2>
-      <Comments :commentId="comment.id" />
+    <!--⚠️ NAVIGATION SECTION ⚠️-->
+
+    <!--✅ 👉 navigation section-->
+    <div class="nav-frame">
+      <div class="nav-block">
+        <div><BtnLogout /></div>
+        <div><BtnHome /></div>
+      </div>
+    </div>
+
+    <div class="content-frame">
+      <div class="selected-post">
+        <selectedPost />
+      </div>
+
+      <div class="comments">
+        <h2>Commentaires sur ce poste</h2>
+        <Comments :commentId="comment.id" />
+      </div>
     </div>
   </div>
 </template>

@@ -1,43 +1,47 @@
 <template>
   <div class="create-post">
-    <div class="btn_acc2"><BtnLogout /></div>
-    <div class="btn_acc2"><BtnHome /></div>
-    <br />
-
-    <hr />
-
-    <div class="menu_composant">
-      <h1>Créer un poste</h1>
+    <!--✅ 👉 navigation section-->
+    <div class="nav-frame">
+      <div class="nav-block">
+        <div class="btn_acc2"><BtnLogout /></div>
+        <div class="btn_acc2"><BtnHome /></div>
+      </div>
     </div>
 
-    <div class="post-form">
-      <form class="form-setup">
-        <input
-          type="text"
-          name="title"
-          placeholder="Le titre de votre post"
-          validation="required"
-          class="title"
-          v-model="input.title"
-        />
+    <div class="content-frame">
+      <div class="menu_composant">
+        <h1>Créer un poste</h1>
+      </div>
 
-        <input
-          type="text"
-          name="content"
-          placeholder="Rédigez votre poste ici"
-          validation="required"
-          class="content"
-          v-model="input.content"
-        />
+      <div class="post-form">
+        <form class="form-setup">
+          <input
+            type="text"
+            name="title"
+            placeholder="Le titre de votre post"
+            validation="required"
+            class="title"
+            v-model="input.title"
+          />
 
-        <button
-          type="submit"
-          v-on:click.prevent="handleSubmit()"
-          class="poster"
-        >
-          Poster
-        </button>
-      </form>
+          <input
+            type="text"
+            name="content"
+            placeholder="Rédigez votre poste ici"
+            validation="required"
+            class="content"
+            v-model="input.content"
+          />
+
+          <button
+            type="submit"
+            v-on:click.prevent="handleSubmit()"
+            class="poster"
+          >
+            Poster
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -150,6 +154,18 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: rgba(180, 207, 243, 0.8);
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    width: 85%;
+    height: auto;
+    margin: auto;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 70%;
+    height: auto;
+    margin: auto;
+  }
 }
 
 .title,

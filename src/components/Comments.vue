@@ -305,6 +305,11 @@ export default {
         display: flex;
       }
     }
+
+    @media screen and (min-width: 992px) {
+      margin: auto;
+      width: 80%;
+    }
   }
 }
 </style>

@@ -412,6 +412,14 @@ export default {
   input {
     border: solid black 1px;
   }
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+  }
+
+  @media screen and (min-width: 992px) {
+    margin: auto;
+    width: 80%;
+  }
 }
 
 .setup-button {

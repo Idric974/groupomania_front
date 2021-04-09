@@ -166,7 +166,7 @@ export default {
 
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
-<style scoped>
+<style scoped lang="scss">
 .form-setup {
   width: 100%;
   display: flex;
@@ -180,6 +180,16 @@ export default {
   background-color: rgba(180, 207, 243, 0.8);
   padding-top: 10px;
   margin-top: 10px;
+
+  @media screen and (min-width: 742px) and (max-width: 991px) {
+    margin: auto;
+    width: 93%;
+  }
+
+  @media screen and (min-width: 992px) {
+    margin: auto;
+    width: 60%;
+  }
 }
 
 .field {

@@ -112,11 +112,11 @@ export default {
   background-color: rgba(180, 207, 243, 0.8);
 
   @media screen and (min-width: 742px) and (max-width: 991px) {
-    width: 80%;
+    width: 70%;
   }
 
-  @media screen and (min-width: 739px) {
-    width: 50%;
+  @media screen and (min-width: 992px) {
+    width: 30%;
   }
 }
 

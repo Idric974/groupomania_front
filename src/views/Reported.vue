@@ -1,28 +1,43 @@
 <template>
-  <div class="ReportedComment">
-    <div class="ReportedComment-nav">
-      <h1 class="page-title">Page administration</h1>
-      <BtnLogout />
-      <BtnHome />
+  <div class="Reported">
+    <!--⚠️ BONJOUR SECTION ⚠️-->
+    <div class="bonjour-frame">
+      <div><Bonjour /></div>
     </div>
 
-    <div class="container">
-      <div class="container-onglets">
-        <div id="postOnglet" @click="reportedPost()">
-          Postes
-        </div>
-        <div id="commentOnglet" @click="reportedComment()">
-          Commentaires
-        </div>
+    <br />
+
+    <div class="menu_composant">
+      <h1 class="page-title">Page administration</h1>
+    </div>
+
+    <!--✅ 👉 navigation section-->
+    <div class="nav-frame">
+      <div class="nav-block">
+        <BtnLogout />
+        <BtnHome />
       </div>
+    </div>
 
-      <div class="content">
-        <div id="postContent">
-          <ReportedPost />
+    <div class="content-frame">
+      <div class="container">
+        <div class="container-onglets">
+          <div id="postOnglet" @click="reportedPost()">
+            Postes
+          </div>
+          <div id="commentOnglet" @click="reportedComment()">
+            Commentaires
+          </div>
         </div>
 
-        <div id="commentContent">
-          <ReportedComment />
+        <div class="content">
+          <div id="postContent">
+            <ReportedPost />
+          </div>
+
+          <div id="commentContent">
+            <ReportedComment />
+          </div>
         </div>
       </div>
     </div>
@@ -34,11 +49,12 @@ import BtnLogout from "@/components/BtnLogout.vue";
 import BtnHome from "@/components/BtnHome.vue";
 import ReportedPost from "@/components/ReportedPost.vue";
 import ReportedComment from "@/components/ReportedComment.vue";
+import Bonjour from "../components/Bonjour.vue";
 
 export default {
   name: "Reported",
   state: "0",
-  components: { BtnHome, BtnLogout, ReportedPost, ReportedComment },
+  components: { BtnHome, BtnLogout, ReportedPost, ReportedComment, Bonjour },
   methods: {
     reportedComment() {
       let commentOnglet = document.getElementById("commentOnglet");
@@ -72,10 +88,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ReportedComment {
+.Reported {
   width: 100%;
 
-  .ReportedComment-nav {
+  .Reported-nav {
     margin-top: 20px;
     margin-bottom: 20px;
 

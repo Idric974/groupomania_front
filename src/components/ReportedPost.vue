@@ -252,7 +252,7 @@ export default {
     @media screen and (min-width: 992px) {
       margin-left: auto;
       margin-right: auto;
-      width: 80%;
+      width: 100%;
     }
     .alias,
     .formated-date,
