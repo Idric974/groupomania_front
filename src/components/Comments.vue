@@ -17,8 +17,6 @@
         {{ comment.comment }}
       </div>
 
-      <div>userId {{ comment.userId }}</div>
-
       <div class="setup-button">
         <div class="eddit-supp" v-if="comment.userId == logged">
           <router-link
