@@ -17,8 +17,10 @@
         {{ comment.comment }}
       </div>
 
+      <div>userId {{ comment.userId }}</div>
+
       <div class="setup-button">
-        <div class="eddit-supp" v-if="edit">
+        <div class="eddit-supp" v-if="comment.userId == logged">
           <router-link
             :to="{ name: 'UpdateComment', params: { id: comment.id } }"
             ><button type="submit" class="small">
@@ -34,7 +36,7 @@
           </button>
         </div>
 
-        <div class="signale" v-if="signale">
+        <div class="signale" v-else>
           <button
             type="submit"
             v-on:click="reportComment(comment.id)"
@@ -63,8 +65,7 @@ export default {
       comment: [],
       state: "",
       date: [],
-      edit: "",
-      signale: "",
+      logged: "",
     };
   },
 
@@ -78,6 +79,7 @@ export default {
       const token = objJson.token;
 
       let userId = this.$store.state.id;
+      this.logged = userId;
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
@@ -106,19 +108,8 @@ export default {
               console.log("Logged userId", userId);
 
               if (item.userId == userId) {
-                this.edit = true;
-                console.log("edit = ", this.edit);
-              } else {
-                this.edit = false;
-                console.log("edit = ", this.edit);
-              }
-
-              if (item.userId != userId) {
-                this.signale = true;
-                console.log("signale = ", this.signale);
-              } else {
-                this.signale = false;
-                console.log("signale = ", this.signale);
+                //this.edit = true;
+                console.log("edit =  ", this.edit);
               }
             });
 
