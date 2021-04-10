@@ -102,12 +102,15 @@ export default {
                 "color:orange ;  font-size: 15px",
                 index
               );
-              console.log("Comment userId", item.userId);
-              console.log("Logged userId", userId);
 
               if (item.userId == userId) {
-                //this.edit = true;
-                console.log("edit =  ", this.edit);
+                console.log(
+                  "Pour ce commentaire, signalement impossible || Modifications du post possible"
+                );
+              } else {
+                console.log(
+                  "Pour ce commentaire, signalement possible || Modifications du post impossible"
+                );
               }
             });
 

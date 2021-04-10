@@ -114,12 +114,8 @@ export default {
 
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then((success) => {
-          console.log(
-            "%c ✔️ Poste crée",
-            "color:green ;  font-size: 15px",
-            success
-          );
+        .then(() => {
+          console.log("%c ✔️ Poste crée", "color:green ;  font-size: 15px");
 
           this.input.title = "";
           this.input.content = "";

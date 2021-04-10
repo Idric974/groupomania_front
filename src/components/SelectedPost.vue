@@ -1,18 +1,18 @@
 <template>
   <!-- 👉 Le poste séléctioné-->
-  <div class="selected-post">
+  <div class="selected-post" v-if="this.posts != null">
     <div class="post">
       <div class="user-name">
         <br />
         <i class="fas fa-user"></i>
-        {{ posts.user.name }} {{ posts.user.firstname }}
+        {{ name }} {{ firstname }}
       </div>
 
       <div class="date">{{ date }}</div>
 
-      <div class="title">Titre : {{ posts.title }}</div>
+      <div class="title">Titre : {{ title }}</div>
 
-      <div class="content">{{ posts.content }}</div>
+      <div class="content">{{ content }}</div>
 
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
@@ -86,6 +86,10 @@ export default {
       formValues: {},
       edit: "",
       report: "",
+      name: "",
+      firstname: "",
+      title: "",
+      content: "",
     };
   },
 
@@ -118,18 +122,20 @@ export default {
           success.json().then((result) => {
             this.posts = result.posts;
 
+            this.firstname = this.posts.user.firstname;
+            this.name = this.posts.user.name;
             this.date = FORMAT_DATE(result.posts.createdAt);
+            this.title = this.posts.title;
+            this.content = this.posts.content;
+
+            console.log(
+              "%cPoste sélectionné",
+              "color:green ;  font-size: 15px"
+            );
 
             if (this.posts.userId == userId) {
               console.log(
-                "%cPost Id",
-                "color:green ;  font-size: 15px",
-                this.posts.id
-              );
-              console.log("Post userId", result.posts.userId);
-              console.log("Logged userId", userId);
-              console.log(
-                "Signalement impossible || Modifications du post possible"
+                "Pour ce post, signalement impossible || Modifications du post possible"
               );
 
               this.edit = 1;
@@ -139,15 +145,7 @@ export default {
 
             if (this.posts.userId != userId) {
               console.log(
-                "%cPost Id",
-                "color:green ;  font-size: 15px",
-                this.posts.id
-              );
-
-              console.log("Post userId", result.posts.userId);
-              console.log("Logged userId", userId);
-              console.log(
-                "Signalement possible || Modifications du post impossible"
+                "Pour ce post, signalement possible || Modifications du post impossible"
               );
 
               this.report = 1;
