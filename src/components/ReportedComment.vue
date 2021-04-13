@@ -88,7 +88,7 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            console.log(result.comments.length);
+            //  console.log(result.comments.length);
             if (result.comments.length == 0) {
               console.log("Pas de commentaire a signaler");
 
@@ -151,7 +151,6 @@ export default {
             console.log(data);
 
             alert("⚠️ Votre commentaire a été Supprimé ⚠️");
-            window.history.go(0);
           });
         })
         .catch(function(err) {
@@ -202,7 +201,6 @@ export default {
             console.log(data);
 
             alert("⚠️ Signalement annulé ⚠️");
-            window.history.go(0);
           });
         })
         .catch(function(err) {

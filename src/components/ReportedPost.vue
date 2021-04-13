@@ -89,7 +89,7 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            console.log(result.posts.length);
+            //console.log(result.posts.length);
 
             if (result.posts.length == 0) {
               console.log("Pas de poste à signaler");
@@ -152,7 +152,6 @@ export default {
           response.json().then(function(data) {
             console.log(data);
             alert("⚠️ Votre poste a été Supprimé ⚠️");
-            window.history.go(0);
           });
         })
         .catch(function(err) {
@@ -203,7 +202,6 @@ export default {
             console.log(data);
 
             alert("⚠️ Signalement annulé ⚠️");
-            window.history.go(0);
           });
         })
         .catch(function(err) {

@@ -56,6 +56,8 @@
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "updateprofil",
   components: {},
@@ -64,6 +66,19 @@ export default {
       input: { alias: "", email: "", password: "", name: "", firstname: "" },
     };
   },
+
+  computed: {
+    ...mapState([
+      "firstname",
+      "name",
+      "alias",
+      "userId",
+      "admin",
+      "id",
+      "email",
+    ]),
+  },
+
   //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
   methods: {
@@ -93,10 +108,10 @@ export default {
         .then((success) => {
           success.json().then((result) => {
             this.users = result.users;
-            this.input.alias = this.users.alias;
-            this.input.email = this.users.email;
-            this.input.name = this.users.name;
-            this.input.firstname = this.users.firstname;
+            this.input.alias = this.alias;
+            this.input.email = this.email;
+            this.input.name = this.name;
+            this.input.firstname = this.firstname;
           });
         })
         .catch(function(error) {
@@ -150,11 +165,14 @@ export default {
           response.json().then(function(data) {
             console.log(data);
           });
+
+          window.location.href = "/home#/Profil";
         })
         .catch(function(err) {
           console.log("❌❌❌ CATCH a Fetch Error :-S", err);
         });
     },
+
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 

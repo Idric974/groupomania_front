@@ -176,7 +176,6 @@ export default {
             console.log(data);
 
             alert("⚠️ Votre commentaire a été Supprimé ⚠️");
-            window.history.go(0);
           });
         })
         .catch(function(err) {
