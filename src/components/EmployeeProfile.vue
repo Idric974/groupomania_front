@@ -1,11 +1,15 @@
 <template>
   <div class="employee-profile">
+
+
     <div class="employee-box">
       <div class="box ">Alias : {{ alias }}</div>
       <div class="box ">Email : {{ email }}</div>
       <div class="box ">Prénom : {{ firstname }}</div>
       <div class="box ">Nom : {{ name }}</div>
     </div>
+   
+   
 
     <div class="btn_profil">
       <router-link to="updateMyProfil">
@@ -18,6 +22,7 @@
         <i class="fas fa-user-plus"></i>Supprimer profil
       </button>
     </div>
+  
   </div>
 </template>
 

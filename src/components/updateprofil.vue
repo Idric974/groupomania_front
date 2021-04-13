@@ -166,11 +166,15 @@ export default {
             console.log(data);
           });
 
-          window.location.href = "/home#/Profil";
+         
+          window.history.go(-1);
+
         })
         .catch(function(err) {
           console.log("❌❌❌ CATCH a Fetch Error :-S", err);
         });
+
+         this.$store.dispatch("LOGGED_USER");
     },
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
