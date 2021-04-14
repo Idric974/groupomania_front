@@ -162,6 +162,7 @@ export default {
     //* ✅ 👉 Poster un commentaire.
     submitComment() {
       const storageToken = localStorage.getItem("groupomania");
+
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
@@ -202,6 +203,8 @@ export default {
           console.log("Commentaire crée" + success);
           this.input.title = "";
           this.input.comment = "";
+
+          alert("Commentaire ajouté");
         })
         .catch(function(error) {
           console.log(

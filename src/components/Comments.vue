@@ -68,7 +68,7 @@ export default {
   },
 
   methods: {
-    //* ✅ 👉 Afficher le poste.
+    //* ✅ 👉 Afficher les commentaires.
     findAll() {
       const params = this.$route.params.id;
 
@@ -141,7 +141,7 @@ export default {
       headers.append("Authorization", `Bearer ${token}`);
       headers.append("Content-Type", "application/json");
 
-      // //* ✅ 👉 Définition du body de la requête.
+      //* ✅ 👉 Définition du body de la requête.
 
       const values = {
         userId: userId,

@@ -22,11 +22,11 @@
         />
 
         <input
-          type="textarea"
-          name="content"
+          type="text"
+          name="comment"
           validation="required"
-          class="content"
-          v-model="input.content"
+          class="comment"
+          v-model="input.comment"
         />
 
         <button
@@ -53,13 +53,12 @@ export default {
     return {
       input: {
         title: "",
-        content: "",
+        comment: "",
       },
     };
   },
   methods: {
     readComment() {
-      console.log("Hello");
       const params = this.$route.params.id;
 
       const storageToken = localStorage.getItem("groupomania");
@@ -104,7 +103,7 @@ export default {
 
       const values = {
         title: this.input.title,
-        content: this.input.content,
+        comment: this.input.comment,
       };
 
       //* ✅ 👉 Définition du body de la requête.
@@ -131,6 +130,7 @@ export default {
             console.log(
               "Looks like there was a problem. Status Code: " + response.status
             );
+
             return;
           }
 
@@ -175,12 +175,12 @@ export default {
 }
 
 .title,
-.content,
+.comment,
 .poster {
   font-size: 1.3rem;
 }
 
-.content {
+.comment {
   height: 100px;
   overflow-wrap: break-word;
 }

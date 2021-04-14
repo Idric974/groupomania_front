@@ -141,6 +141,7 @@ export default {
 
             alert("⚠️ Votre poste a été modifié ⚠️ ");
           });
+          window.location.href = "/home#/home";
         })
         .catch(function(err) {
           console.log("❌❌❌ CATCH a Fetch Error :-S", err);
