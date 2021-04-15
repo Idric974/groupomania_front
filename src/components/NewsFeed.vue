@@ -25,7 +25,7 @@
       <div class="new-feed-button">
         <div class="btnReadComment">
           <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
-            ><button class="large">
+            ><button class="large" @click="selectedPostId(post.id)">
               Lire la suite du poste
             </button></router-link
           >
@@ -75,6 +75,10 @@ export default {
   },
 
   methods: {
+    selectedPostId(id) {
+      window.localStorage.setItem("postId", id);
+    },
+
     //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
       const storageToken = localStorage.getItem("groupomania");

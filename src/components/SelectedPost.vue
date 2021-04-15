@@ -150,6 +150,8 @@ export default {
 
               this.report = 1;
             }
+
+            this.$store.dispatch("UPDATE_COMMENT_FEED");
           });
         })
         .catch(function(error) {
@@ -203,6 +205,8 @@ export default {
           console.log("Commentaire crée" + success);
           this.input.title = "";
           this.input.comment = "";
+
+          this.$store.dispatch("UPDATE_COMMENT_FEED");
 
           alert("Commentaire ajouté");
         })

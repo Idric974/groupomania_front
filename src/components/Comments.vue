@@ -1,13 +1,12 @@
 <template>
   <div class="comments-box">
     <!--✅ 👉 Affiche les commentaires du post sélectionné-->
-    <div class="comments" v-for="comment in comments" :key="comment.id">
-      <div class="user-name">
-        De:
+    <div class="comments" v-for="comment in userComments" :key="comment.id">
+      <div class="formated-date">{{ comment.formatedDate }}</div>
+
+      <div class="alias">
         {{ comment.user.alias }}
       </div>
-
-      <div class="formated-date">{{ comment.formatedDate }}</div>
 
       <div class="title">
         {{ comment.title }}
@@ -17,8 +16,12 @@
         {{ comment.comment }}
       </div>
 
+      <div>
+        {{ comment.userId }}
+      </div>
+
       <div class="setup-button">
-        <div class="eddit-supp" v-if="comment.userId == logged">
+        <div class="eddit-supp" v-if="comment.userId == id">
           <router-link
             :to="{ name: 'UpdateComment', params: { id: comment.id } }"
             ><button type="submit" class="small">
@@ -52,7 +55,7 @@
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
-import { FORMAT_DATE } from "../services/utilities";
+import { mapState } from "vuex";
 
 export default {
   name: "Comments",
@@ -67,67 +70,11 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState(["userComments", "id"]),
+  },
+
   methods: {
-    //* ✅ 👉 Afficher les commentaires.
-    findAll() {
-      const params = this.$route.params.id;
-
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.$store.state.id;
-      this.logged = userId;
-
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-
-      // //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
-
-      // //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            result.comments.forEach((item, index) => {
-              this.comments = result.comments;
-
-              console.log(
-                "%cComment Index",
-                "color:orange ;  font-size: 15px",
-                index
-              );
-
-              if (item.userId == userId) {
-                console.log(
-                  "Pour ce commentaire, signalement impossible || Modifications du post possible"
-                );
-              } else {
-                console.log(
-                  "Pour ce commentaire, signalement possible || Modifications du post impossible"
-                );
-              }
-            });
-
-            this.comments = result.comments.map((comment) => {
-              comment.formatedDate = FORMAT_DATE(comment.createdAt);
-
-              return comment;
-            });
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
     //* ✅ 👉 Supprimer le poste sélectionné.
     deletComment(comment) {
       const storageToken = localStorage.getItem("groupomania");
@@ -233,10 +180,6 @@ export default {
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
-
-  mounted() {
-    this.findAll();
-  },
 };
 </script>
 
@@ -254,7 +197,7 @@ export default {
     border-radius: 10px;
     box-shadow: black 0px 0px 10px 5px;
 
-    .user-name {
+    .alias {
       width: 100%;
       height: auto;
       border-radius: 10px 10px 0px 0px;
