@@ -2,11 +2,11 @@
   <div class="comments-box">
     <!--✅ 👉 Affiche les commentaires du post sélectionné-->
     <div class="comments" v-for="comment in userComments" :key="comment.id">
-      <div class="formated-date">{{ comment.formatedDate }}</div>
-
       <div class="alias">
         {{ comment.user.alias }}
       </div>
+
+      <div class="formated-date">{{ comment.formatedDate }}</div>
 
       <div class="title">
         {{ comment.title }}
@@ -112,19 +112,30 @@ export default {
       let url = "http://localhost:3000/api/comment/deleteComment/" + params;
 
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log("Commentaire non trouvé" + response.status);
+        .then((success) => {
+          console.log("Commentaire suprimé" + success);
+          window.history.go(-1);
 
-            return;
-          }
+          alert("Commentaire Supprimé");
 
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Votre commentaire a été Supprimé ⚠️");
-          });
+          return;
         })
+
+        // .then(function(response) {
+        //   if (response.status !== 200) {
+        //     console.log("Commentaire non trouvé" + response.status);
+
+        //     return;
+        //   }
+
+        //   response.json().then(function(data) {
+        //     console.log(data);
+
+        //     alert("⚠️ Votre commentaire a été Supprimé ⚠️");
+        //     window.history.go(-1);
+        //   });
+        // })
+
         .catch(function(err) {
           console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
         });

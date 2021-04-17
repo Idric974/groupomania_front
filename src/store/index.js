@@ -15,6 +15,7 @@ export default new Vuex.Store({
     id: "",
     email: "",
     userComments: "",
+    reportedPosts: "",
   },
 
   mutations: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
 
     SET_NEW_COMMENT(state, payload) {
       state.userComments = payload;
+    },
+
+    SET_NEW_REPORTED_POST(state, payload) {
+      state.reportedPosts = payload;
     },
   },
   actions: {
@@ -98,8 +103,6 @@ export default new Vuex.Store({
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            //console.log(result.comments);
-
             result.comments.forEach((item, index) => {
               commit("SET_NEW_COMMENT", result.comments);
 
@@ -134,9 +137,58 @@ export default new Vuex.Store({
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-    //* ✅ 👉 Mounteds.
-    mounted() {
-      this.findAll();
+    //* ✅ 👉 Afficher les commentaires.
+    SHOW_ALL_REPORTED_POST({ commit }) {
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
+
+      let userId = this.$store.state.userId;
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/readAllReported/";
+
+      const values = {
+        userId: userId,
+        token: token,
+      };
+
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            //console.log(result.posts.length);
+            commit("SET_NEW_REPORTED_POST", result.posts);
+
+            if (result.posts.length == 0) {
+              console.log("Pas de poste à signaler");
+
+              let info = document.getElementById("info");
+              info.innerHTML = `Pas poste signalé pour l'instant 😃`;
+            }
+
+            this.posts = result.posts.map((post) => {
+              post.formatedDate = FORMAT_DATE(post.createdAt);
+
+              return post;
+            });
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
   },
 

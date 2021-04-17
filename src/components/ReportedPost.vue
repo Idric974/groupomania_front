@@ -4,7 +4,7 @@
       <h2 class="repoted-title">Liste des postes signalés</h2>
       <div id="info"></div>
 
-      <div class="post" v-for="post in posts" :key="post.id">
+      <div class="post" v-for="post in reportedPosts" :key="post.id">
         <div class="alias">
           Publié par : {{ post.user.name }} {{ post.user.firstname }}
         </div>
@@ -46,8 +46,7 @@
 </template>
 
 <script>
-import { FORMAT_DATE } from "../services/utilities";
-//import { LOGGED_IN_USER } from "../store/index";
+import { mapState } from "vuex";
 
 export default {
   name: "Reported",
@@ -56,58 +55,15 @@ export default {
     state: "1",
   }),
 
+  computed: {
+    ...mapState(["reportedPosts"]),
+  },
+
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.$store.state.userId;
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/readAllReported/";
-
-      const values = {
-        userId: userId,
-        token: token,
-      };
-
-      const body = JSON.stringify(values);
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "POST",
-        headers: headers,
-        body: body,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            //console.log(result.posts.length);
-
-            if (result.posts.length == 0) {
-              console.log("Pas de poste à signaler");
-
-              let info = document.getElementById("info");
-              info.innerHTML = `Pas poste signalé pour l'instant 😃`;
-            }
-
-            this.posts = result.posts.map((post) => {
-              post.formatedDate = FORMAT_DATE(post.createdAt);
-
-              return post;
-            });
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      this.$store.dispatch("SHOW_ALL_REPORTED_POST");
+      console.log("SAlut la terre");
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
@@ -117,7 +73,7 @@ export default {
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.$store.state.id;
 
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${token}`);
