@@ -84,7 +84,7 @@ export default {
           success.json().then((result) => {
             this.comments = result.comments;
             this.input.title = this.comments.title;
-            this.input.content = this.comments.comment;
+            this.input.comment = this.comments.comment;
           });
         })
         .catch(function(error) {
@@ -138,6 +138,7 @@ export default {
             console.log(data);
 
             alert("⚠️ Votre commentaire a été modifié ⚠️ ");
+            window.history.go(-1);
           });
         })
         .catch(function(err) {

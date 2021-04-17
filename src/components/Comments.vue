@@ -75,7 +75,7 @@ export default {
   },
 
   methods: {
-    //* ✅ 👉 Supprimer le poste sélectionné.
+    //* ✅ 👉 Supprimer un poste.
     deletComment(comment) {
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
@@ -114,7 +114,7 @@ export default {
       fetch(url, parametresDeRequete)
         .then(function(response) {
           if (response.status !== 200) {
-            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+            console.log("Commentaire non trouvé" + response.status);
 
             return;
           }

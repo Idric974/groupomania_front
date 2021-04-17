@@ -66,10 +66,12 @@ export default new Vuex.Store({
       }
     },
 
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
     //* ✅ 👉 Afficher les commentaires.
     UPDATE_COMMENT_FEED({ commit }) {
       const storagePostId = localStorage.getItem("postId");
-      //const IdobjJson = JSON.parse(storagePostId);
+
       const params = storagePostId;
 
       console.log(params);
@@ -130,11 +132,12 @@ export default new Vuex.Store({
         });
     },
 
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Mounteds.
     mounted() {
       this.findAll();
     },
-
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   modules: {},
