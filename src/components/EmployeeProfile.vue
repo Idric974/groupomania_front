@@ -1,15 +1,11 @@
 <template>
   <div class="employee-profile">
-
-
     <div class="employee-box">
       <div class="box ">Alias : {{ alias }}</div>
       <div class="box ">Email : {{ email }}</div>
       <div class="box ">Prénom : {{ firstname }}</div>
       <div class="box ">Nom : {{ name }}</div>
     </div>
-   
-   
 
     <div class="btn_profil">
       <router-link to="updateMyProfil">
@@ -22,7 +18,6 @@
         <i class="fas fa-user-plus"></i>Supprimer profil
       </button>
     </div>
-  
   </div>
 </template>
 
@@ -84,24 +79,19 @@ export default {
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/user/deleteUser/" + userId;
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+        .then((success) => {
+          alert("Votre profil Va être supprimé");
 
-            return;
-          }
+          window.location.href = "/home";
 
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Votre profil a été Supprimé ⚠️");
-
-            window.location.href = "/home";
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

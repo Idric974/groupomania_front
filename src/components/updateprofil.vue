@@ -153,28 +153,20 @@ export default {
         body: body,
       };
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log(
-              "Looks like there was a problem. Status Code: " + response.status
-            );
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-          });
-
-         
+        .then((success) => {
+          this.$store.dispatch("LOGGED_USER");
+          alert("Votre profil à été modifié");
           window.history.go(-1);
 
+          return success;
         })
-        .catch(function(err) {
-          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
-
-         this.$store.dispatch("LOGGED_USER");
     },
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

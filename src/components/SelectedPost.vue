@@ -77,8 +77,6 @@
 <script>
 import { mapState } from "vuex";
 
-const storagePostId = localStorage.getItem("postId");
-
 export default {
   components: {},
   data() {
@@ -217,6 +215,8 @@ export default {
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      const storagePostId = localStorage.getItem("postId");
 
       //* ✅ 👉 Définition du body de la requête.
       const values = {

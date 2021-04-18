@@ -155,22 +155,17 @@ export default {
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/deletePost/" + id;
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+        .then((success) => {
+          alert("Ce poste va être supprimé");
 
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Votre poste a été Supprimé ⚠️");
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
