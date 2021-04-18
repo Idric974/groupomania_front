@@ -77,6 +77,8 @@ export default {
   methods: {
     selectedPostId(id) {
       window.localStorage.setItem("postId", id);
+      this.$store.dispatch("SHOW_SELECTED_POST");
+      this.$store.dispatch("UPDATE_COMMENT_FEED");
     },
 
     //* ✅ 👉 Afficher tous les postes.

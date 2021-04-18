@@ -62,7 +62,8 @@ export default {
   },
   methods: {
     readPost() {
-      const params = this.$route.params.id;
+      const storagePostId = localStorage.getItem("postId");
+      const id = storagePostId;
 
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
@@ -74,7 +75,7 @@ export default {
       headers.append("Content-Type", "application/json");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/findOne/" + params;
+      let url = "http://localhost:3000/api/post/findOne/" + id;
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {
@@ -102,7 +103,9 @@ export default {
       const storage = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storage);
       const token = objJson.token;
-      const params = this.$route.params.id;
+
+      const storagePostId = localStorage.getItem("postId");
+      const id = storagePostId;
 
       const values = {
         title: this.input.title,
@@ -118,7 +121,7 @@ export default {
       headers.append("Content-Type", "application/json; charset=UTF-8");
 
       //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/updatePost/" + params;
+      let url = "http://localhost:3000/api/post/updatePost/" + id;
 
       //* ✅ 👉 Définition des paramètres de la requête.
       const parametresDeRequete = {

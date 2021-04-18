@@ -121,21 +121,6 @@ export default {
           return;
         })
 
-        // .then(function(response) {
-        //   if (response.status !== 200) {
-        //     console.log("Commentaire non trouvé" + response.status);
-
-        //     return;
-        //   }
-
-        //   response.json().then(function(data) {
-        //     console.log(data);
-
-        //     alert("⚠️ Votre commentaire a été Supprimé ⚠️");
-        //     window.history.go(-1);
-        //   });
-        // })
-
         .catch(function(err) {
           console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
         });

@@ -63,7 +63,6 @@ export default {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
       this.$store.dispatch("SHOW_ALL_REPORTED_POST");
-      console.log("SAlut la terre");
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
@@ -97,21 +96,17 @@ export default {
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/post/deletePost/" + id;
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+        .then((success) => {
+          this.$store.dispatch("SHOW_ALL_REPORTED_POST");
 
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-            alert("⚠️ Votre poste a été Supprimé ⚠️");
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -144,24 +139,17 @@ export default {
         body: body,
       };
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log(
-              "Looks like there was a problem. Status Code: " + response.status
-            );
+        .then((success) => {
+          this.$store.dispatch("SHOW_ALL_REPORTED_POST");
 
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Signalement annulé ⚠️");
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

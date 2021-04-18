@@ -16,6 +16,10 @@ export default new Vuex.Store({
     email: "",
     userComments: "",
     reportedPosts: "",
+    reportedComments: "",
+    selectedPost: "",
+    selectedPostDate: "",
+    postUserIds: "",
   },
 
   mutations: {
@@ -35,6 +39,16 @@ export default new Vuex.Store({
 
     SET_NEW_REPORTED_POST(state, payload) {
       state.reportedPosts = payload;
+    },
+
+    SET_NEW_REPORTED_COMMENT(state, payload) {
+      state.reportedComments = payload;
+    },
+
+    SET_POST(state, payload) {
+      state.selectedPost = payload;
+      state.selectedPostDate = payload.createdAt;
+      state.postUserIds = payload.userId;
     },
   },
   actions: {
@@ -76,10 +90,7 @@ export default new Vuex.Store({
     //* ✅ 👉 Afficher les commentaires.
     UPDATE_COMMENT_FEED({ commit }) {
       const storagePostId = localStorage.getItem("postId");
-
       const params = storagePostId;
-
-      console.log(params);
 
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
@@ -105,6 +116,7 @@ export default new Vuex.Store({
           success.json().then((result) => {
             result.comments.forEach((item, index) => {
               commit("SET_NEW_COMMENT", result.comments);
+              console.log("result comments", result.comments);
 
               console.log(
                 "%cComment Index",
@@ -137,13 +149,13 @@ export default new Vuex.Store({
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-    //* ✅ 👉 Afficher les commentaires.
+    //* ✅ 👉 Afficher les commentaires signalé.
     SHOW_ALL_REPORTED_POST({ commit }) {
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
 
-      let userId = this.$store.state.userId;
+      let userId = this.state.userId;
 
       //* ✅ 👉 Définition des en-têtes.
       const headers = new Headers();
@@ -169,7 +181,6 @@ export default new Vuex.Store({
       fetch(url, parametresDeRequete)
         .then((success) => {
           success.json().then((result) => {
-            //console.log(result.posts.length);
             commit("SET_NEW_REPORTED_POST", result.posts);
 
             if (result.posts.length == 0) {
@@ -190,6 +201,104 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Afficher les commentaires signalé.
+    SHOW_ALL_REPORTED_COMMENTS({ commit }) {
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
+
+      let userId = this.state.userId;
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/readAllReported/";
+
+      const values = {
+        userId: userId,
+        token: token,
+      };
+
+      const body = JSON.stringify(values);
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "POST",
+        headers: headers,
+        body: body,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            commit("SET_NEW_REPORTED_COMMENT", result.comments);
+
+            if (result.comments.length == 0) {
+              console.log("Pas de commentaire a signaler");
+
+              let infoComment = document.getElementById("infoComment");
+              infoComment.innerHTML = `Pas de commentaire signalé pour l'instant 😃`;
+            }
+            this.comments = result.comments.map((comment) => {
+              comment.formatedDate = FORMAT_DATE(comment.createdAt);
+
+              return comment;
+            });
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Afficher les commentaires signalé.
+    SHOW_SELECTED_POST({ commit }) {
+      const storagePostId = localStorage.getItem("postId");
+      const params = storagePostId;
+
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
+
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/findOne/" + params;
+
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            commit("SET_POST", result.posts);
+
+            //let postUserId = result.posts.userId;
+            //console.log("post User Id", postUserId);
+
+            //let loggedUser = this.state.id;
+            //console.log("logged User", loggedUser);
+
+            // this.date = FORMAT_DATE(result.posts.createdAt);
+
+            console.log(result);
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   modules: {},

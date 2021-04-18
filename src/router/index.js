@@ -51,7 +51,7 @@ export default new VueRouter({
     },
 
     {
-      path: "/UpDatePost/:id",
+      path: "/UpDatePost",
       name: "UpDatePost",
       component: UpDatePostComponent,
     },

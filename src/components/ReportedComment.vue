@@ -6,7 +6,7 @@
     </div>
     <div id="infoComment"></div>
 
-    <div class="comments" v-for="comment in comments" :key="comment.id">
+    <div class="comments" v-for="comment in reportedComments" :key="comment.id">
       <div class="user-name">
         De : {{ comment.user.name }} {{ comment.user.firstname }}
       </div>
@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import { FORMAT_DATE } from "../services/utilities";
+import { mapState } from "vuex";
+
 export default {
   name: "Reported",
   data: () => ({
@@ -55,56 +56,14 @@ export default {
     state: "1",
   }),
 
+  computed: {
+    ...mapState(["reportedComments"]),
+  },
+
   methods: {
     //* ✅ 👉 Afficher tous les postes.
     readAllReported() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.$store.state.userId;
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/readAllReported/";
-
-      const values = {
-        userId: userId,
-        token: token,
-      };
-
-      const body = JSON.stringify(values);
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "POST",
-        headers: headers,
-        body: body,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            //  console.log(result.comments.length);
-            if (result.comments.length == 0) {
-              console.log("Pas de commentaire a signaler");
-
-              let infoComment = document.getElementById("infoComment");
-              infoComment.innerHTML = `Pas de commentaire signalé pour l'instant 😃`;
-            }
-            this.comments = result.comments.map((comment) => {
-              comment.formatedDate = FORMAT_DATE(comment.createdAt);
-
-              return comment;
-            });
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      this.$store.dispatch("SHOW_ALL_REPORTED_COMMENTS");
     },
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -139,22 +98,17 @@ export default {
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/deleteComment/" + id;
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log("Poste supprimé: 👍 👍 👍" + response.status);
+        .then((success) => {
+          this.$store.dispatch("SHOW_ALL_REPORTED_COMMENTS");
 
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Votre commentaire a été Supprimé ⚠️");
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -187,24 +141,17 @@ export default {
         body: body,
       };
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log(
-              "Looks like there was a problem. Status Code: " + response.status
-            );
+        .then((success) => {
+          this.$store.dispatch("SHOW_ALL_REPORTED_COMMENTS");
 
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Signalement annulé ⚠️");
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
