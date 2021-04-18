@@ -111,18 +111,19 @@ export default {
       //* ✅ 👉 Définition de l'URL de la requête.
       let url = "http://localhost:3000/api/comment/deleteComment/" + params;
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
         .then((success) => {
-          console.log("Commentaire suprimé" + success);
+          alert("Votre commentaire va être supprimé");
+          this.$store.dispatch("UPDATE_COMMENT_FEED");
           window.history.go(-1);
 
-          alert("Commentaire Supprimé");
-
-          return;
+          return success;
         })
-
-        .catch(function(err) {
-          console.log("Catch erreur dans la requête ⚠️ ⚠️ ⚠️", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

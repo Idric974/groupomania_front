@@ -124,25 +124,19 @@ export default {
         body: body,
       };
 
+      //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.log(
-              "Looks like there was a problem. Status Code: " + response.status
-            );
+        .then((success) => {
+          this.$store.dispatch("UPDATE_COMMENT_FEED");
+          alert("Votre commentaire à été modifié");
+          window.history.go(-1);
 
-            return;
-          }
-
-          response.json().then(function(data) {
-            console.log(data);
-
-            alert("⚠️ Votre commentaire a été modifié ⚠️ ");
-            window.history.go(-1);
-          });
+          return success;
         })
-        .catch(function(err) {
-          console.log("❌❌❌ CATCH a Fetch Error :-S", err);
+        .catch(function(error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

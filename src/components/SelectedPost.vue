@@ -107,9 +107,10 @@ export default {
     //* ✅ 👉 Poster un commentaire.
     submitComment() {
       const storageToken = localStorage.getItem("groupomania");
-
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
+
+      const storagePostId = localStorage.getItem("postId");
 
       const title = this.input.title;
       const comment = this.input.comment;
@@ -122,8 +123,6 @@ export default {
         storagePostId: storagePostId,
         userId: userId,
       };
-
-      console.log(values);
 
       //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
@@ -201,6 +200,8 @@ export default {
       //*✅👉 Exécution de la requête.
       fetch(url, parametresDeRequete)
         .then((success) => {
+          alert("Votre poste a été supprmié");
+          window.history.go(-1);
           return success;
         })
         .catch(function(error) {
