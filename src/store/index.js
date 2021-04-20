@@ -18,8 +18,10 @@ export default new Vuex.Store({
     reportedPosts: "",
     reportedComments: "",
     selectedPost: "",
-    selectedPostDate: "",
     postUserIds: "",
+    selectedPostDate: "",
+    readAllPost: "",
+    readAllComments: "",
   },
 
   mutations: {
@@ -47,8 +49,19 @@ export default new Vuex.Store({
 
     SET_POST(state, payload) {
       state.selectedPost = payload;
-      state.selectedPostDate = payload.createdAt;
       state.postUserIds = payload.userId;
+    },
+
+    SET_POST_DATE(state, payload) {
+      state.selectedPostDate = payload;
+    },
+
+    SET_ALL_POST(state, payload) {
+      state.readAllPost = payload;
+    },
+
+    SET_ALL_COMMENTS(state, payload) {
+      state.userComments = payload;
     },
   },
   actions: {
@@ -83,68 +96,6 @@ export default new Vuex.Store({
           e
         );
       }
-    },
-
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-    //* ✅ 👉 Afficher les commentaires.
-    UPDATE_COMMENT_FEED({ commit }) {
-      const storagePostId = localStorage.getItem("postId");
-      const params = storagePostId;
-
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.state.id;
-      this.logged = userId;
-
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-
-      // //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
-
-      // //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            result.comments.forEach((item, index) => {
-              commit("SET_NEW_COMMENT", result.comments);
-              console.log("result comments", result.comments);
-
-              console.log(
-                "%cComment Index",
-                "color:orange ;  font-size: 15px",
-                index
-              );
-
-              if (item.userId == userId) {
-                console.log(
-                  "Pour ce commentaire, signalement impossible || Modifications du post possible"
-                );
-              } else {
-                console.log(
-                  "Pour ce commentaire, signalement possible || Modifications du post impossible"
-                );
-              }
-            });
-
-            this.comments = result.comments.map((comment) => {
-              comment.formatedDate = FORMAT_DATE(comment.createdAt);
-
-              return comment;
-            });
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
     },
 
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -282,16 +233,153 @@ export default new Vuex.Store({
         .then((success) => {
           success.json().then((result) => {
             commit("SET_POST", result.posts);
+            commit("SET_POST_DATE", FORMAT_DATE(result.posts.createdAt));
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-            //let postUserId = result.posts.userId;
-            //console.log("post User Id", postUserId);
+    //* ✅ 👉 Afficher les postes du fil d'actualité.
+    SHOW_ALL_POSTS({ commit }) {
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
 
-            //let loggedUser = this.state.id;
-            //console.log("logged User", loggedUser);
+      //* ✅ 👉 Définition des en-têtes.
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
 
-            // this.date = FORMAT_DATE(result.posts.createdAt);
+      //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/post/readAllPosts";
 
-            console.log(result);
+      //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            commit("SET_ALL_POST", result.posts);
+
+            if (result.posts.length == 0) {
+              console.log("Pas de poste à afficher");
+
+              let home = document.getElementById("home");
+              home.innerHTML = `Pas de poste à afficher 😃`;
+            }
+
+            this.posts = result.posts.map((post) => {
+              post.formatedDate = FORMAT_DATE(post.createdAt);
+
+              return post;
+            });
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    //* ✅ 👉 Afficher les commentaires.
+    UPDATE_COMMENT_FEED({ commit }) {
+      const storagePostId = localStorage.getItem("postId");
+      const params = storagePostId;
+
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
+
+      let userId = this.state.id;
+      this.logged = userId;
+
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      // //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
+
+      // //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            result.comments.forEach((item, index) => {
+              commit("SET_NEW_COMMENT", result.comments);
+
+              console.log(
+                "%cComment Index",
+                "color:orange ;  font-size: 15px",
+                index
+              );
+
+              if (item.userId == userId) {
+                console.log(
+                  "Pour ce commentaire, signalement impossible || Modifications du post possible"
+                );
+              } else {
+                console.log(
+                  "Pour ce commentaire, signalement possible || Modifications du post impossible"
+                );
+              }
+            });
+
+            this.comments = result.comments.map((comment) => {
+              comment.formatedDate = FORMAT_DATE(comment.createdAt);
+
+              return comment;
+            });
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+    SHOW_ALL_COMMENTS({ commit }) {
+      const storagePostId = localStorage.getItem("postId");
+      const params = storagePostId;
+
+      const storageToken = localStorage.getItem("groupomania");
+      const objJson = JSON.parse(storageToken);
+      const token = objJson.token;
+
+      let userId = this.state.id;
+      this.logged = userId;
+
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+
+      // //* ✅ 👉 Définition de l'URL de la requête.
+      let url = "http://localhost:3000/api/comment/readAllcomments/" + params;
+
+      // //* ✅ 👉 Définition des paramètres de la requête.
+      const parametresDeRequete = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, parametresDeRequete)
+        .then((success) => {
+          success.json().then((result) => {
+            commit("SET_ALL_COMMENTS", result.comments);
+            console.log(result.comments);
+
+            this.comments = result.comments.map((comment) => {
+              comment.formatedDate = FORMAT_DATE(comment.createdAt);
+
+              return comment;
+            });
           });
         })
         .catch(function(error) {

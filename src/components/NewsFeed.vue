@@ -1,10 +1,10 @@
 <template>
   <!-- 👉 Components FilActualite 👈-->
 
-  <div class="news-feed">
+  <div class="news-feed" v-if="name != null">
     <!-- ✅ 👉 Affichage du pseudo et du post-->
 
-    <div class="feed" v-for="post in posts" :key="post.id">
+    <div class="feed" v-for="post in readAllPost" :key="post.id">
       <div class="post">
         <div class="alias" v-if="firstname != null">
           <i class="fas fa-user"></i>{{ post.user.name }}
@@ -36,7 +36,7 @@
         <div class="setup-button" v-if="admin === true">
           <button
             type="submit"
-            v-on:click="deletPost(post.id)"
+            v-on:click="admindeletPost(post.id)"
             class="small color"
           >
             Supprimer
@@ -51,7 +51,6 @@
 //*✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖➖✂️➖
 
 <script>
-import { FORMAT_DATE } from "../services/utilities";
 import { mapState } from "vuex";
 
 export default {
@@ -71,62 +70,25 @@ export default {
       "admin",
       "id",
       "email",
+      "readAllPost",
     ]),
   },
 
   methods: {
-    selectedPostId(id) {
-      window.localStorage.setItem("postId", id);
-      this.$store.dispatch("SHOW_SELECTED_POST");
-      this.$store.dispatch("UPDATE_COMMENT_FEED");
-    },
-
     //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
+      this.$store.dispatch("SHOW_ALL_POSTS");
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/post/readAllPosts";
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            this.post = result.posts;
-
-            if (result.posts.length == 0) {
-              console.log("Pas de poste à afficher");
-
-              let home = document.getElementById("home");
-              home.innerHTML = `Pas de poste à afficher 😃`;
-            }
-
-            this.posts = result.posts.map((post) => {
-              post.formatedDate = FORMAT_DATE(post.createdAt);
-
-              return post;
-            });
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    //* ✅ 👉 Afficher tous les commentaires.
+    selectedPostId(id) {
+      window.localStorage.setItem("postId", id);
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
     //* ✅ 👉 Supprimer le poste sélectionné.
-    deletPost(id) {
+    admindeletPost(id) {
       const storageToken = localStorage.getItem("groupomania");
       const objJson = JSON.parse(storageToken);
       const token = objJson.token;
@@ -159,6 +121,7 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           alert("Ce poste va être supprimé");
+          this.$store.dispatch("SHOW_ALL_POSTS");
 
           return success;
         })

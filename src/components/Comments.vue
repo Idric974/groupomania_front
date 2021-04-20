@@ -16,10 +16,6 @@
         {{ comment.comment }}
       </div>
 
-      <div>
-        {{ comment.userId }}
-      </div>
-
       <div class="setup-button">
         <div class="eddit-supp" v-if="comment.userId == id">
           <router-link
@@ -116,7 +112,6 @@ export default {
         .then((success) => {
           alert("Votre commentaire va être supprimé");
           this.$store.dispatch("UPDATE_COMMENT_FEED");
-          window.history.go(-1);
 
           return success;
         })

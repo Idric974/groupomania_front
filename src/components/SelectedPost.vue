@@ -16,6 +16,8 @@
 
       <div class="content">{{ selectedPost.content }}</div>
 
+      <div>{{ selectedPost.id }}</div>
+
       <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
       <!-- ✅ 👉 Afficher div boutons modifier et supprimer post.-->
@@ -96,11 +98,21 @@ export default {
   },
 
   computed: {
-    ...mapState(["selectedPost", "selectedPostDate", "postUserIds", "id"]),
+    ...mapState([
+      "selectedPost",
+      "selectedPostDate",
+      "postUserIds",
+      "id",
+      "alias",
+    ]),
   },
 
   methods: {
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+    showCommentsAndPosts() {
+      this.$store.dispatch("SHOW_SELECTED_POST");
+      //this.$store.dispatch("UPDATE_COMMENT_FEED");
+      this.$store.dispatch("SHOW_ALL_COMMENTS");
+    },
 
     //* ✅ 👉 Poster un commentaire.
     submitComment() {
@@ -260,6 +272,10 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+  },
+
+  mounted() {
+    this.showCommentsAndPosts();
   },
 };
 </script>

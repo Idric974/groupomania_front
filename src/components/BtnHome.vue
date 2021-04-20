@@ -4,7 +4,7 @@
       <i class="fas fa-home"></i>
     </div>
 
-    <div class="btn-title">
+    <div class="btn-title" @click="clearLocalStorage">
       <router-link to="/home"><h3>Accueil</h3></router-link>
     </div>
   </div>
@@ -13,8 +13,11 @@
 <script>
 export default {
   name: "BtnHome",
-  props: {
-    msg: String,
+
+  methods: {
+    clearLocalStorage() {
+      localStorage.removeItem("postId");
+    },
   },
 };
 </script>
