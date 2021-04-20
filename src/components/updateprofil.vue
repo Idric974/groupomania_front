@@ -82,43 +82,17 @@ export default {
   //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
   methods: {
-    //* ✅ 👉 Visualiser les informations de profil enregistrées.
-    showProfil() {
-      const storageToken = localStorage.getItem("groupomania");
-      const objJson = JSON.parse(storageToken);
-      const token = objJson.token;
-
-      let userId = this.$store.state.id;
-
-      //* ✅ 👉 Définition des en-têtes.
-      const headers = new Headers();
-      headers.append("Authorization", `Bearer ${token}`);
-      headers.append("Content-Type", "application/json");
-
-      //* ✅ 👉 Définition de l'URL de la requête.
-      let url = "http://localhost:3000/api/user/findOne/" + userId;
-
-      //* ✅ 👉 Définition des paramètres de la requête.
-      const parametresDeRequete = {
-        method: "GET",
-        headers: headers,
-      };
-
-      fetch(url, parametresDeRequete)
-        .then((success) => {
-          success.json().then((result) => {
-            this.users = result.users;
-            this.input.alias = this.alias;
-            this.input.email = this.email;
-            this.input.name = this.name;
-            this.input.firstname = this.firstname;
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    //* ✅ 👉 Rester coonecté.
+    stayLoggedIn() {
+      this.$store.dispatch("LOGGED_USER");
+      if (this.alias != null) {
+        this.input.alias = this.alias;
+        this.input.email = this.email;
+        this.input.name = this.name;
+        this.input.firstname = this.firstname;
+      }
     },
-    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
     //* ✅ 👉 Mise à jour du profil enregistrées.
     updateProfil() {
@@ -168,12 +142,11 @@ export default {
           );
         });
     },
-
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
   },
 
   mounted() {
-    this.showProfil();
+    this.stayLoggedIn();
   },
 };
 </script>

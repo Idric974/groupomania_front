@@ -22,7 +22,16 @@ export default {
     ]),
   },
 
-  methods: {},
+  methods: {
+    //* ✅ 👉 Rester coonecté.
+    stayLoggedIn() {
+      this.$store.dispatch("LOGGED_USER");
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+  },
+  mounted() {
+    this.stayLoggedIn();
+  },
 };
 </script>
 

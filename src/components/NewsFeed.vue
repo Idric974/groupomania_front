@@ -75,6 +75,12 @@ export default {
   },
 
   methods: {
+    //* ✅ 👉 Rester coonecté.
+    stayLoggedIn() {
+      this.$store.dispatch("LOGGED_USER");
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
     //* ✅ 👉 Afficher tous les postes.
     readAllPosts() {
       this.$store.dispatch("SHOW_ALL_POSTS");
@@ -136,6 +142,7 @@ export default {
 
   mounted() {
     this.readAllPosts();
+    this.stayLoggedIn();
   },
 };
 </script>

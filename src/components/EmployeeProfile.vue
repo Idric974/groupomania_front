@@ -47,6 +47,12 @@ export default {
   },
 
   methods: {
+    //* ✅ 👉 Rester coonecté.
+    stayLoggedIn() {
+      this.$store.dispatch("LOGGED_USER");
+    },
+    //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
     //* ✅ 👉 Supprimer le profil utilisateur.
     deleteUser() {
       //* ✅ 👉 Définition du headers.
@@ -95,6 +101,10 @@ export default {
         });
     },
     //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+  },
+
+  mounted() {
+    this.stayLoggedIn();
   },
 };
 </script>
