@@ -373,7 +373,6 @@ export default new Vuex.Store({
         .then((success) => {
           success.json().then((result) => {
             commit("SET_ALL_COMMENTS", result.comments);
-            console.log(result.comments);
 
             this.comments = result.comments.map((comment) => {
               comment.formatedDate = FORMAT_DATE(comment.createdAt);

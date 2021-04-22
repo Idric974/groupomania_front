@@ -1,8 +1,8 @@
 <template>
   <!-- 👉 Le poste séléctioné-->
-  <div class="selected-post" v-if="selectedPost.user.name != null">
+  <div class="selected-post">
     <div class="post">
-      <div class="user-name">
+      <div class="user-name" v-if="selectedPost.user.name">
         <br />
         <i class="fas fa-user"></i>
         {{ selectedPost.user.name }} {{ selectedPost.user.firstname }}
