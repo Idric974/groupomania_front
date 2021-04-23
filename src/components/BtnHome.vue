@@ -5,7 +5,9 @@
     </div>
 
     <div class="btn-title" @click="clearLocalStorage">
-      <router-link to="/home"><h3>Accueil</h3></router-link>
+      <router-link to="/home" aria-label="home" a href="#"
+        ><h2>Accueil</h2></router-link
+      >
     </div>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <!-- 👉 Le poste séléctioné-->
   <div class="selected-post">
     <div class="post">
-      <div class="user-name" v-if="selectedPost.user.name">
+      <div class="user-name" v-if="selectedPost">
         <br />
         <i class="fas fa-user"></i>
         {{ selectedPost.user.name }} {{ selectedPost.user.firstname }}
@@ -24,12 +24,19 @@
       <div class="setup-button">
         <div class="eddit-supp" v-if="postUserIds == id">
           <div class="Modifier">
-            <router-link to="/UpDatePost"
+            <router-link to="/UpDatePost" aria-label="UpDatePost" a href="#"
               ><button type="submit" class="small">
                 Modifier
               </button></router-link
             >
-            <button type="submit" v-on:click="deletPost(post.id)" class="small">
+            <button
+              type="submit"
+              v-on:click="deletPost(post.id)"
+              class="small"
+              aria-label="Supprimer"
+              a
+              href="#"
+            >
               Supprimer
             </button>
           </div>
@@ -40,6 +47,9 @@
             type="submit"
             v-on:click="reportPost(post.id)"
             class="small color"
+            aria-label="UpDatePost"
+            a
+            href="#"
           >
             Signaler
           </button>
@@ -52,24 +62,37 @@
     <div class="comments-form">
       <h1>Nouveau commentaire</h1>
       <form class="setUp-form">
-        <input
-          type="text"
-          name="title"
-          validation="required"
-          placeholder="Titre de votre commentaire"
-          v-model="input.title"
-        />
-        <input
-          type="text"
-          name="comment"
-          validation="required"
-          placeholder="Commentez ce post ici"
-          v-model="input.comment"
-        />
+        <div class="fieldSeze">
+          <label for="title" id="title"
+            >Titre de votre commentaire
+            <input
+              aria-labelledby="title"
+              type="text"
+              name="title"
+              validation="required"
+              v-model="input.title"
+            />
+          </label>
+        </div>
 
-        <button v-on:click.prevent="submitComment()" class="large">
-          Poster votre commentaire
-        </button>
+        <div class="fieldSeze">
+          <label for="comment" id="comment"
+            >Commentez ce post ici
+            <input
+              aria-labelledby="comment"
+              type="text"
+              name="comment"
+              validation="required"
+              placeholder=""
+              v-model="input.comment"
+            />
+          </label>
+        </div>
+        <div>
+          <button v-on:click.prevent="submitComment()" class="large">
+            Poster votre commentaire
+          </button>
+        </div>
       </form>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->

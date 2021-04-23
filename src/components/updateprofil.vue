@@ -9,46 +9,71 @@
     </div>
     <!---------------------------------------------------------------------->
 
-    <form class="form-setup">
-      <label for="">Alias</label>
-      <input
-        name="alias"
-        label="Votre Pseudonyme"
-        validation="required"
-        type="text"
-        class="field"
-        v-model="input.alias"
-      />
-      <label for="email">Email</label>
-      <input
-        name="email"
-        label="Votre adresse email"
-        validation="required|email"
-        type="text"
-        class="field"
-        v-model="input.email"
-      />
-      <label for="name">Name</label>
-      <input
-        name="name"
-        label="Votre Nom"
-        validation="required"
-        class="field"
-        v-model="input.name"
-      />
-      <label for="firstname">Firstname</label>
-      <input
-        name="firstname"
-        label="Votre Prénom"
-        validation="required"
-        type="text"
-        class="field"
-        v-model="input.firstname"
-      />
+    <form id="reg" class="form-setup">
+      <div class="fieldSeze">
+        <label for="alias" id="alias"
+          >Alias
+          <input
+            aria-labelledby="alias"
+            name="alias"
+            label="Votre Pseudonyme"
+            validation="required"
+            type="text"
+            class="field"
+            v-model="input.alias"
+          />
+        </label>
+      </div>
+      <div class="fieldSeze">
+        <label for="email" id="email"
+          >Email
+          <input
+            aria-labelledby="email"
+            name="email"
+            label="Votre adresse email"
+            validation="required|email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            type="text"
+            class="field"
+            v-model="input.email"
+          />
+          <small id="smallEmailFalse"></small>
+        </label>
+      </div>
 
-      <button type="submit" v-on:click.prevent="updateProfil()">
-        Valider les modifications
-      </button>
+      <div class="fieldSeze">
+        <label for="name" id="name"
+          >Name
+          <input
+            aria-labelledby="name"
+            name="name"
+            label="Votre Nom"
+            validation="required"
+            class="field"
+            v-model="input.name"
+          />
+        </label>
+      </div>
+
+      <div class="fieldSeze">
+        <label for="firstname" id="firstname"
+          >Firstname
+          <input
+            aria-labelledby="firstname"
+            name="firstname"
+            label="Votre Prénom"
+            validation="required"
+            type="text"
+            class="field"
+            v-model="input.firstname"
+          />
+        </label>
+      </div>
+      <div>
+        <button type="submit" v-on:click.prevent="updateProfil()">
+          Valider les modifications
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -102,12 +127,49 @@ export default {
 
       let userId = this.$store.state.id;
 
-      const values = {
-        alias: this.input.alias,
-        email: this.input.email,
-        name: this.input.name,
-        firstname: this.input.firstname,
-      };
+      //*********************************************************** */
+      //*********************************************************** */
+      //*********************************************************** */
+
+      //* ✅ 👉 Validation des champs formulaire avec regex.
+
+      let form = document.querySelector("#reg");
+      console.log(form);
+
+      let smallEmailFalse = document.querySelector("#smallEmailFalse");
+      console.log(smallEmailFalse);
+
+      const inputEmail = this.input.email;
+      //console.log(inputEmail);
+
+      //Création de l'expression régulière
+      let emailRegExp = new RegExp(
+        "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+        "g"
+      );
+
+      let values;
+
+      //Test de l'expression
+      if (emailRegExp.test(inputEmail)) {
+        console.log("email valide");
+
+        values = {
+          alias: this.input.alias,
+          email: this.input.email,
+          name: this.input.name,
+          firstname: this.input.firstname,
+        };
+      } else {
+        console.log("email  non valide");
+        smallEmailFalse.innerHTML = "Adresse email non valide";
+
+        return;
+      }
+
+      //*********************************************************** */
+      //*********************************************************** */
+      //*********************************************************** */
 
       //* ✅ 👉 Définition du body de la requête.
       const body = JSON.stringify(values);
@@ -131,7 +193,7 @@ export default {
       fetch(url, parametresDeRequete)
         .then((success) => {
           this.$store.dispatch("LOGGED_USER");
-          alert("Votre profil à été modifié");
+
           window.history.go(-1);
 
           return success;
@@ -186,6 +248,12 @@ export default {
 
 label {
   font-size: 1.2rem;
+  font-weight: bolder;
+}
+
+#smallEmailFalse {
+  color: red;
+  font-size: 1.5rem;
   font-weight: bolder;
 }
 </style>

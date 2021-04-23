@@ -5,7 +5,9 @@
     </div>
 
     <div class="btn-title">
-      <router-link to="/Profil"><h3>Mon Profil</h3></router-link>
+      <router-link to="/Profil" aria-label="Profil" a href="#"
+        ><h2>Mon Profil</h2></router-link
+      >
     </div>
   </div>
 </template>

@@ -24,7 +24,11 @@
       <!-- ✅ 👉 Bouton pour lire les commentaires. -->
       <div class="new-feed-button">
         <div class="btnReadComment">
-          <router-link :to="{ name: 'ListComments', params: { id: post.id } }"
+          <router-link
+            :to="{ name: 'ListComments', params: { id: post.id } }"
+            aria-label="home"
+            a
+            href="#"
             ><button class="large" @click="selectedPostId(post.id)">
               Lire la suite du poste
             </button></router-link

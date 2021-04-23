@@ -20,6 +20,9 @@
         <div class="eddit-supp" v-if="comment.userId == id">
           <router-link
             :to="{ name: 'UpdateComment', params: { id: comment.id } }"
+            aria-label="UpdateComment"
+            a
+            href="#"
             ><button type="submit" class="small">
               Modifier
             </button></router-link
@@ -28,6 +31,9 @@
             type="submit"
             v-on:click="deletComment(comment.id)"
             class="small"
+            aria-label="UpdateComment"
+            a
+            href="#"
           >
             Supprimer
           </button>
@@ -38,6 +44,9 @@
             type="submit"
             v-on:click="reportComment(comment.id)"
             class="small color"
+            aria-label="reportComment"
+            a
+            href="#"
           >
             Signaler
           </button>

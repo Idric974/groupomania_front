@@ -4,7 +4,9 @@
       <i class="fas fa-users-cog"></i>
     </div>
     <div class="btn-title">
-      <router-link to="/Reported"><h3>Administrateur</h3></router-link>
+      <router-link to="/Reported" aria-label="Reported" a href="#"
+        ><h2>Administrateur</h2></router-link
+      >
     </div>
   </div>
 </template>

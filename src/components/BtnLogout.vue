@@ -3,7 +3,9 @@
     <div class="font"><i class="fas fa-sign-out-alt"></i></div>
 
     <div class="btn-title" @click="clearLocalStorage">
-      <router-link to="/"><h3>Déconnection</h3></router-link>
+      <router-link to="/" aria-label="Déconnection" a href="#"
+        ><h2>Déconnection</h2></router-link
+      >
     </div>
   </div>
 </template>

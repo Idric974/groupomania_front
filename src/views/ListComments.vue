@@ -22,7 +22,7 @@
       </div>
 
       <div class="comments">
-        <h2>Commentaires sur ce poste</h2>
+        <h1>Commentaires sur ce poste</h1>
         <Comments :commentId="comment.id" />
       </div>
     </div>

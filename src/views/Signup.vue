@@ -3,66 +3,93 @@
 
   <div class="Signup">
     <!--✅ 👉 Bouton page accueil-->
-    <div class="home-btn">
+    <div class="home-btn align">
       <div><BtnLogin /></div>
     </div>
     <!--➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖-->
 
     <div class="instruction">
-      <p class="instruction-text">
+      <h1 class="instruction-text">
         Pour vous connecter à votre réseau social, veuillez compléter le
         formulaire ci-dessous.
-      </p>
+      </h1>
     </div>
 
     <!---------------------------------------------------------------------->
 
-    <FormulateForm
-      class="form-setup"
-      @submit="handleSubmit"
-      v-model="formValues"
-    >
-      <FormulateInput
-        name="alias"
-        label="Votre Pseudonyme"
-        validation="required"
-        type="text"
-        class="field"
-      />
+    <form id="#reg" class="form-setup">
+      <div class="fieldSeze">
+        <label for="alias" id="alias"
+          >Votre alias
+          <input
+            aria-labelledby="alias"
+            type="text"
+            name="alias"
+            v-model="input.alias"
+            validation="required"
+          />
+        </label>
+      </div>
 
-      <FormulateInput
-        name="email"
-        label="Votre adresse email"
-        validation="required|email"
-        type="text"
-        class="field"
-      />
+      <div class="fieldSeze">
+        <label for="email" id="email"
+          >Votre adresse email
+          <input
+            aria-labelledby="email"
+            type="text"
+            name="email"
+            v-model="input.email"
+            validation="required|email"
+          />
+          <small id="smallEmailFalse"></small>
+        </label>
+      </div>
 
-      <FormulateInput
-        name="password"
-        label="Votre mot de passe"
-        validation="required"
-        type="text"
-        class="field"
-      />
+      <div class="fieldSeze">
+        <label for="password" id="password"
+          >Votre mot de passe
+          <input
+            aria-labelledby="password"
+            type="text"
+            name="password"
+            v-model="input.password"
+            validation="required"
+          />
+        </label>
+      </div>
 
-      <FormulateInput
-        name="name"
-        label="Votre Nom"
-        validation="required"
-        class="field"
-      />
+      <div class="fieldSeze">
+        <label for="name" id="name"
+          >Votre Nom
+          <input
+            aria-labelledby="name"
+            type="text"
+            name="name"
+            v-model="input.name"
+            validation="required"
+          />
+        </label>
+      </div>
 
-      <FormulateInput
-        name="firstname"
-        label="Votre Prénom"
-        validation="required"
-        type="text"
-        class="field"
-      />
+      <div class="fieldSeze">
+        <label for="firstname" id="firstname"
+          >Votre Prénom
+          <input
+            aria-labelledby="firstname"
+            type="text"
+            name="firstname"
+            v-model="input.firstname"
+            validation="required"
+          />
+        </label>
+      </div>
 
-      <button type="submit">Valider</button>
-    </FormulateForm>
+      <div>
+        <button type="submit" v-on:click.prevent="handleSubmit()" handleSubmit>
+          Valider
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -73,21 +100,68 @@ import BtnLogin from "@/components/BtnLogin.vue";
 export default {
   name: "Signup",
   components: { BtnLogin },
-  data: () => ({
-    formValues: {},
-  }),
+  data() {
+    return {
+      input: {
+        alias: "",
+        email: "",
+        password: "",
+        name: "",
+        firstname: "",
+      },
+    };
+  },
   methods: {
     handleSubmit() {
-      let formValues = this.formValues;
-
       let url = "http://localhost:3000/api/user/signup";
 
       const headers = new Headers();
       headers.append("Content-Type", "application/json; charset=utf-8");
 
+      //*********************************************************** */
+      //*********************************************************** */
+      //*********************************************************** */
+
+      //* ✅ 👉 Validation des champs formulaire avec regex.
+
+      let form = document.querySelector("#reg");
+      console.log(form);
+
+      let smallEmailFalse = document.querySelector("#smallEmailFalse");
+      console.log(smallEmailFalse);
+
+      const inputEmail = this.input.email;
+      //console.log(inputEmail);
+
+      //Création de l'expression régulière
+      let emailRegExp = new RegExp(
+        "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+        "g"
+      );
+
+      let values;
+
+      //Test de l'expression
+      if (emailRegExp.test(inputEmail)) {
+        console.log("email valide");
+
+        values = this.input;
+
+        console.log(values);
+      } else {
+        console.log("email  non valide");
+        smallEmailFalse.innerHTML = "Adresse email non valide";
+
+        return;
+      }
+
+      //*********************************************************** */
+      //*********************************************************** */
+      //*********************************************************** */
+
       const parametresDeRequete = {
         method: "POST",
-        body: JSON.stringify(formValues),
+        body: JSON.stringify(values),
         headers: headers,
       };
 
@@ -129,5 +203,11 @@ export default {
 
 .field {
   width: 100%;
+}
+
+.align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

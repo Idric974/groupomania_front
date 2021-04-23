@@ -4,7 +4,9 @@
       <i class="fas fa-home"></i>
     </div>
     <div class="btn-title">
-      <router-link to="/"><h3>Connexion</h3></router-link>
+      <router-link to="/" aria-label="Connexion" a href="#"
+        ><h2>Connexion</h2></router-link
+      >
     </div>
   </div>
 </template>

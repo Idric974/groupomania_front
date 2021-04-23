@@ -5,23 +5,39 @@
   <div class="login-Box">
     <div class="login">
       <h1>Me connecter</h1>
-      <form>
-        <input
-          type="email"
-          name="email"
-          v-model="input.email"
-          placeholder="Votre adresse mail"
-        />
-        <input
-          type="password"
-          name="password"
-          v-model="input.password"
-          placeholder="Votre mot de passe"
-        />
-        <button type="button" v-on:click="login()">
-          <i class="fas fa-sign-in-alt"></i>
-          Connexion
-        </button>
+      <form id="#reg">
+        <div class="fieldSeze">
+          <label for="name" id="name"
+            >Votre email
+            <input
+              aria-labelledby="email"
+              type="email"
+              name="email"
+              v-model="input.email"
+              validation="required"
+            />
+            <small id="smallEmailFalse"></small>
+          </label>
+        </div>
+
+        <div class="fieldSeze">
+          <label for="password" id="password"
+            >Votre mot de passe password
+            <input
+              aria-labelledby="password"
+              type="password"
+              name="password"
+              v-model="input.password"
+              validation="required"
+            />
+          </label>
+        </div>
+        <div>
+          <button type="button" v-on:click="login()">
+            <i class="fas fa-sign-in-alt"></i>
+            Connexion
+          </button>
+        </div>
       </form>
     </div>
 
@@ -54,9 +70,50 @@ export default {
         const headers = new Headers();
         headers.append("Content-Type", "application/json; charset=utf-8");
 
+        //*********************************************************** */
+        //*********************************************************** */
+        //*********************************************************** */
+
+        //* ✅ 👉 Validation des champs formulaire avec regex.
+
+        let form = document.querySelector("#reg");
+        console.log(form);
+
+        let smallEmailFalse = document.querySelector("#smallEmailFalse");
+        console.log(smallEmailFalse);
+
+        const inputEmail = this.input.email;
+        //console.log(inputEmail);
+
+        //Création de l'expression régulière
+        let emailRegExp = new RegExp(
+          "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+          "g"
+        );
+
+        let values;
+
+        //Test de l'expression
+        if (emailRegExp.test(inputEmail)) {
+          console.log("email valide");
+
+          values = this.input;
+
+          console.log(values);
+        } else {
+          console.log("email  non valide");
+          smallEmailFalse.innerHTML = "Adresse email non valide";
+
+          return;
+        }
+
+        //*********************************************************** */
+        //*********************************************************** */
+        //*********************************************************** */
+
         const parametresDeRequete = {
           method: "POST",
-          body: JSON.stringify(this.input),
+          body: JSON.stringify(values),
           headers: headers,
         };
 

@@ -15,23 +15,33 @@
 
       <div class="post-form">
         <form class="form-setup">
-          <input
-            type="text"
-            name="title"
-            placeholder="Le titre de votre post"
-            validation="required"
-            class="title"
-            v-model="input.title"
-          />
+          <div class="fieldSeze">
+            <label for="title" id="title">
+              Le titre de votre post
+              <input
+                aria-labelledby="title"
+                type="text"
+                name="title"
+                validation="required"
+                class="title"
+                v-model="input.title"
+              />
+            </label>
+          </div>
 
-          <input
-            type="text"
-            name="content"
-            placeholder="Rédigez votre poste ici"
-            validation="required"
-            class="content"
-            v-model="input.content"
-          />
+          <div class="fieldSeze">
+            <label for="content" id="content">
+              Rédigez votre poste ici
+              <input
+                aria-labelledby="content"
+                type="text"
+                name="content"
+                validation="required"
+                class="content"
+                v-model="input.content"
+              />
+            </label>
+          </div>
 
           <button
             type="submit"
